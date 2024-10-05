@@ -84,7 +84,6 @@ public class Main {
         } while (opcionExcursion != 0);
     }
 
-
     private static void gestionarSocios(GestionSocios gestionSocios, Scanner scanner) {
         int opcionSocio;
         do {

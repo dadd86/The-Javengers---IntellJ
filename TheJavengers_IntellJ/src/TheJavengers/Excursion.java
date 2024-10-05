@@ -3,28 +3,28 @@ package TheJavengers;
 import java.time.LocalDate;
 
 public class Excursion {
-    private String codigo; // Código alfanumérico
+    private String idExcursion; // Código alfanumérico
     private String descripcion;
     private LocalDate fecha;
     private int numeroDias;
-    private double precioInscripcion;
+    private double precioExcursion;
 
     // Constructor
-    public Excursion(String codigo, String descripcion, LocalDate fecha, int numeroDias, double precioInscripcion) {
-        this.codigo = codigo;
+    public Excursion(String codigo, String descripcion, LocalDate fecha, int numeroDias, double precioExcursion) {
+        this.idExcursion = codigo;
         this.descripcion = descripcion;
         this.fecha = fecha;
         this.numeroDias = numeroDias;
-        this.precioInscripcion = precioInscripcion;
+        this.precioExcursion = precioExcursion;
     }
 
     // Getters y setters
-    public String getCodigo() {
-        return codigo;
+    public String getIdExcursion() {
+        return idExcursion;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setIdExcursion(String idExcursion) {
+        this.idExcursion = idExcursion;
     }
 
     public String getDescripcion() {
@@ -51,28 +51,28 @@ public class Excursion {
         this.numeroDias = numeroDias;
     }
 
-    public double getPrecioInscripcion() {
-        return precioInscripcion;
+    public double getPrecioExcursion() {
+        return precioExcursion;
     }
 
-    public void setPrecioInscripcion(double precioInscripcion) {
-        this.precioInscripcion = precioInscripcion;
+    public void setPrecioExcursion(double precioExcursion) {
+        this.precioExcursion = precioExcursion;
     }
 
     // Método para calcular el costo total de la excursión (si fuera necesario, por ejemplo, si depende del número de días)
     public double calcularCostoTotal() {
-        return this.precioInscripcion; // En este caso, es simplemente el precio de inscripción
+        return this.precioExcursion; // En este caso, es simplemente el precio de inscripción
     }
 
     // Método toString para mostrar la información de la excursión
     @Override
     public String toString() {
         return "Excursión:\n" +
-                "Código: " + codigo + "\n" +
+                "Código: " + idExcursion + "\n" +
                 "Descripción: " + descripcion + "\n" +
                 "Fecha: " + fecha + "\n" +
                 "Número de días: " + numeroDias + "\n" +
-                "Precio de inscripción: " + precioInscripcion + "€\n";
+                "Precio de inscripción: " + precioExcursion + "€\n";
     }
 }
 

@@ -3,26 +3,26 @@ package TheJavengers;
 import java.time.LocalDate;
 
 public class Inscripcion {
-    private int numeroInscripcion;
+    private int idInscripcion;
     private Socio socio;
     private Excursion excursion;
     private LocalDate fechaInscripcion;
 
     // Constructor
     public Inscripcion(int numeroInscripcion, Socio socio, Excursion excursion, LocalDate fechaInscripcion) {
-        this.numeroInscripcion = numeroInscripcion;
+        this.idInscripcion = numeroInscripcion;
         this.socio = socio;
         this.excursion = excursion;
         this.fechaInscripcion = fechaInscripcion;
     }
 
     // Getters y setters
-    public int getNumeroInscripcion() {
-        return numeroInscripcion;
+    public int getIdInscripcion() {
+        return idInscripcion;
     }
 
-    public void setNumeroInscripcion(int numeroInscripcion) {
-        this.numeroInscripcion = numeroInscripcion;
+    public void setIdInscripcion(int idInscripcion) {
+        this.idInscripcion = idInscripcion;
     }
 
     public Socio getSocio() {
@@ -64,8 +64,8 @@ public class Inscripcion {
     // Método toString para mostrar la información de la inscripción
     @Override
     public String toString() {
-        return "Número de inscripción: " + numeroInscripcion + "\n" +
-                "Socio: " + socio.getNombre() + " (ID: " + socio.getIdSocio() + ")\n" +
+        return "Número de inscripción: " + idInscripcion + "\n" +
+                "Socio: " + socio.getNombre() + " (ID: " + socio.getidsocio() + ")\n" +
                 "Excursión: " + excursion.getDescripcion() + "\n" +
                 "Fecha de inscripción: " + fechaInscripcion;
     }

@@ -49,11 +49,10 @@ public class GestionInscripciones {
         System.out.println("Inscripción añadida correctamente.");
     }
 
-
     // Método para buscar una excursión por código
     private Excursion buscarExcursion(String codigoExcursion) {
         for (Excursion excursion : listaExcursiones) {
-            if (excursion.getCodigo().equals(codigoExcursion)) {
+            if (excursion.getIdExcursion().equals(codigoExcursion)) {
                 return excursion;
             }
         }
@@ -67,7 +66,7 @@ public class GestionInscripciones {
 
         Inscripcion inscripcion = null;
         for (Inscripcion i : listaInscripciones) {
-            if (i.getNumeroInscripcion() == numeroInscripcion) {
+            if (i.getIdInscripcion() == numeroInscripcion) {
                 inscripcion = i;
                 break;
             }
@@ -102,7 +101,7 @@ public class GestionInscripciones {
                 System.out.println("Introduce el ID del socio:");
                 String idSocio = scanner.nextLine();
                 // Verificar si el ID del socio coincide
-                mostrar = inscripcion.getSocio().getIdSocio().equals(idSocio);
+                mostrar = inscripcion.getSocio().getidsocio().equals(idSocio);
             } else if (filtro.equalsIgnoreCase("F")) {
                 System.out.println("Introduce la fecha de la excursión (formato: YYYY-MM-DD):");
                 String fechaStr = scanner.nextLine();
@@ -117,6 +116,4 @@ public class GestionInscripciones {
             }
         }
     }
-
-
 }

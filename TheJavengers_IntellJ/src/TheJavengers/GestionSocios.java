@@ -35,53 +35,63 @@ public class GestionSocios {
         }
     }
 
-
     // Método para añadir un socio estándar
     public void agregarSocioEstandar() {
         System.out.println("Introduce el ID del socio:");
         String id = scanner.nextLine();
         System.out.println("Introduce el nombre del socio:");
         String nombre = scanner.nextLine();
+        System.out.println("Introduce los apellidos del socio:");
+        String apellidos = scanner.nextLine();
         System.out.println("Introduce el NIF del socio:");
         String nif = scanner.nextLine();
         System.out.println("Introduce el tipo de seguro (Básico = B, Completo = C):");
         String tipoSeguro = scanner.nextLine();
 
         // Verificar que el tipo de seguro es válido
-        if (!tipoSeguro.equalsIgnoreCase("B") && !tipoSeguro.equalsIgnoreCase("C")) {
+        Seguro.TipoSeguro tipo;
+        if (tipoSeguro.equalsIgnoreCase("B")) {
+            tipo = Seguro.TipoSeguro.BÁSICO;
+        } else if (tipoSeguro.equalsIgnoreCase("C")) {
+            tipo = Seguro.TipoSeguro.COMPLETO;
+        } else {
             System.out.println("Tipo de seguro no válido. Debe ser 'B' para Básico o 'C' para Completo.");
             return;
         }
 
-        // Crear el objeto Seguro con el tipo proporcionado
-        Seguro seguro = new Seguro(tipoSeguro.equalsIgnoreCase("B") ? "Básico" : "Completo"); // Se pasa el tipo como texto
+        // Crear el objeto Seguro con el tipo de seguro seleccionado
+        Seguro seguro = new Seguro(tipo);
 
         // Crear el socio estándar con el seguro
-        Socio_estandar socioEstandar = new Socio_estandar(id, nombre, nif, seguro);
+        Socio_estandar socioEstandar = new Socio_estandar(id, nombre, apellidos, nif, seguro);
 
         // Añadir a la lista de socios
         listaSocios.add(socioEstandar);
         System.out.println("Socio estándar añadido correctamente.");
     }
 
-
     // Método para modificar el tipo de seguro de un socio estándar
     public void modificarSeguroSocio() {
         System.out.println("Introduce el ID del socio:");
         String id = scanner.nextLine();
         for (Socio socio : listaSocios) {
-            if (socio instanceof Socio_estandar && socio.getIdSocio().equals(id)) {
+            if (socio instanceof Socio_estandar && socio.getidsocio().equals(id)) {
                 System.out.println("Introduce el nuevo tipo de seguro (Básico o Completo):");
                 String nuevoSeguro = scanner.nextLine();
 
                 // Verificar que el tipo de seguro es válido
-                if (!nuevoSeguro.equalsIgnoreCase("Básico") && !nuevoSeguro.equalsIgnoreCase("Completo")) {
+                Seguro.TipoSeguro tipoNuevo;
+                if (nuevoSeguro.equalsIgnoreCase("Básico")) {
+                    tipoNuevo = Seguro.TipoSeguro.BÁSICO;
+                } else if (nuevoSeguro.equalsIgnoreCase("Completo")) {
+                    tipoNuevo = Seguro.TipoSeguro.COMPLETO;
+                } else {
                     System.out.println("Tipo de seguro no válido. Debe ser 'Básico' o 'Completo'.");
                     return;
                 }
 
                 // Modificar el seguro
-                ((Socio_estandar) socio).setSeguroContratado(new Seguro(nuevoSeguro));
+                ((Socio_estandar) socio).setSeguroContratado(new Seguro(tipoNuevo));
                 System.out.println("Seguro modificado correctamente.");
                 return;
             }
@@ -89,13 +99,14 @@ public class GestionSocios {
         System.out.println("No se ha encontrado un socio estándar con ese ID.");
     }
 
-
     // Método para añadir un socio federado
     public void agregarSocioFederado() {
         System.out.println("Introduce el ID del socio:");
         String id = scanner.nextLine();
         System.out.println("Introduce el nombre del socio:");
         String nombre = scanner.nextLine();
+        System.out.println("Introduce los apellidos del socio:");
+        String apellidos = scanner.nextLine();
         System.out.println("Introduce el NIF del socio:");
         String nif = scanner.nextLine();
         System.out.println("Introduce el nombre de la federación:");
@@ -109,12 +120,11 @@ public class GestionSocios {
         }
 
 
-        Socio_federado socioFederado = new Socio_federado(id, nombre, nif, federacion);
+        Socio_federado socioFederado = new Socio_federado(id, nombre, apellidos, nif, federacion);
 
         listaSocios.add(socioFederado);
         System.out.println("Socio federado añadido correctamente.");
     }
-
 
     // Método para añadir un socio infantil
     public void agregarSocioInfantil() {
@@ -122,13 +132,15 @@ public class GestionSocios {
         String id = scanner.nextLine();
         System.out.println("Introduce el nombre del socio:");
         String nombre = scanner.nextLine();
+        System.out.println("Introduce los apellidos del socio:");
+        String apellidos = scanner.nextLine();
         System.out.println("Introduce el ID del socio padre/madre:");
-        String idPadre = scanner.nextLine();
+        String idSocioTutor = scanner.nextLine();
 
         // Verificar si el socio padre/madre existe
         boolean padreExiste = false;
         for (Socio socio : listaSocios) {
-            if (socio.getIdSocio().equals(idPadre)) {
+            if (socio.getidsocio().equals(idSocioTutor)) {
                 padreExiste = true;
                 break;
             }
@@ -139,18 +151,17 @@ public class GestionSocios {
             return;
         }
 
-        Socio_infantil socioInfantil = new Socio_infantil(id, nombre, idPadre);
+        Socio_infantil socioInfantil = new Socio_infantil(id, nombre, apellidos, idSocioTutor);
         listaSocios.add(socioInfantil);
         System.out.println("Socio infantil añadido correctamente.");
     }
-
 
     // Método para eliminar un socio
     public void eliminarSocio() {
         System.out.println("Introduce el ID del socio que quieres eliminar:");
         String id = scanner.nextLine();
         for (Socio socio : listaSocios) {
-            if (socio.getIdSocio().equals(id)) {
+            if (socio.getidsocio().equals(id)) {
                 listaSocios.remove(socio);
                 System.out.println("Socio eliminado correctamente.");
                 return;
@@ -158,7 +169,6 @@ public class GestionSocios {
         }
         System.out.println("No se ha encontrado un socio con ese ID.");
     }
-
 
     // Método para mostrar todos los socios o por tipo
     public List<Socio> mostrarSocios() {
@@ -202,7 +212,6 @@ public class GestionSocios {
         }
         return null;
     }
-
 
     // Método para mostrar la factura mensual de los socios
     public void mostrarFacturaMensual() {

@@ -80,8 +80,6 @@ public class GestionExcursiones {
         }
     }
 
-
-
     // Método auxiliar para leer la fecha del usuario
     private LocalDate leerFecha(Scanner scanner) {
         LocalDate fecha = null;

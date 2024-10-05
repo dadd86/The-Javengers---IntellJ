@@ -4,14 +4,30 @@ public class Socio_federado extends Socio {
     private String nif;
     private Federacion federacion;
 
-    public Socio_federado(String idSocio, String nombre, String nif, Federacion federacion) {
-        super(idSocio, nombre);
+    public Socio_federado(String idSocio, String nombre, String apellidos, String nif, Federacion federacion) {
+        super(idSocio, nombre, apellidos);
         this.nif = nif;
         this.federacion = federacion;
     }
 
-    // Método para obtener la cuota mensual total
+    // Getters y setters
+    public String getNif() {
+        return nif;
+    }
 
+    public Federacion getFederacion() {
+        return federacion;
+    }
+
+    public void setNif(String nif) {
+        this.nif = nif;
+    }
+
+    public void setFederacion(Federacion federacion) {
+        this.federacion = federacion;
+    }
+
+    // Método para obtener la cuota mensual total
     public double getCuotaMensual() {
         return cuotaMensual * 0.95;
     }

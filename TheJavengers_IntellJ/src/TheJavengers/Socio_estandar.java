@@ -4,8 +4,8 @@ public class Socio_estandar extends Socio {
     private String nif;
     private Seguro seguroContratado;
 
-    public Socio_estandar(String idSocio, String nombre, String nif, Seguro seguroContratado) {
-        super(idSocio, nombre);
+    public Socio_estandar(String idSocio, String nombre, String apellidos, String nif, Seguro seguroContratado) {
+        super(idSocio, nombre, apellidos);
         this.nif = nif;
         this.seguroContratado = seguroContratado;
     }
