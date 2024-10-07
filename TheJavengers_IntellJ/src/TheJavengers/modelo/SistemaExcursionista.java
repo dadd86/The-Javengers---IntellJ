@@ -11,14 +11,35 @@ public class SistemaExcursionista {
     private List<Socio> socios;
     private List<Excursion> excursiones;
     private List<Inscripcion> inscripciones;
+    private List<Federacion> federaciones;
 
     public SistemaExcursionista() {
         socios = new ArrayList<>();
         excursiones = new ArrayList<>();
         inscripciones = new ArrayList<>();
+        federaciones = new ArrayList<>();
+
+        precargarFederaciones();
+
     }
 
     // Métodos para gestionar socios
+    private void precargarFederaciones() {
+        federaciones.add(new Federacion("123", "Montañaeros por el mundo"));
+        federaciones.add(new Federacion("234", "Escaladas locas"));
+        federaciones.add(new Federacion("567", "La vida en el monte"));
+    }
+    public List<Federacion> obtenerFederaciones() {
+        return federaciones;
+    }
+    public Federacion buscarFederacion(String codigo) throws FederacionNoEncontradaException {
+        for (Federacion federacion : federaciones) {
+            if (federacion.getCodigo().equals(codigo)) {
+                return federacion;
+            }
+        }
+        throw new FederacionNoEncontradaException("Federación con código " + codigo + " no encontrada.");
+    }
 
     public void registrarSocio(Socio socio) throws SocioYaExisteException {
         for (Socio s : socios) {

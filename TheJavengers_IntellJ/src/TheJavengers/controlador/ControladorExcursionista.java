@@ -14,7 +14,7 @@ public class ControladorExcursionista {
     }
 
     // Registrar socio
-    public String registrarSocio(int tipoSocio, String idSocio, String nombre, String apellidos, String nif, TipoSeguro seguro, String codigoFederacion, String nombreFederacion, String idSocioTutor) {
+    public String registrarSocio(int tipoSocio, String idSocio, String nombre, String apellidos, String nif, TipoSeguro seguro, String codigoFederacion, String idSocioTutor) {
         try {
             Socio socio = null;
             switch (tipoSocio) {
@@ -22,8 +22,12 @@ public class ControladorExcursionista {
                     socio = new SocioEstandar(idSocio, nombre, apellidos, nif, seguro);
                     break;
                 case 2: // Socio federado
-                    Federacion federacion = new Federacion(codigoFederacion, nombreFederacion);
-                    socio = new SocioFederado(idSocio, nombre, apellidos, nif, federacion);
+                    try {
+                        Federacion federacion = sistema.buscarFederacion(codigoFederacion);
+                        socio = new SocioFederado(idSocio, nombre, apellidos, nif, federacion);
+                    } catch (FederacionNoEncontradaException e) {
+                        return "Error al registrar socio: " + e.getMessage();
+                    }
                     break;
                 case 3: // Socio infantil
                     // Validar que el socio tutor existe y es SocioEstandar o SocioFederado
@@ -123,5 +127,9 @@ public class ControladorExcursionista {
             return null;
         }
     }
+    public List<Federacion> obtenerFederaciones() {
+        return sistema.obtenerFederaciones();
+    }
+
 }
 

@@ -50,7 +50,6 @@ public class Main {
 
                         String nif = "";
                         String codigoFederacion = "";
-                        String nombreFederacion = "";
                         TipoSeguro seguro = null;
                         String idSocioTutor = "";
 
@@ -64,10 +63,15 @@ public class Main {
                         } else if (tipoSocio == 2) {
                             System.out.println("Ingrese el NIF:");
                             nif = scanner.nextLine();
-                            System.out.println("Ingrese el código de la federación:");
+
+                            // Mostrar federaciones disponibles
+                            List<Federacion> federaciones = controlador.obtenerFederaciones();
+                            System.out.println("Seleccione una federación de la siguiente lista:");
+                            for (Federacion fed : federaciones) {
+                                System.out.println("Código: " + fed.getCodigo() + ", Nombre: " + fed.getNombre());
+                            }
+                            System.out.println("Ingrese el código de la federación elegida:");
                             codigoFederacion = scanner.nextLine();
-                            System.out.println("Ingrese el nombre de la federación:");
-                            nombreFederacion = scanner.nextLine();
                         } else if (tipoSocio == 3) {
                             System.out.println("Ingrese el ID del socio tutor:");
                             idSocioTutor = scanner.nextLine();
@@ -76,7 +80,7 @@ public class Main {
                             break;
                         }
 
-                        String mensajeRegistro = controlador.registrarSocio(tipoSocio, idSocio, nombre, apellidos, nif, seguro, codigoFederacion, nombreFederacion, idSocioTutor);
+                        String mensajeRegistro = controlador.registrarSocio(tipoSocio, idSocio, nombre, apellidos, nif, seguro, codigoFederacion, idSocioTutor);
                         System.out.println(mensajeRegistro);
                         break;
 
