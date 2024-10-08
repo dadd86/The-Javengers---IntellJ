@@ -59,9 +59,9 @@ public class Excursion {
         this.precioExcursion = precioExcursion;
     }
 
-    // Método para calcular el costo total de la excursión (si fuera necesario, por ejemplo, si depende del número de días)
+    // Método para calcular el costo total de la excursión
     public double calcularCostoTotal() {
-        return this.precioExcursion; // En este caso, es simplemente el precio de inscripción
+        return this.precioExcursion;
     }
 
     // Método toString para mostrar la información de la excursión
