@@ -5,19 +5,19 @@ public class Seguro {
         BÁSICO, COMPLETO
     }
 
-    private TipoSeguro tipo; // Enum para el tipo de seguro
-    private double precio;   // Precio del seguro
+    private TipoSeguro tipo;
+    private double precio;
 
     // Constructor
     public Seguro(TipoSeguro tipo) {
         this.tipo = tipo;
-        // Asignar el precio según el tipo de seguro
+       
         switch (tipo) {
             case BÁSICO:
-                this.precio = 5.0; // Precio del seguro básico
+                this.precio = 5.0; 
                 break;
             case COMPLETO:
-                this.precio = 10.0; // Precio del seguro completo
+                this.precio = 10.0;
                 break;
             default:
                 throw new IllegalArgumentException("Tipo de seguro no válido.");
