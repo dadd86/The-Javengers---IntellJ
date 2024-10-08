@@ -12,7 +12,7 @@ public class socioEstandar extends Socio {
 
     // Método para obtener la cuota mensual total
     public double getCuotaMensualTotal() {
-        return cuotaMensual + seguroContratado.getPrecio(); // Asumiendo que Seguro tiene un método getPrecio()
+        return cuotaMensual + seguroContratado.getPrecio();
     }
 
     // Getters y setters
