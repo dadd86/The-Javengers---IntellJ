@@ -24,6 +24,6 @@ public class Socio {
     public void setCuotaMensual(float cuotaMensual) {this.cuotaMensual = cuotaMensual;}
 
     //Métodos
-    //public abstract float calcularCuotaMensual() {}
-    //public abstract float calcularPrecioExcursion(Excursion excursion) {}
+    public abstract float calcularCuotaMensual() {}
+    public abstract float calcularPrecioExcursion(Excursion excursion) {}
 }
