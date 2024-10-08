@@ -3,7 +3,7 @@ package TheJavengers;
 import java.util.Scanner;
 import java.util.List;
 
-public class Escapadas {
+public class Main {
     public static void main(String[] args) {
         GestionExcursiones gestionExcursiones = new GestionExcursiones();
         GestionSocios gestionSocios = new GestionSocios();
@@ -27,7 +27,7 @@ public class Escapadas {
             System.out.println("0. Salir");
             System.out.print("Selecciona una opción: ");
             opcion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
+            scanner.nextLine();
 
             switch (opcion) {
                 case 1:
@@ -47,7 +47,7 @@ public class Escapadas {
             }
         } while (opcion != 0);
 
-        scanner.close(); // Cerrar el escáner
+        scanner.close();
     }
 
     private static void gestionarExcursiones(GestionExcursiones gestion, Scanner scanner) {
@@ -56,11 +56,11 @@ public class Escapadas {
             System.out.println("----- Menú de Excursiones -----");
             System.out.println("1. Añadir Excursión");
             System.out.println("2. Mostrar Excursiones");
-            System.out.println("3. Mostrar Todas las Excursiones"); // Nueva opción
+            System.out.println("3. Mostrar Todas las Excursiones");
             System.out.println("0. Volver al menú principal");
             System.out.print("Selecciona una opción: ");
             opcionExcursion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
+            scanner.nextLine();
 
             switch (opcionExcursion) {
                 case 1:
@@ -92,7 +92,6 @@ public class Escapadas {
             System.out.print("Selecciona una opción: ");
             opcionSocio = scanner.nextInt();
             scanner.nextLine();
-
             switch (opcionSocio) {
                 case 1:
                     gestionSocios.agregarSocio();
@@ -122,7 +121,7 @@ public class Escapadas {
             System.out.println("0. Volver al menú principal");
             System.out.print("Selecciona una opción: ");
             opcionInscripcion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
+            scanner.nextLine();
 
             switch (opcionInscripcion) {
                 case 1:
