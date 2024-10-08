@@ -63,7 +63,7 @@ public class GestionSocios {
         Seguro seguro = new Seguro(tipo);
 
         // Crear el socio estándar con el seguro
-        Socio_estandar socioEstandar = new Socio_estandar(id, nombre, apellidos, nif, seguro);
+        socioEstandar socioEstandar = new socioEstandar(id, nombre, apellidos, nif, seguro);
 
         // Añadir a la lista de socios
         listaSocios.add(socioEstandar);
@@ -75,7 +75,7 @@ public class GestionSocios {
         System.out.println("Introduce el ID del socio:");
         String id = scanner.nextLine();
         for (Socio socio : listaSocios) {
-            if (socio instanceof Socio_estandar && socio.getidsocio().equals(id)) {
+            if (socio instanceof socioEstandar && socio.getidsocio().equals(id)) {
                 System.out.println("Introduce el nuevo tipo de seguro (Básico o Completo):");
                 String nuevoSeguro = scanner.nextLine();
 
@@ -91,7 +91,7 @@ public class GestionSocios {
                 }
 
                 // Modificar el seguro
-                ((Socio_estandar) socio).setSeguroContratado(new Seguro(tipoNuevo));
+                ((socioEstandar) socio).setSeguroContratado(new Seguro(tipoNuevo));
                 System.out.println("Seguro modificado correctamente.");
                 return;
             }
@@ -120,7 +120,7 @@ public class GestionSocios {
         }
 
 
-        Socio_federado socioFederado = new Socio_federado(id, nombre, apellidos, nif, federacion);
+        socioFederado socioFederado = new socioFederado(id, nombre, apellidos, nif, federacion);
 
         listaSocios.add(socioFederado);
         System.out.println("Socio federado añadido correctamente.");
@@ -151,7 +151,7 @@ public class GestionSocios {
             return;
         }
 
-        Socio_infantil socioInfantil = new Socio_infantil(id, nombre, apellidos, idSocioTutor);
+        socioInfantil socioInfantil = new socioInfantil(id, nombre, apellidos, idSocioTutor);
         listaSocios.add(socioInfantil);
         System.out.println("Socio infantil añadido correctamente.");
     }
@@ -183,19 +183,19 @@ public class GestionSocios {
                     haySocios = true;
                     break;
                 case "e": // Para socios estándar
-                    if (socio instanceof Socio_estandar) {
+                    if (socio instanceof socioEstandar) {
                         System.out.println(socio);
                         haySocios = true;
                     }
                     break;
                 case "f": // Para socios federados
-                    if (socio instanceof Socio_federado) {
+                    if (socio instanceof socioFederado) {
                         System.out.println(socio);
                         haySocios = true;
                     }
                     break;
                 case "i": // Para socios infantiles
-                    if (socio instanceof Socio_infantil) {
+                    if (socio instanceof socioInfantil) {
                         System.out.println(socio);
                         haySocios = true;
                     }

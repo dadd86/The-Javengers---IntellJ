@@ -1,10 +1,10 @@
 package TheJavengers;
 
-public class Socio_federado extends Socio {
+public class socioFederado extends Socio {
     private String nif;
     private Federacion federacion;
 
-    public Socio_federado(String idSocio, String nombre, String apellidos, String nif, Federacion federacion) {
+    public socioFederado(String idSocio, String nombre, String apellidos, String nif, Federacion federacion) {
         super(idSocio, nombre, apellidos);
         this.nif = nif;
         this.federacion = federacion;

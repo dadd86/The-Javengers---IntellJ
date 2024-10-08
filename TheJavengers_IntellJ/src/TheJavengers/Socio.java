@@ -2,7 +2,7 @@ package TheJavengers;
 
 import java.util.List;
 
-public class Socio {
+public abstract class Socio {
     private String idSocio;
     private String nombre;
     private String apellidos;

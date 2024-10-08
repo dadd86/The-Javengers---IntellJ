@@ -1,9 +1,9 @@
 package TheJavengers;
 
-public class Socio_infantil extends Socio {
+public class socioInfantil extends Socio {
     private String idSocioTutor;
 
-    public Socio_infantil(String idSocio, String nombre, String apellidos, String numeroSocioPadre) {
+    public socioInfantil(String idSocio, String nombre, String apellidos, String numeroSocioPadre) {
         super(idSocio, nombre, apellidos);
         this.idSocioTutor = numeroSocioPadre;
     }
