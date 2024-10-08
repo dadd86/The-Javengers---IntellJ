@@ -44,7 +44,7 @@ public abstract class Socio {
                 return socio;
             }
         }
-        return null; // Si no se encuentra, retorna null
+        return null;
     }
 
     // Método para obtener la cuota mensual total
