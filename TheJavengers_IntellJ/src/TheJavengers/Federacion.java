@@ -3,8 +3,8 @@ package TheJavengers;
 import java.util.ArrayList;
 
 public class Federacion {
-    private String codigo; // Código alfanumérico de la federación
-    private String nombre; // Nombre de la federación
+    private String codigo;
+    private String nombre;
 
     // Constructor
     public Federacion(String codigo, String nombre) {
