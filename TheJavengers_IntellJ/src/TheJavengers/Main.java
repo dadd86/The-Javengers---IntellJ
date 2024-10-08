@@ -9,8 +9,8 @@ public class Main {
         GestionSocios gestionSocios = new GestionSocios();
 
         // Inicializar la lista de socios y excursiones
-        List<Socio> listaSocios = gestionSocios.mostrarSocios(); // Asegúrate de que tienes este método
-        List<Excursion> listaExcursiones = gestionExcursiones.mostrarExcursiones();// Asegúrate de que tienes este método
+        List<Socio> listaSocios = gestionSocios.mostrarSocios();
+        List<Excursion> listaExcursiones = gestionExcursiones.mostrarExcursiones();
 
         // Crear la gestión de inscripciones
         GestionInscripciones gestionInscripciones = new GestionInscripciones(listaSocios, listaExcursiones);
@@ -27,19 +27,16 @@ public class Main {
             System.out.println("0. Salir");
             System.out.print("Selecciona una opción: ");
             opcion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
+            scanner.nextLine();
 
             switch (opcion) {
                 case 1:
-                    // Menú de excursiones
                     gestionarExcursiones(gestionExcursiones, scanner);
                     break;
                 case 2:
-                    // Menú de socios
                     gestionarSocios(gestionSocios, scanner);
                     break;
                 case 3:
-                    // Menú de inscripciones
                     gestionarInscripciones(gestionInscripciones, scanner);
                     break;
                 case 0:
@@ -50,7 +47,7 @@ public class Main {
             }
         } while (opcion != 0);
 
-        scanner.close(); // Cerrar el escáner
+        scanner.close();
     }
 
     private static void gestionarExcursiones(GestionExcursiones gestion, Scanner scanner) {
@@ -59,21 +56,21 @@ public class Main {
             System.out.println("----- Menú de Excursiones -----");
             System.out.println("1. Añadir Excursión");
             System.out.println("2. Mostrar Excursiones");
-            System.out.println("3. Mostrar Todas las Excursiones"); // Nueva opción
+            System.out.println("3. Mostrar Todas las Excursiones");
             System.out.println("0. Volver al menú principal");
             System.out.print("Selecciona una opción: ");
             opcionExcursion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
+            scanner.nextLine();
 
             switch (opcionExcursion) {
                 case 1:
                     gestion.agregarExcursion();
                     break;
                 case 2:
-                    gestion.mostrarExcursiones(); // Este método debe implementar la lógica de filtrado
+                    gestion.mostrarExcursiones();
                     break;
                 case 3:
-                    gestion.mostrarTodaslasExcursiones(); // Llamar al nuevo método
+                    gestion.mostrarTodaslasExcursiones();
                     break;
                 case 0:
                     System.out.println("Volviendo al menú principal...");
@@ -94,8 +91,7 @@ public class Main {
             System.out.println("0. Volver al menú principal");
             System.out.print("Selecciona una opción: ");
             opcionSocio = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
-
+            scanner.nextLine();
             switch (opcionSocio) {
                 case 1:
                     gestionSocios.agregarSocio();
@@ -125,7 +121,7 @@ public class Main {
             System.out.println("0. Volver al menú principal");
             System.out.print("Selecciona una opción: ");
             opcionInscripcion = scanner.nextInt();
-            scanner.nextLine(); // Limpiar el buffer
+            scanner.nextLine();
 
             switch (opcionInscripcion) {
                 case 1:
