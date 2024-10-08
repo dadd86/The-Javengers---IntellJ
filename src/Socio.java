@@ -24,12 +24,6 @@ public class Socio {
     public void setCuotaMensual(float cuotaMensual) {this.cuotaMensual = cuotaMensual;}
 
     //Métodos
-    //REVISAR ACTIVIDAD 2
-    public float calcularCuotaMensual() {
-        return getCuotaMensual(); //Devuelve la propia cuota mensual
-    }
-
-    public float calcularPrecioExcursion(Excursion excursion) {
-        return excursion.getPrecio();
-    }
+    //public abstract float calcularCuotaMensual() {}
+    //public abstract float calcularPrecioExcursion(Excursion excursion) {}
 }
