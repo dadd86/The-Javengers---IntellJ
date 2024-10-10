@@ -125,11 +125,10 @@ public abstract class Socio {
      */
     @Override
     public String toString() {
-        return "Socio{" +
-                "idSocio='" + idSocio + '\'' +
-                ", nombre='" + nombre + '\'' +
-                ", apellidos='" + apellidos + '\'' +
-                '}';
+        return "Socio:\n" +
+                "Nº de socio: " + this.idSocio + "\n" +
+                "Nombre: " + this.nombre + "\n" +
+                "Apellidos: " + this.apellidos + "\n";
     }
 
     // Métodos equals y hashCode
