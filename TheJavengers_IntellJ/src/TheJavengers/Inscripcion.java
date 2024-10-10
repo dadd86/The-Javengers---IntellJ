@@ -130,12 +130,10 @@ public class Inscripcion {
      */
     @Override
     public String toString() {
-        return "Inscripcion{" +
-                "idInscripcion=" + idInscripcion +
-                ", socio=" + socio +
-                ", excursion=" + excursion +
-                ", fechaInscripcion=" + fechaInscripcion +
-                '}';
+        return "Número de inscripción: " + idInscripcion + "\n" +
+                "Socio: " + socio.getNombre() + " (ID: " + socio.getidsocio() + ")\n" +
+                "Excursión: " + excursion.getDescripcion() + "\n" +
+                "Fecha de inscripción: " + fechaInscripcion;
     }
 
     // Método equals y hashCode
