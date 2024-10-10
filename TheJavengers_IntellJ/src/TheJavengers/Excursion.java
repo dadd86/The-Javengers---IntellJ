@@ -159,12 +159,11 @@ public class Excursion {
      */
     @Override
     public String toString() {
-        return "Excursion{" +
-                "idExcursion='" + idExcursion + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                ", fechaExcursion=" + fechaExcursion +
-                ", numeroDias=" + numeroDias +
-                ", precio=" + precio +
-                '}';
+        return "Excursión:\n" +
+                "Código: " + idExcursion + "\n" +
+                "Descripción: " + descripcion + "\n" +
+                "Fecha: " + fecha + "\n" +
+                "Número de días: " + numeroDias + "\n" +
+                "Precio de inscripción: " + precio + "€\n";
     }
 }
