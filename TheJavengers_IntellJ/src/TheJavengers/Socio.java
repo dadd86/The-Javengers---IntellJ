@@ -114,6 +114,13 @@ public abstract class Socio {
      * @return La cuota mensual del socio.
      */
     public abstract float calcularCuotaMensual();
+    /**
+     * Calcula el precio de una excursión para el socio.
+     *
+     * @param excursion La excursión a calcular.
+     * @return El precio de la excursión.
+     */
+    public abstract float calcularPrecioExcursion(Excursion excursion);
 
 
     // Método toString

@@ -71,7 +71,10 @@ public class SocioInfantil extends Socio {
     public float calcularCuotaMensual() {
         return CUOTA_MENSUAL * (1 - DESCUENTO_INFANTIL);// Aplica el descuento del 50%
     }
-
+    @Override
+    public float calcularPrecioExcursion(Excursion excursion) {
+        return excursion.getPrecio();
+    }
     //ToString
 
     @Override

@@ -71,8 +71,17 @@ public class SocioEstandar extends Socio {
     public float calcularCuotaMensual() {
         return CUOTA_MENSUAL + seguro.getCostoSeguro();
     }
-
-    //ToString
+    /**
+     * Calcula el precio de una excursión para el socio estándar.
+     * Incluye el costo del seguro.
+     *
+     * @param excursion La excursión a calcular.
+     * @return El precio total de la excursión.
+     */
+    @Override
+    public float calcularPrecioExcursion(Excursion excursion) {
+        return excursion.getPrecio() + seguro.getCostoSeguro();
+    }
 
     @Override
     public String toString() {
