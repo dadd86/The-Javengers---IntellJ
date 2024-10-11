@@ -95,13 +95,12 @@ public class SocioFederado extends Socio {
      *
      * @return La cuota para excursiones del socio federado.
      */
-    /**@Override
-    public float calcularPrecioExcursion() {
-        return CUOTA_MENSUAL + (1 - DESCUENTO_EXCURSIONES_FEDERADO); //Aplica el descuento del 10%
+    @Override
+    public float calcularPrecioExcursion(Excursion excursion) {
+        return excursion.getPrecio() * (1 - DESCUENTO_EXCURSIONES_FEDERADO);
     }
-    */
 
-    //ToString
+
 
     @Override
     public String toString() {
