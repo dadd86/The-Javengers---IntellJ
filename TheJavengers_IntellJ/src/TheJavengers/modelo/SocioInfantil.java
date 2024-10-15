@@ -1,4 +1,5 @@
 package TheJavengers.modelo;
+
 /**
  * Clase que representa a un socio infantil.
  * Hereda de la clase Socio y define un descuento en la cuota mensual para este tipo de socio.
