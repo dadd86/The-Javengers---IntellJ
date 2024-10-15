@@ -1,4 +1,5 @@
-package TheJavengers;
+package TheJavengers.modelo;
+
 /**
  * Clase abstracta que representa un socio del centro excursionista.
  * Proporciona la estructura básica para definir un socio, incluyendo los atributos comunes
