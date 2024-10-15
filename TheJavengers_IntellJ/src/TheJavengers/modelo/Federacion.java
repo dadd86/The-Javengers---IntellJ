@@ -1,4 +1,7 @@
-package TheJavengers;
+package TheJavengers.modelo;
+
+import java.util.ArrayList;
+
 /**
  * Clase que representa una federación.
  * Contiene el código y el nombre de la federación.
@@ -76,6 +79,16 @@ public class Federacion {
             throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
         }
         this.nombre = nombre;
+    }
+
+    // Método estático para buscar federación en una lista
+    public static Federacion buscarFederacion(ArrayList<Federacion> listaFederaciones, String nombre) {
+        for (Federacion federacion : listaFederaciones) {
+            if (federacion.getNombre().equalsIgnoreCase(nombre)) {
+                return federacion;
+            }
+        }
+        return null;
     }
 
     //Metodo ToString
