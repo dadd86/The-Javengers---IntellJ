@@ -1,4 +1,6 @@
 package TheJavengers.modelo;
+
+
 /**
  * Clase abstracta que representa un socio del centro excursionista.
  * Proporciona la estructura básica para definir un socio, incluyendo los atributos comunes
@@ -108,7 +110,7 @@ public abstract class Socio {
 
     /**
      * Calcula la cuota mensual del socio.
-     * Este método debe ser implementado por las subclases para proporcionar la lógica específica
+     * Este metodo debe ser implementado por las subclases para proporcionar la lógica específica
      * del cálculo de la cuota mensual según el tipo de socio.
      *
      * @return La cuota mensual del socio.
@@ -123,7 +125,7 @@ public abstract class Socio {
     public abstract float calcularPrecioExcursion(Excursion excursion);
 
 
-    // Método toString
+    // Metodo toString
 
     /**
      * Proporciona una representación en forma de cadena de caracteres del objeto Socio.
