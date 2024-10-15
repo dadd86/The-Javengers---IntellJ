@@ -1,4 +1,4 @@
-package TheJavengers;
+package TheJavengers.modelo;
 /**
  * Clase que representa una federación.
  * Contiene el código y el nombre de la federación.
