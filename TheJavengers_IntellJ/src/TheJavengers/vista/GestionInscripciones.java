@@ -4,6 +4,8 @@ import TheJavengers.modelo.*;
 
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Clase que gestiona las inscripciones a las excursiones.
