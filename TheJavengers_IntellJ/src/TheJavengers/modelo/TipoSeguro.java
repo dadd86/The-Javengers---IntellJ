@@ -1,4 +1,4 @@
-package TheJavengers;
+package TheJavengers.modelo;
 
 public enum TipoSeguro {
     //Atributos
