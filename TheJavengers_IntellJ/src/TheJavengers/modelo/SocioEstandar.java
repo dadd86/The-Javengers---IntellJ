@@ -1,4 +1,5 @@
-package TheJavengers;
+package TheJavengers.modelo;
+
 /**
  * Clase que representa a un socio estándar.
  * Hereda de la clase Socio y define la cuota mensual para este tipo de socio,
