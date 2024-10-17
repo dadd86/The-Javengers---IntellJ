@@ -1,49 +1,126 @@
-package TheJavengers.vista;
+package TheJavengers;
 
-import java.util.*;
-
-import TheJavengers.modelo.*;
+import TheJavengers.vista.*;
 import TheJavengers.controlador.*;
+import TheJavengers.modelo.SistemaExcursionista;
 
 public class Main {
+
     public static void main(String[] args) {
-        Datos datos = new Datos();
+        SistemaExcursionista sistema = new SistemaExcursionista();
 
-        GestionExcursiones gestionExcursiones = new GestionExcursiones(datos);
-        GestionInscripciones gestionInscripciones = new GestionInscripciones(datos);
-        GestionSocios gestionSocios = new GestionSocios(datos);
+        // Vistas
+        VistaExcursionista vistaPrincipal = new VistaExcursionista();
+        VistaSocios vistaSocios = new VistaSocios();
+        VistaExcursiones vistaExcursiones = new VistaExcursiones();
+        VistaInscripciones vistaInscripciones = new VistaInscripciones();
 
-        Scanner scanner = new Scanner(System.in);
-        int opcion;
-        do {
-            System.out.println("Menu:");
-            System.out.println("1. Gestionar Excursiones");
-            System.out.println("2. Gestionar Inscripciones");
-            System.out.println("3. Gestionar Socios");
-            System.out.println("0. Salir");
-            System.out.print("Seleccione una opción: ");
-            opcion = scanner.nextInt();
-            scanner.nextLine(); // Consumir nueva línea
+        // Controladores
+        ControladorSocios controladorSocios = new ControladorSocios(sistema, vistaSocios);
+        ControladorExcursiones controladorExcursiones = new ControladorExcursiones(sistema, vistaExcursiones);
+        ControladorInscripciones controladorInscripciones = new ControladorInscripciones(sistema, vistaInscripciones);
 
-            switch (opcion) {
+        boolean salir = false;
+
+        while (!salir) {
+            int opcionPrincipal = vistaPrincipal.mostrarMenuPrincipal();
+
+            switch (opcionPrincipal) {
                 case 1:
-                    gestionExcursiones.agregarExcursion();
-                    gestionExcursiones.listarExcursiones();
+                    gestionarSocios(controladorSocios, vistaSocios);
                     break;
                 case 2:
-                    gestionInscripciones.agregarInscripcion();
+                    gestionarExcursiones(controladorExcursiones, vistaExcursiones);
                     break;
                 case 3:
-                    gestionSocios.agregarSocio();
-                    gestionSocios.listarSocios();
+                    gestionarInscripciones(controladorInscripciones, vistaInscripciones);
                     break;
-                case 0:
-                    System.out.println("Saliendo...");
+                case 4:
+                    salir = true;
                     break;
                 default:
-                    System.out.println("Opción no válida.");
-                    break;
-                }
-            } while (opcion != 0);
+                    vistaPrincipal.mostrarMensaje("Opción no válida.");
+            }
         }
     }
+
+    private static void gestionarSocios(ControladorSocios controladorSocios, VistaSocios vistaSocios) {
+        boolean volver = false;
+
+        while (!volver) {
+            int opcionSocios = vistaSocios.mostrarMenuSocios();
+
+            switch (opcionSocios) {
+                case 1:
+                    controladorSocios.agregarSocio();
+                    break;
+                case 2:
+                    controladorSocios.eliminarSocio();
+                    break;
+                case 3:
+                    controladorSocios.modificarSeguroSocio();
+                    break;
+                case 4:
+                    controladorSocios.mostrarFacturaMensual();
+                    break;
+                case 5:
+                    controladorSocios.buscarSocios();
+                case 6:
+                    volver = true;
+                    break;
+                default:
+                    vistaSocios.mostrarMensaje("Opción no válida.");
+            }
+        }
+    }
+
+    private static void gestionarExcursiones(ControladorExcursiones controladorExcursiones, VistaExcursiones vistaExcursiones) {
+        boolean volver = false;
+
+        while (!volver) {
+            int opcionExcursiones = vistaExcursiones.mostrarMenuExcursiones();
+
+            switch (opcionExcursiones) {
+                case 1:
+                    controladorExcursiones.agregarExcursion();
+                    break;
+                case 2:
+                    controladorExcursiones.filtrarExcursionesEntreFechas();
+                    break;
+                case 3:
+                    controladorExcursiones.mostrarSociosInscritos();
+                    break;
+                case 4:
+                    volver = true;
+                    break;
+                default:
+                    vistaExcursiones.mostrarMensaje("Opción no válida.");
+            }
+        }
+    }
+
+    private static void gestionarInscripciones(ControladorInscripciones controladorInscripciones, VistaInscripciones vistaInscripciones) {
+        boolean volver = false;
+
+        while (!volver) {
+            int opcionInscripciones = vistaInscripciones.mostrarMenuInscripciones();
+
+            switch (opcionInscripciones) {
+                case 1:
+                    controladorInscripciones.inscribirSocioEnExcursion();
+                    break;
+                case 2:
+                    controladorInscripciones.eliminarInscripcion();
+                    break;
+                case 3:
+                    controladorInscripciones.mostrarInscripcionesConFiltro();
+                    break;
+                case 4:
+                    volver = true;
+                    break;
+                default:
+                    vistaInscripciones.mostrarMensaje("Opción no válida.");
+            }
+        }
+    }
+}
