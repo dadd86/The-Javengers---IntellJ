@@ -137,6 +137,7 @@ public class ControladorSocios {
         String tipoSeguro = vistaSocios.pedirTexto("Introduce el nuevo tipo de seguro (B=Básico, C=Completo):");
 
         TipoSeguro seguro;
+        // Validar el tipo de seguro
         switch (tipoSeguro.toUpperCase()) {
             case "B":
                 seguro = TipoSeguro.BASICO;
@@ -150,16 +151,13 @@ public class ControladorSocios {
         }
 
         try {
-            Socio socio = sistema.buscarSocio(idSocio);
-
-            if (socio instanceof SocioEstandar) {
-                ((SocioEstandar) socio).setSeguro(seguro);
-                vistaSocios.mostrarMensaje("Seguro del socio actualizado correctamente.");
-            } else {
-                vistaSocios.mostrarMensaje("El socio no es de tipo estándar, no se puede modificar el seguro.");
-            }
+            // Llamar al método modificarSeguroSocioEstandar del modelo
+            sistema.modificarSeguroSocioEstandar(idSocio, seguro);
+            vistaSocios.mostrarMensaje("Seguro del socio actualizado correctamente.");
         } catch (SocioNoEncontradoException e) {
             vistaSocios.mostrarMensaje("No se encontró el socio con el ID proporcionado.");
+        } catch (TipoSocioNoValidoException e) {
+            vistaSocios.mostrarMensaje("El socio no es de tipo estándar, no se puede modificar el seguro.");
         }
     }
 
