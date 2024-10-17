@@ -1,8 +1,12 @@
-package TheJavengers.vista
+package TheJavengers;
 
 
 import TheJavengers.controlador.*;
 import TheJavengers.modelo.SistemaExcursionista;
+import TheJavengers.vista.VistaExcursiones;
+import TheJavengers.vista.VistaExcursionista;
+import TheJavengers.vista.VistaInscripciones;
+import TheJavengers.vista.VistaSocios;
 
 public class Main {
 
@@ -64,8 +68,6 @@ public class Main {
                     controladorSocios.mostrarFacturaMensual();
                     break;
                 case 5:
-                    controladorSocios.buscarSocios();
-                case 6:
                     volver = true;
                     break;
                 default:

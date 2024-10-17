@@ -11,7 +11,6 @@ import java.util.*;
  */
 public class ControladorSocios {
 
-    private Controlador<Socio> controladorSocios;
     private SistemaExcursionista sistema;
     private VistaSocios vistaSocios;
 
@@ -22,7 +21,6 @@ public class ControladorSocios {
      * @param vistaSocios la vista que permite la interacción con el usuario para gestionar socios
      */
     public ControladorSocios(SistemaExcursionista sistema, VistaSocios vistaSocios) {
-        this.controladorSocios = new Controlador<>();
         this.sistema = sistema;
         this.vistaSocios = vistaSocios;
     }
@@ -52,7 +50,7 @@ public class ControladorSocios {
      * Solicita los datos de un nuevo socio estándar y lo registra en el sistema.
      * Muestra un mensaje en caso de éxito o si el socio ya existe.
      */
-    private void agregarSocioEstandar() {
+    public void agregarSocioEstandar() {
         String idSocio = vistaSocios.pedirTexto("Introduce ID del socio:");
         String nombre = vistaSocios.pedirTexto("Introduce el nombre del socio:");
         String apellidos = vistaSocios.pedirTexto("Introduce los apellidos del socio:");
@@ -66,7 +64,6 @@ public class ControladorSocios {
 
         try {
             sistema.registrarSocio(socio);
-            controladorSocios.agregarElemento(socio);
             vistaSocios.mostrarMensaje("Socio estandar agregado correctamente.");
         } catch (SocioYaExisteException e) {
             vistaSocios.mostrarMensaje(e.getMessage());
@@ -100,7 +97,6 @@ public class ControladorSocios {
 
         try {
             sistema.registrarSocio(socio);
-            controladorSocios.agregarElemento(socio);
             vistaSocios.mostrarMensaje("Socio federado agregado correctamente.");
         } catch (SocioYaExisteException e) {
             vistaSocios.mostrarMensaje(e.getMessage());
@@ -121,7 +117,6 @@ public class ControladorSocios {
 
         try {
             sistema.registrarSocio(socio);
-            controladorSocios.agregarElemento(socio);
             vistaSocios.mostrarMensaje("Socio infantil agregado correctamente.");
         } catch (SocioYaExisteException e) {
             vistaSocios.mostrarMensaje(e.getMessage());
@@ -136,7 +131,6 @@ public class ControladorSocios {
         String idSocio = vistaSocios.pedirTexto("Introduce el ID del socio a eliminar:");
         try {
             sistema.eliminarSocio(idSocio);
-            controladorSocios.eliminarElemento(buscarSocioPorId(idSocio));
             vistaSocios.mostrarMensaje("Socio eliminado correctamente.");
         } catch (Exception e) {
             vistaSocios.mostrarMensaje(e.getMessage());
@@ -153,12 +147,11 @@ public class ControladorSocios {
         TipoSeguro seguro = obtenerTipoSeguro(tipoSeguro);
         if (seguro == null) return;
 
-        Socio socio = buscarSocioPorId(idSocio);
-        if (socio instanceof SocioEstandar) {
-            ((SocioEstandar) socio).setSeguro(seguro);
+        try {
+            sistema.modificarSeguroSocioEstandar(idSocio, seguro);
             vistaSocios.mostrarMensaje("Tipo de seguro actualizado correctamente.");
-        } else {
-            vistaSocios.mostrarMensaje("El tipo de socio no permite la modificacion del seguro.");
+        } catch (Exception e) {
+            vistaSocios.mostrarMensaje(e.getMessage());
         }
     }
 
@@ -188,105 +181,4 @@ public class ControladorSocios {
                 return null;
         }
     }
-
-    /**
-     * Busca un socio en la lista actual de socios por su ID.
-     *
-     * @param id el ID del socio a buscar
-     * @return el socio encontrado o null si no se encuentra
-     */
-    private Socio buscarSocioPorId(String id) {
-        return controladorSocios.obtenerElementos()
-                .stream()
-                .filter(socio -> socio.getIdSocio().equals(id))
-                .findFirst()
-                .orElse(null);
-    }
-
-    /**
-     * Permite al usuario buscar socios por ID, nombre o mostrar todos los socios.
-     */
-    public void buscarSocios() {
-        int opcion = vistaSocios.pedirEntero("Selecciona una opción:\n1. Filtrar por ID\n2. Filtrar por nombre\n3. Filtrar por tipo de socio\n4. Mostrar todos los socios\nElige una opción:");
-
-        switch (opcion) {
-            case 1: // Filtrar por ID
-                String idCriterio = vistaSocios.pedirTexto("Introduce el ID del socio:");
-                Socio socioPorId = buscarSocioPorId(idCriterio); // Utilizamos el método buscarSocioPorId
-
-                if (socioPorId != null) {
-                    vistaSocios.mostrarMensaje("Socio encontrado:\n" + socioPorId.toString());
-                } else {
-                    vistaSocios.mostrarMensaje("No se encontró un socio con el ID proporcionado.");
-                }
-                break;
-
-            case 2: // Filtrar por nombre
-                String nombreCriterio = vistaSocios.pedirTexto("Introduce el nombre o apellido del socio:");
-                List<Socio> sociosPorNombre = controladorSocios.filtrarElementos(socio ->
-                        socio.getNombre().equalsIgnoreCase(nombreCriterio) ||
-                                socio.getApellidos().equalsIgnoreCase(nombreCriterio)
-                );
-
-                if (sociosPorNombre.isEmpty()) {
-                    vistaSocios.mostrarMensaje("No se encontraron socios que coincidan con el nombre proporcionado.");
-                } else {
-                    vistaSocios.mostrarMensaje("Socios encontrados:");
-                    for (Socio socio : sociosPorNombre) {
-                        vistaSocios.mostrarMensaje(socio.toString());
-                    }
-                }
-                break;
-
-            case 3: // Filtrar por tipo de socio
-                String tipoCriterio = vistaSocios.pedirTexto("Selecciona el tipo de socio:\nE. Estandar\nF. Federado\nI. Infantil\nElige una opción:");
-
-                List<Socio> sociosPorTipo;
-                switch (tipoCriterio.toLowerCase()) {
-                    case "e":
-                        sociosPorTipo = controladorSocios.filtrarElementos(socio -> socio instanceof SocioEstandar);
-                        break;
-                    case "f":
-                        sociosPorTipo = controladorSocios.filtrarElementos(socio -> socio instanceof SocioFederado);
-                        break;
-                    case "i":
-                        sociosPorTipo = controladorSocios.filtrarElementos(socio -> socio instanceof SocioInfantil);
-                        break;
-                    default:
-                        vistaSocios.mostrarMensaje("Tipo de socio no válido. Por favor, selecciona 'E', 'F' o 'I'.");
-                        return;
-                }
-
-                if (sociosPorTipo.isEmpty()) {
-                    vistaSocios.mostrarMensaje("No se encontraron socios del tipo proporcionado.");
-                } else {
-                    vistaSocios.mostrarMensaje("Socios encontrados:");
-                    for (Socio socio : sociosPorTipo) {
-                        vistaSocios.mostrarMensaje(socio.toString());
-                    }
-                }
-                break;
-
-
-            case 4: // Mostrar todos los socios
-                List<Socio> todosLosSocios = controladorSocios.obtenerElementos();
-                if (todosLosSocios.isEmpty()) {
-                    vistaSocios.mostrarMensaje("No hay socios registrados.");
-                } else {
-                    vistaSocios.mostrarMensaje("******************");
-                    for (Socio socio : todosLosSocios) {
-                        vistaSocios.mostrarMensaje(socio.toString());
-                    }
-                }
-                break;
-
-            default:
-                vistaSocios.mostrarMensaje("Opción no válida. Por favor, selecciona 1, 2, 3 o 4.");
-                break;
-        }
-    }
-
-
-
-
 }
