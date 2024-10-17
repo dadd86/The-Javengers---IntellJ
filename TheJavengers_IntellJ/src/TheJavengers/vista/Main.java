@@ -1,6 +1,6 @@
-package TheJavengers;
+package TheJavengers.vista
 
-import TheJavengers.vista.*;
+
 import TheJavengers.controlador.*;
 import TheJavengers.modelo.SistemaExcursionista;
 
