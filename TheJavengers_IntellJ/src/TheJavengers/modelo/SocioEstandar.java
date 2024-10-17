@@ -81,7 +81,7 @@ public class SocioEstandar extends Socio {
      */
     @Override
     public float calcularPrecioExcursion(Excursion excursion) {
-        return excursion.getPrecio() + seguro.getCostoSeguro();
+        return excursion.getPrecio();
     }
 
     @Override

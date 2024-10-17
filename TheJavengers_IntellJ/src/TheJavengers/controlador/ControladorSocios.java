@@ -151,7 +151,6 @@ public class ControladorSocios {
         }
 
         try {
-            // Llamar al método modificarSeguroSocioEstandar del modelo
             sistema.modificarSeguroSocioEstandar(idSocio, seguro);
             vistaSocios.mostrarMensaje("Seguro del socio actualizado correctamente.");
         } catch (SocioNoEncontradoException e) {

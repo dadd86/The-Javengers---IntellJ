@@ -153,23 +153,36 @@ public class SistemaExcursionista {
         try {
             Socio socio = buscarSocio(idSocio);
             float totalExcursiones = 0.0f;
+            LocalDate fechaActual = LocalDate.now();  // Fecha actual para filtrar excursiones del mes en curso
+            int mesActual = fechaActual.getMonthValue();  // Obtener el mes actual
+            int anioActual = fechaActual.getYear();  // Obtener el año actual
+
+            // Calcular el total de excursiones solo del mes actual
             for (Inscripcion inscripcion : inscripciones) {
                 if (inscripcion.getSocio().getIdSocio().equals(idSocio)) {
-                    float precioExcursion = inscripcion.getExcursion().getPrecio();
-                    totalExcursiones += socio.calcularPrecioExcursion(inscripcion.getExcursion());
+                    LocalDate fechaExcursion = inscripcion.getExcursion().getFechaExcursion();
+                    if (fechaExcursion.getMonthValue() == mesActual && fechaExcursion.getYear() == anioActual) {
+                        totalExcursiones += socio.calcularPrecioExcursion(inscripcion.getExcursion());
+                    }
                 }
             }
+
+            // Calcular la cuota mensual, que ya debe incluir el seguro para los socios estándar
             float totalCuota = socio.calcularCuotaMensual();
             float totalPagar = totalCuota + totalExcursiones;
+
+            // Generar la factura
             factura.append("Factura mensual para el socio ").append(socio.getNombre()).append(":\n")
                     .append("Cuota mensual: ").append(totalCuota).append(" euros\n")
-                    .append("Total por excursiones: ").append(totalExcursiones).append(" euros\n")
+                    .append("Total por excursiones del mes: ").append(totalExcursiones).append(" euros\n")
                     .append("Total a pagar: ").append(totalPagar).append(" euros");
+
         } catch (SocioNoEncontradoException e) {
             return e.getMessage();
         }
         return factura.toString();
     }
+
 
     public void modificarSeguroSocioEstandar(String idSocio, TipoSeguro nuevoSeguro) throws SocioNoEncontradoException, TipoSocioNoValidoException {
         Socio socioModificar = buscarSocio(idSocio);
