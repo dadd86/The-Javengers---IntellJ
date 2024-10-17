@@ -1,10 +1,8 @@
 package TheJavengers.controlador;
 
-import TheJavengers.modelo.SistemaExcursionista;
-import TheJavengers.vista.VistaSocios;
+import TheJavengers.vista.*;
 import TheJavengers.modelo.*;
-import TheJavengers.modelo.TipoSeguro;
-import TheJavengers.Excepciones.SocioYaExisteException;
+import TheJavengers.Excepciones.*;
 
 import java.util.List;
 
@@ -151,8 +149,20 @@ public class ControladorSocios {
                 return;
         }
 
+        try {
+            Socio socio = sistema.buscarSocio(idSocio);
 
+            if (socio instanceof SocioEstandar) {
+                ((SocioEstandar) socio).setSeguro(seguro);
+                vistaSocios.mostrarMensaje("Seguro del socio actualizado correctamente.");
+            } else {
+                vistaSocios.mostrarMensaje("El socio no es de tipo estándar, no se puede modificar el seguro.");
+            }
+        } catch (SocioNoEncontradoException e) {
+            vistaSocios.mostrarMensaje("No se encontró el socio con el ID proporcionado.");
+        }
     }
+
 
     public void mostrarFacturaMensual() {
         String idSocio = vistaSocios.pedirTexto("Introduce el ID del socio para mostrar la factura:");
