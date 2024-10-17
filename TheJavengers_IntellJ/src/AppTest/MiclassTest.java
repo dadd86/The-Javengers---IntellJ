@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import TheJavengers.controlador.*;
 import TheJavengers.vista.*;
 import TheJavengers.modelo.*;
+import TheJavengers.Excepciones.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,29 +20,34 @@ class MiclassTest {
     @BeforeEach
     void setUp() {
         vistaSocios = new VistaSocios(); // Inicializa tu vista
-        sistema = new Sistema(); // Inicializa tu sistema
-        controladorSocios = new ControladorSocios(sistema,vistaSocios); // Crea una instancia de tu controlador
+        sistema = new SistemaExcursionista(); // Inicializa tu sistema
+        controladorSocios = new ControladorSocios(sistema, vistaSocios); // Crea una instancia de tu controlador
     }
 
     @Test
-    void testAgregarSocioEstandar() {
+    void testAgregarSocioEstandar() throws SocioNoEncontradoException {
         // Simular entrada de datos
         String idSocio = "S001";
         String nombre = "Juan";
         String apellidos = "Pérez";
         String nif = "12345678Z";
-        TipoSeguro tipoSeguro = BASICO; // Basico
+        String tipoSeguro = "B"; // Básico
 
-        // Llamar al metodo que se quiere probar
-        controladorSocios.agregarSocioEstandar(idSocio, nombre, apellidos, nif, tipoSeguro);
+        // Llamar al método del sistema directamente
+        SocioEstandar socio = new SocioEstandar(idSocio, nombre, apellidos, nif, BASICO);
+        try {
+            sistema.registrarSocio(socio);
+        } catch (SocioYaExisteException e) {
+            fail("El socio no debería existir al agregarlo por primera vez.");
+        }
 
         // Verificar que el socio fue agregado correctamente
-        SocioEstandar socio = controladorSocios.buscarSocioPorId(idSocio);
-        assertNotNull(socio, "El socio debería ser agregado correctamente.");
-        assertEquals(nombre, socio.getNombre(), "El nombre del socio debería coincidir.");
-        assertEquals(apellidos, socio.getApellidos(), "Los apellidos del socio deberían coincidir.");
-        assertEquals(nif, socio.getNif(), "El NIF del socio debería coincidir.");
-        assertEquals(BASICO, socio.getSeguro(), "El tipo de seguro debería ser BASICO.");
+        SocioEstandar socioRegistrado = (SocioEstandar) sistema.buscarSocio(idSocio);
+        assertNotNull(socioRegistrado, "El socio debería ser agregado correctamente.");
+        assertEquals(nombre, socioRegistrado.getNombre(), "El nombre del socio debería coincidir.");
+        assertEquals(apellidos, socioRegistrado.getApellidos(), "Los apellidos del socio deberían coincidir.");
+        assertEquals(nif, socioRegistrado.getNif(), "El NIF del socio debería coincidir.");
+        assertEquals(BASICO, socioRegistrado.getSeguro(), "El tipo de seguro debería ser BASICO.");
     }
 
     @Test
@@ -51,17 +57,22 @@ class MiclassTest {
         String nombre = "Juan";
         String apellidos = "Pérez";
         String nif = "12345678Z";
-        String tipoSeguro = "B"; // Basico
+        String tipoSeguro = "B"; // Básico
 
         // Agregar el socio por primera vez
-        controladorSocios.agregarSocioEstandar(idSocio, nombre, apellidos, nif, tipoSeguro);
+        SocioEstandar socio = new SocioEstandar(idSocio, nombre, apellidos, nif, BASICO);
+        try {
+            sistema.registrarSocio(socio);
+        } catch (SocioYaExisteException e) {
+            fail("El socio no debería existir al agregarlo por primera vez.");
+        }
 
         // Intentar agregar el mismo socio nuevamente
         Exception exception = assertThrows(SocioYaExisteException.class, () -> {
-            controladorSocios.agregarSocioEstandar(idSocio, nombre, apellidos, nif, tipoSeguro);
+            sistema.registrarSocio(new SocioEstandar(idSocio, nombre, apellidos, nif, BASICO));
         });
 
-        String expectedMessage = "El socio ya existe."; // Asegúrate de que este mensaje sea el correcto
+        String expectedMessage = "El ID de socio ya existe."; // Asegúrate de que este mensaje sea el correcto
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage), "Debería lanzar una excepción porque el socio ya existe.");
