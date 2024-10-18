@@ -1,4 +1,5 @@
 package TheJavengers.modelo;
+
 /**
  * Clase que representa a un socio federado.
  * Hereda de la clase Socio y añade un recargo a la cuota mensual por los beneficios adicionales.
