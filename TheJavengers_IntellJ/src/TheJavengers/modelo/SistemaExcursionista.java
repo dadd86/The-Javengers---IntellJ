@@ -307,4 +307,7 @@ public class SistemaExcursionista {
         }
         return inscripcionesFiltradas;
     }
+    public List<Socio> obtenerSocios() {
+        return socios; // Devuelve la lista de socios
+    }
 }
