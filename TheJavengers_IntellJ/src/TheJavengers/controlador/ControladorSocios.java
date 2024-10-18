@@ -1,7 +1,7 @@
 package TheJavengers.controlador;
 
 import TheJavengers.modelo.*;
-import TheJavengers.vista.VistaSocios;
+import TheJavengers.vista.*;
 import TheJavengers.Excepciones.*;
 
 import java.util.List;
