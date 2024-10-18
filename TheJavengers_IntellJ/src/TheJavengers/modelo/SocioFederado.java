@@ -29,7 +29,7 @@ public class SocioFederado extends Socio {
     public SocioFederado(String idSocio, String nombre, String apellidos, String nif, Federacion federacion) {
         super(idSocio, nombre, apellidos);
         if (federacion == null) {
-            throw new IllegalArgumentException("La federación no puede ser nula");
+            //throw new IllegalArgumentException("La federación no puede ser nula");
         }
 
         this.nif = nif;
