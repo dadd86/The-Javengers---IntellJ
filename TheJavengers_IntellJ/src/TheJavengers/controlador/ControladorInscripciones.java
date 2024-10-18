@@ -1,10 +1,11 @@
 package TheJavengers.controlador;
 
-import TheJavengers.modelo.SistemaExcursionista;
+import TheJavengers.modelo.*;
 import TheJavengers.vista.VistaInscripciones;
 import TheJavengers.Excepciones.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Clase que actúa como controlador para gestionar las inscripciones en excursiones del sistema.
@@ -16,6 +17,7 @@ public class ControladorInscripciones {
     // Instancias del modelo y la vista
     private final SistemaExcursionista sistema;
     private final VistaInscripciones vistaInscripciones;
+    private Controlador<Inscripcion> controladorInscripciones;
 
     /**
      * Constructor de la clase ControladorInscripciones.
@@ -28,6 +30,7 @@ public class ControladorInscripciones {
         if (sistema == null || vistaInscripciones == null) {
             throw new IllegalArgumentException("El sistema y la vista no pueden ser nulos.");
         }
+        this.controladorInscripciones = new Controlador<>();
         this.sistema = sistema;
         this.vistaInscripciones = vistaInscripciones;
     }
@@ -54,7 +57,13 @@ public class ControladorInscripciones {
         // Intentar inscribir al socio en la excursión
         try {
             sistema.inscribirSocioEnExcursion(idSocio, idExcursion);
-            vistaInscripciones.mostrarMensaje("Socio inscrito correctamente en la excursión.");
+            controladorInscripciones.agregarElemento(
+                    new Inscripcion(controladorInscripciones.obtenerElementos().size() + 1,
+                            sistema.buscarSocio(idSocio),
+                            sistema.buscarExcursion(idExcursion),
+                            LocalDate.now())
+            );
+            vistaInscripciones.mostrarMensaje("Socio inscrito correctamente en la excursion.");
         } catch (SocioNoEncontradoException | ExcursionNoEncontradaException e) {
             // Manejar excepciones específicas para casos de socio o excursión no encontrados
             vistaInscripciones.mostrarMensaje(e.getMessage());
@@ -72,6 +81,7 @@ public class ControladorInscripciones {
             int idInscripcion = Integer.parseInt(vistaInscripciones.pedirTexto("Introduce el ID de la inscripción:"));
             // Intentar eliminar la inscripción
             sistema.eliminarInscripcion(idInscripcion, LocalDate.now());
+            controladorInscripciones.eliminarElemento(buscarInscripcionPorId(idInscripcion));
             vistaInscripciones.mostrarMensaje("Inscripción eliminada correctamente.");
         } catch (NumberFormatException e) {
             // Manejar el caso en el que el ID de inscripción no es un número válido
@@ -94,12 +104,27 @@ public class ControladorInscripciones {
         LocalDate fechaFin = vistaInscripciones.pedirFecha("Introduce la fecha de fin (yyyy-MM-dd):");
 
         // Obtener y mostrar las inscripciones que coinciden con los filtros
-        var inscripcionesFiltradas = sistema.mostrarInscripcionesFiltradas(idSocio, fechaInicio, fechaFin);
+        List<Inscripcion> inscripcionesFiltradas = sistema.mostrarInscripcionesFiltradas(idSocio, fechaInicio, fechaFin);
+
 
         if (inscripcionesFiltradas.isEmpty()) {
             vistaInscripciones.mostrarMensaje("No se encontraron inscripciones con los filtros especificados.");
         } else {
             inscripcionesFiltradas.forEach(inscripcion -> vistaInscripciones.mostrarMensaje(inscripcion.toString()));
         }
+
+    }
+    /**
+     * Busca una inscripción en la lista actual de inscripciones por su ID.
+     *
+     * @param id el ID de la inscripción a buscar
+     * @return la inscripción encontrada o null si no se encuentra
+     */
+    private Inscripcion buscarInscripcionPorId(int id) {
+        return controladorInscripciones.obtenerElementos()
+                .stream()
+                .filter(inscripcion -> inscripcion.getIdInscripcion() == id)
+                .findFirst()
+                .orElse(null);
     }
 }
