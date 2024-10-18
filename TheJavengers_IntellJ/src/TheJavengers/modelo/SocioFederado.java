@@ -85,7 +85,7 @@ public class SocioFederado extends Socio {
      */
     @Override
     public float calcularCuotaMensual() {
-        return CUOTA_MENSUAL + (1 - DESCUENTO_CUOTA_FEDERADO); //Aplica el descuento del 5%
+        return CUOTA_MENSUAL * (1 - DESCUENTO_CUOTA_FEDERADO); //Aplica el descuento del 5%
     }
 
     //REPASAR ESTE METODO
