@@ -296,17 +296,22 @@ public class SistemaExcursionista {
      */
     public List<Inscripcion> mostrarInscripcionesFiltradas(String idSocio, LocalDate fechaInicio, LocalDate fechaFin) {
         List<Inscripcion> inscripcionesFiltradas = new ArrayList<>();
+
         for (Inscripcion inscripcion : inscripciones) {
-            boolean coincideSocio = (idSocio == null || inscripcion.getSocio().getIdSocio().equals(idSocio));
+            boolean coincideSocio = (idSocio == null || idSocio.isEmpty() || inscripcion.getSocio().getIdSocio().equals(idSocio));
             boolean coincideFecha = (fechaInicio == null || fechaFin == null) ||
                     (!inscripcion.getExcursion().getFechaExcursion().isBefore(fechaInicio) &&
                             !inscripcion.getExcursion().getFechaExcursion().isAfter(fechaFin));
+
+            // Filtrar por fecha si no se proporciona un ID de socio, o por ambas condiciones si se proporcionan ambos filtros
             if (coincideSocio && coincideFecha) {
                 inscripcionesFiltradas.add(inscripcion);
             }
         }
+
         return inscripcionesFiltradas;
     }
+
     public List<Socio> obtenerSocios() {
         return socios; // Devuelve la lista de socios
     }

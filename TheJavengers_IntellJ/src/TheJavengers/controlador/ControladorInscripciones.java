@@ -5,6 +5,7 @@ import TheJavengers.vista.VistaInscripciones;
 import TheJavengers.Excepciones.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -104,16 +105,15 @@ public class ControladorInscripciones {
         LocalDate fechaFin = vistaInscripciones.pedirFecha("Introduce la fecha de fin (yyyy-MM-dd):");
 
         // Obtener y mostrar las inscripciones que coinciden con los filtros
-        List<Inscripcion> inscripcionesFiltradas = sistema.mostrarInscripcionesFiltradas(idSocio, fechaInicio, fechaFin);
+        List<Inscripcion> inscripciones = sistema.mostrarInscripcionesFiltradas(idSocio, fechaInicio, fechaFin);
 
-
-        if (inscripcionesFiltradas.isEmpty()) {
-            vistaInscripciones.mostrarMensaje("No se encontraron inscripciones con los filtros especificados.");
-        } else {
-            inscripcionesFiltradas.forEach(inscripcion -> vistaInscripciones.mostrarMensaje(inscripcion.toString()));
+        // Mostrar las inscripciones filtradas
+        System.out.println("Inscripciones filtradas:");
+        for (Inscripcion ins : inscripciones) {
+            System.out.println(ins);
         }
-
     }
+
     /**
      * Busca una inscripción en la lista actual de inscripciones por su ID.
      *
