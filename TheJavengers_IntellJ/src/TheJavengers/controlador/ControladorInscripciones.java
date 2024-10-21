@@ -101,8 +101,8 @@ public class ControladorInscripciones {
     public void mostrarInscripcionesConFiltro() {
         // Pedir los parámetros de filtro al usuario
         String idSocio = vistaInscripciones.pedirTexto("Introduce el ID del socio (deja vacío para no filtrar por socio):");
-        LocalDate fechaInicio = vistaInscripciones.pedirFecha("Introduce la fecha de inicio (yyyy-MM-dd):");
-        LocalDate fechaFin = vistaInscripciones.pedirFecha("Introduce la fecha de fin (yyyy-MM-dd):");
+        LocalDate fechaInicio = vistaInscripciones.pedirFecha("Introduce la fecha de inicio (dd/MM/yyyy):");
+        LocalDate fechaFin = vistaInscripciones.pedirFecha("Introduce la fecha de fin (dd/MM/yyyy):");
 
         // Obtener y mostrar las inscripciones que coinciden con los filtros
         List<Inscripcion> inscripciones = sistema.mostrarInscripcionesFiltradas(idSocio, fechaInicio, fechaFin);

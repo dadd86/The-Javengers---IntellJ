@@ -23,7 +23,7 @@ public class VistaInscripciones {
      */
     public VistaInscripciones() {
         scanner = new Scanner(System.in);
-        formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");  // Formato de fecha
+        formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");  // Formato de fecha
     }
 
     /**
