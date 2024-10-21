@@ -73,7 +73,7 @@ public class Main {
     }
 
     /**
-     * Método auxiliar que gestiona la interacción con los socios.
+     * Metodo auxiliar que gestiona la interacción con los socios.
      * Ejecuta un bucle secundario donde el usuario puede agregar, eliminar
      * o modificar socios, o regresar al menú principal.
      *
@@ -111,7 +111,7 @@ public class Main {
     }
 
     /**
-     * Método auxiliar que gestiona la interacción con las excursiones.
+     * Metodo auxiliar que gestiona la interacción con las excursiones.
      * Ejecuta un bucle secundario donde el usuario puede agregar o gestionar excursiones,
      * o regresar al menú principal.
      *
@@ -146,7 +146,7 @@ public class Main {
     }
 
     /**
-     * Método auxiliar que gestiona la interacción con las inscripciones.
+     * Metodo auxiliar que gestiona la interacción con las inscripciones.
      * Ejecuta un bucle secundario donde el usuario puede inscribir socios en excursiones,
      * eliminar inscripciones o filtrar inscripciones, o regresar al menú principal.
      *
