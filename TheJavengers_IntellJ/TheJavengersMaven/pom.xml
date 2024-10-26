@@ -18,6 +18,20 @@
   </properties>
 
   <dependencies>
+    <!-- dependencia para hacer la conexion MYSQL-->
+    <!-- Si os da problemas a la hora de instalar o conexion,
+         Despues de descargar e instalar MARVEN, como en el video que os pase
+         https://www.youtube.com/watch?v=rl5-yyrmp-0 , en la termnal ejecutar ese comando
+         mvn clean install -->
+
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.33</version> <!-- Usa la versión correcta aquí -->
+      <scope>runtime</scope>
+    </dependency>
+
+
     <!-- JUnit 5 API -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -42,13 +56,6 @@
       <scope>test</scope>
     </dependency>
 
-    <!-- Optional: If you need assertions from JUnit -->
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-assertions</artifactId>
-      <version>5.7.0</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 
   <build>
