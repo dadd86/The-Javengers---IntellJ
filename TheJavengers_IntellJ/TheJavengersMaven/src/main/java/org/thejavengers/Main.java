@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream:TheJavengers_IntellJ/TheJavengersMaven/src/main/java/org/thejavengers/Main.java
 package org.thejavengers;
+=======
+package TheJavengers.vista;
+>>>>>>> Stashed changes:TheJavengers_IntellJ/src/TheJavengers/vista/Main.java
 
 import org.thejavengers.modelo.SistemaExcursionista;
 import org.thejavengers.vista.VistaExcursionista;
