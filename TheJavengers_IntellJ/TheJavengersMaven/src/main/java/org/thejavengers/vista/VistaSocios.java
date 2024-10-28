@@ -34,8 +34,7 @@ public class VistaSocios {
         System.out.println("2. Eliminar socio");
         System.out.println("3. Modificar tipo de seguro de un socio estándar");
         System.out.println("4. Mostrar factura mensual por socio");
-        System.out.println("5. Mostrar o filtrar socios inscritos");
-        System.out.println("6 Volver al menú principal");
+        System.out.println("5. Volver al menú principal");
 
         int opcion = -1;  // Inicializamos con un valor no válido
         boolean opcionValida = false;
