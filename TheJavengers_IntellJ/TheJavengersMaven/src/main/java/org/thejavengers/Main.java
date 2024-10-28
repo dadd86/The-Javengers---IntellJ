@@ -1,12 +1,13 @@
-package TheJavengers;
+package org.thejavengers;
 
-
-import TheJavengers.controlador.*;
-import TheJavengers.modelo.SistemaExcursionista;
-import TheJavengers.vista.VistaExcursiones;
-import TheJavengers.vista.VistaExcursionista;
-import TheJavengers.vista.VistaInscripciones;
-import TheJavengers.vista.VistaSocios;
+import org.thejavengers.modelo.SistemaExcursionista;
+import org.thejavengers.vista.VistaExcursionista;
+import org.thejavengers.vista.VistaSocios;
+import org.thejavengers.vista.VistaExcursiones;
+import org.thejavengers.vista.VistaInscripciones;
+import org.thejavengers.controlador.ControladorSocios;
+import org.thejavengers.controlador.ControladorExcursiones;
+import org.thejavengers.controlador.ControladorInscripciones;
 
 /**
  * Clase principal (Main) del sistema de gestión de excursiones.
