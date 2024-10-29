@@ -9,6 +9,11 @@ import org.thejavengers.controlador.ControladorSocios;
 import org.thejavengers.controlador.ControladorExcursiones;
 import org.thejavengers.controlador.ControladorInscripciones;
 
+import org.thejavengers.dao.ExcursionDAO;
+import org.thejavengers.dao.ExcursionDAOImpl;
+import org.thejavengers.modelo.Excursion;
+
+import java.time.LocalDate;
 /**
  * Clase principal (Main) del sistema de gestión de excursiones.
  * Se encarga de inicializar el modelo, vistas y controladores, y gestionar
@@ -179,5 +184,26 @@ public class Main {
                     vistaInscripciones.mostrarMensaje("Opción no válida.");
             }
         }
+
+        //DAO
+        ExcursionDAO excursionDAO = new ExcursionDAOImpl();
+
+        //Crear y guardar nueva excursión
+        Excursion excursion = new Excursion("EXC-001", "Excursión de Montaña", LocalDate.now(), 3, 150.0f);
+        excursionDAO.save(excursion);
+
+        //Encontrar y mostrar excursión
+        Excursion foundExcursion = excursionDAO.findById("EXC-001");
+        System.out.print("Excursion encontrada: " + foundExcursion);
+
+        //Actualizar excursión
+        foundExcursion.setPrecio(175.0f);
+        excursionDAO.update(foundExcursion);
+
+        //Listar excursiones
+        excursionDAO.findAll().forEach(System.out::print);
+
+        //Eliminar excursión
+        excursionDAO.delete("EXC-001");
     }
 }
