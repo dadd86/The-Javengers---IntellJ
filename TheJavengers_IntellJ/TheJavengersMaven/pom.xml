@@ -21,7 +21,7 @@
     <!-- dependencia para hacer la conexion MYSQL-->
     <!-- Si os da problemas a la hora de instalar o conexion,
          Despues de descargar e instalar MARVEN, como en el video que os pase
-         https://www.youtube.com/watch?v=rl5-yyrmp-0 , en la termnal ejecutar ese comando
+         https://www.youtube.com/watch?v=rl5-yyrmp-0 , en la terminal ejecutar ese comando
          mvn clean install -->
 
     <dependency>
