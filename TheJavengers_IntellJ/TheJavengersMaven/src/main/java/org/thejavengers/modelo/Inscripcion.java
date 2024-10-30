@@ -170,4 +170,3 @@ public class Inscripcion {
         return Integer.hashCode(idInscripcion);
     }
 }
-
