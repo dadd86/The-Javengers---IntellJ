@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SocioDAOImpl implements SocioDAO {
-    private final String jdbcURL = "jdbc:mysql://localhost:3306/genteFit"; // Cambia el nombre de la base de datos según tu configuración
+    private final String jdbcURL = "jdbc:mysql://localhost:3306/thejavengers";
     private final String jdbcusername = "root";
     private final String jdbcpassword = "Admin";
 
