@@ -9,8 +9,8 @@ import org.thejavengers.controlador.ControladorSocios;
 import org.thejavengers.controlador.ControladorExcursiones;
 import org.thejavengers.controlador.ControladorInscripciones;
 
-import org.thejavengers.dao.ExcursionDAO;
-import org.thejavengers.dao.ExcursionDAOImpl;
+import org.thejavengers.DAO.ExcursionDAO;
+import org.thejavengers.DAO.ExcursionDAOImpl;
 import org.thejavengers.modelo.Excursion;
 
 import java.time.LocalDate;

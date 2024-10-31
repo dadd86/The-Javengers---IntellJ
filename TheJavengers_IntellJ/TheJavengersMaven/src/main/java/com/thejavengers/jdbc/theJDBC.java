@@ -6,17 +6,18 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class theJDBC {
+    /*
+     * Aqui cada uno debe de poner su localhost si ha cambiado el puerto y si cambia el nombre de la SQL
+     * para algunos casos hay que poner la zona horaria.
+     * */
+    public static final String url="jdbc:mysql://localhost:3306/thejavengers?serverTimezone=UTC";
+    public static final String username="root";
+    /*
+     * Aqui cada uno tiene que poner el password que tiene su root o el usuario
+     * */
+    public static final String password = "Admin";
     public static void main(String[] args) {
-        /*
-        * Aqui cada uno debe de poner su localhost si ha cambiado el puerto y si cambia el nombre de la SQL
-        * para algunos casos hay que poner la zona horaria.
-        * */
-        String url="jdbc:mysql://localhost:3306/thejavengers?serverTimezone=UTC";
-        String username="root";
-        /*
-        * Aqui cada uno tiene que poner el password que tiene su root o el usuario
-        * */
-        String password = "Admin";
+
         try {
             /*
              * el DriverManager.getConnection puede recibir hasta tres variables, escogemos este opcion

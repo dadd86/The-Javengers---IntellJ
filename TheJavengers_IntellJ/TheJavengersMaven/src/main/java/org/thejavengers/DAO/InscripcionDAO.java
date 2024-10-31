@@ -1,4 +1,4 @@
-package org.thejavengers.dao;
+package org.thejavengers.DAO;
 
 import org.thejavengers.modelo.Inscripcion;
 import java.util.*;
