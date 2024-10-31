@@ -8,7 +8,6 @@ import org.thejavengers.modelo.*;
 import org.thejavengers.Excepciones.*; // Ajustado a minúsculas
 import org.thejavengers.modelo.TipoSeguro;
 
-
 import java.time.LocalDate;
 /**
  * Clase de prueba para gestionar las pruebas unitarias relacionadas con la gestión de socios

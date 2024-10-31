@@ -17,7 +17,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
     public void save(Excursion excursion) {
         String sql = "INSERT INTO Excursion (idExcursion, descripcion, fechaExcursion, numeroDias, precio) VALUES (?,?, ?, ?, ?)";
         try (Connection conn = getConnection();
-             PreparedStatement statement = conn.prepareStatement(sql)) {
+            PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, excursion.getIdExcursion());
             statement.setString(2, excursion.getDescripcion());
             statement.getDate(3, Date.valueOf(excursion.getFechaExcursion()));
@@ -32,7 +32,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
     public Excursion findById(String id) {
         String sql = "SELECT * FROM Excursion WHERE idExcursion = ?";
         try (Connection conn = getConnection();
-             PreparedStatement statement = conn.prepareStatement(sql)) {
+            PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, id);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -54,8 +54,8 @@ public class ExcursionDAOImpl implements ExcursionDAO {
         List<Excursion> excursiones = new ArrayList<>();
         String sql = "SELECT * FROM Excursion";
         try (Connection conn = getConnection();
-             Statement statement = conn.createStatement();
-             ResultSet resultSet = statement.executeQuery(sql)) {
+            Statement statement = conn.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
                 excursiones.add(new Excursion(
                         resultSet.getString("idExcursion"),
@@ -74,7 +74,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
     public void update(Excursion excursion) {
         String sql = "UPDATE Excursion SET descripcion = ?, fechaExcursion = ?, numeroDias = ?, precio = ? WHERE idExcursion = ?";
         try (Connection conn = getConnection();
-             PreparedStatement statement = conn.prepareStatement(sql)) {
+            PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, excursion.getDescripcion());
             statement.setDate(2, Date.valueOf(excursion.getFechaExcursion()));
             statement.setInt(3, excursion.getNumeroDias());
@@ -89,7 +89,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
     public void delete(String id) {
         String sql = "DELETE FROM Excursion WHERE idExcursion = ?";
         try (Connection conn = getConnection();
-             Prepared Statement statement = conn.prepareStatement(sql)) {
+            Prepared Statement statement = conn.prepareStatement(sql)) {
             statement.setString(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
