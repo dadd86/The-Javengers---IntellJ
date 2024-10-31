@@ -1,11 +1,16 @@
-package org.thejavengers.dao;
+package org.thejavengers.DAO;
 
+import org.thejavengers.modelo.Excursion;
 import org.thejavengers.modelo.Inscripcion;
 import java.util.*;
 
 public class InscripcionDAOImpl implements InscripcionDAO {
+    private final List<Inscripcion> inscripciones = new ArrayList<>();
 
-    private final List<Inscripcion> inscripciones = new ArrayLis<>();
+    public List<Inscripcion> findAll() {
+        List<Inscripcion> inscripciones = new ArrayList<>();
+        return inscripciones;
+    }
 
     public void save(Inscripcion inscripcion) {
         inscripciones.add(inscripcion);
@@ -30,8 +35,9 @@ public class InscripcionDAOImpl implements InscripcionDAO {
         }
     }
 
-    public void delete(int idInscripcion) {
+    public void deleteById(int idInscripcion) {
         inscripciones.removeIf(i -> i.getIdInscripcion() == idInscripcion);
         System.out.print("Inscripción eliminada con ID: " + idInscripcion);
     }
+
 }

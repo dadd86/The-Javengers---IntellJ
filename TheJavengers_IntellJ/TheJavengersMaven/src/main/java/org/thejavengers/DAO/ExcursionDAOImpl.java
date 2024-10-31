@@ -1,14 +1,15 @@
-package org.thejavengers.dao;
+package org.thejavengers.DAO;
 
 import org.thejavengers.modelo.Excursion;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import com.thejavengers.jdbc.theJDBC;
 
 public class ExcursionDAOImpl implements ExcursionDAO {
-    private final String jdbcURL = "jdbc:mysql://localhost:3306/excursion";
-    private final String jdbcusername = "root";
-    private final String jdbcpassword = "Admin";
+    private final String jdbcURL = theJDBC.url;
+    private final String jdbcusername = theJDBC.username;
+    private final String jdbcpassword = theJDBC.password;
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(jdbcURL, jdbcusername, jdbcpassword);
@@ -20,7 +21,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
             PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, excursion.getIdExcursion());
             statement.setString(2, excursion.getDescripcion());
-            statement.getDate(3, Date.valueOf(excursion.getFechaExcursion()));
+            statement.setDate(3, Date.valueOf(excursion.getFechaExcursion()));
             statement.setInt(4, excursion.getNumeroDias());
             statement.setFloat(5, excursion.getPrecio());
             statement.executeUpdate();
@@ -89,9 +90,9 @@ public class ExcursionDAOImpl implements ExcursionDAO {
     public void delete(String id) {
         String sql = "DELETE FROM Excursion WHERE idExcursion = ?";
         try (Connection conn = getConnection();
-            Prepared Statement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, id);
-            statement.executeUpdate();
+            PreparedStatement statement = conn.prepareStatement(sql)) {
+                statement.setString(1, id);
+                statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }

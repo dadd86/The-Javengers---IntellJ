@@ -1,4 +1,4 @@
-package org.thejavengers.dao;
+package org.thejavengers.DAO;
 
 import org.thejavengers.modelo.TipoSeguro;
 import java.util.*;
