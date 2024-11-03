@@ -160,17 +160,13 @@ public class ControladorSocios {
      * Elimina un socio del sistema.
      * Solicita el ID del socio y gestiona la eliminación, mostrando el resultado al usuario.
      */
-    public void eliminarSocio() {
+    public void eliminarSocio() throws SocioConInscripcionesActivasException, SocioConHijosException {
         String idSocio = vistaSocios.pedirTexto("Introduce el ID del socio a eliminar:");
         try {
             sistema.eliminarSocio(idSocio);
             vistaSocios.mostrarMensaje("Socio eliminado correctamente.");
         } catch (SocioNoEncontradoException e) {
             vistaSocios.mostrarMensaje("Socio no encontrado.");
-        } catch (SocioConInscripcionesActivasException e) {
-            vistaSocios.mostrarMensaje("No se puede eliminar el socio porque tiene inscripciones activas.");
-        } catch (SocioConHijosException e) {
-            vistaSocios.mostrarMensaje("No se puede eliminar el socio porque es tutor de un socio infantil.");
         }
     }
 
@@ -212,7 +208,7 @@ public class ControladorSocios {
      */
     public void mostrarFacturaMensual() {
         String idSocio = vistaSocios.pedirTexto("Introduce el ID del socio para mostrar la factura:");
-        String factura = sistema.mostrarFacturaMensual(idSocio);
+        String factura = String.valueOf(sistema.mostrarFacturaMensual(idSocio));
         vistaSocios.mostrarMensaje(factura);
     }
 }

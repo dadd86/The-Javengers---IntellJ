@@ -1,5 +1,7 @@
 package org.thejavengers;
 
+import org.thejavengers.Excepciones.SocioConHijosException;
+import org.thejavengers.Excepciones.SocioConInscripcionesActivasException;
 import org.thejavengers.modelo.SistemaExcursionista;
 import org.thejavengers.vista.VistaExcursionista;
 import org.thejavengers.vista.VistaSocios;
@@ -30,7 +32,7 @@ public class Main {
      *
      * @param args Los argumentos de línea de comando (no se utilizan).
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SocioConInscripcionesActivasException, SocioConHijosException {
         // Inicialización del modelo (lógica del sistema)
         SistemaExcursionista sistema = new SistemaExcursionista();
 
@@ -86,7 +88,7 @@ public class Main {
      * @param controladorSocios El controlador encargado de gestionar los socios.
      * @param vistaSocios La vista que permite la interacción con los datos de los socios.
      */
-    private static void gestionarSocios(ControladorSocios controladorSocios, VistaSocios vistaSocios) {
+    private static void gestionarSocios(ControladorSocios controladorSocios, VistaSocios vistaSocios) throws SocioConInscripcionesActivasException, SocioConHijosException {
         boolean volver = false;
 
         // Bucle para el submenú de gestión de socios
