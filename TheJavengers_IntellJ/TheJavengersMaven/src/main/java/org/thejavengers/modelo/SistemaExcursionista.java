@@ -1,9 +1,10 @@
 package org.thejavengers.modelo;
+import org.thejavengers.DAO.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 import org.thejavengers.Excepciones.*;
+import java.util.stream.Collectors;
 
 /**
  * Clase que representa el sistema de gestión de excursiones del centro excursionista.
@@ -14,21 +15,21 @@ import org.thejavengers.Excepciones.*;
 public class SistemaExcursionista {
 
     // Atributos que almacenan las listas de socios, excursiones, inscripciones y federaciones
-    private List<Socio> socios;
-    private List<Excursion> excursiones;
-    private List<Inscripcion> inscripciones;
-    private List<Federacion> federaciones;
+    private final SocioDAO socioDAO;
+    private final ExcursionDAO excursionDAO;
+    private final InscripcionDAO inscripcionDAO;
+    private final FederacionDAO federacionDAO;
 
     /**
      * Constructor que inicializa el sistema con listas vacías para socios, excursiones, inscripciones y federaciones.
      * Además, precarga algunas federaciones de ejemplo.
      */
     public SistemaExcursionista() {
-        socios = new ArrayList<>();
-        excursiones = new ArrayList<>();
-        inscripciones = new ArrayList<>();
-        federaciones = new ArrayList<>();
-        precargarFederaciones();
+        this.socioDAO = DAOFactory.getSocioDAO();
+        this.excursionDAO = DAOFactory.getExcursionDAO();
+        this.inscripcionDAO = DAOFactory.getInscripcionDAO();
+        this.federacionDAO = DAOFactory.getFederacionDAO();
+        //precargarFederaciones();
     }
 
     // Métodos para gestionar federaciones
@@ -36,19 +37,20 @@ public class SistemaExcursionista {
     /**
      * Precarga algunas federaciones de ejemplo en el sistema.
      */
-    private void precargarFederaciones() {
-        federaciones.add(new Federacion("123", "Montañeros por el mundo"));
-        federaciones.add(new Federacion("234", "Escaladas locas"));
-        federaciones.add(new Federacion("567", "La vida en el monte"));
-    }
+   // private void precargarFederaciones() {
+   //     federaciones.add(new Federacion("123", "Montañeros por el mundo"));
+   //     federaciones.add(new Federacion("234", "Escaladas locas"));
+   //     federaciones.add(new Federacion("567", "La vida en el monte"));
+   // }
 
     /**
      * Devuelve una lista de todas las federaciones registradas en el sistema.
      *
      * @return Lista de federaciones.
      */
+    // Métodos para gestionar federaciones
     public List<Federacion> obtenerFederaciones() {
-        return new ArrayList<>(federaciones); // Devolver una copia para proteger la encapsulación.
+        return federacionDAO.findAll();
     }
 
     /**
@@ -59,12 +61,9 @@ public class SistemaExcursionista {
      * @throws FederacionNoEncontradaException Si no se encuentra ninguna federación con el código proporcionado.
      */
     public Federacion buscarFederacion(String codigo) throws FederacionNoEncontradaException {
-        for (Federacion federacion : federaciones) {
-            if (federacion.getCodigo().equals(codigo)) {
-                return federacion;
-            }
-        }
-        throw new FederacionNoEncontradaException("Federación con código " + codigo + " no encontrada.");
+        Federacion federacion = federacionDAO.findByCodigo(codigo);
+        if (federacion == null) throw new FederacionNoEncontradaException("Federación no encontrada");
+        return federacion;
     }
 
     // Métodos para gestionar socios
@@ -76,14 +75,8 @@ public class SistemaExcursionista {
      * @throws SocioYaExisteException Si ya existe un socio con el mismo ID.
      */
     public void registrarSocio(Socio socio) throws SocioYaExisteException {
-        for (Socio s : socios) {
-            if (s.getIdSocio().equals(socio.getIdSocio())) {
-                throw new SocioYaExisteException("El ID de socio ya existe.");
-            }
-        }
-        socios.add(socio);
+        socioDAO.save(socio);
     }
-
     /**
      * Busca un socio por su ID único.
      *
@@ -92,12 +85,9 @@ public class SistemaExcursionista {
      * @throws SocioNoEncontradoException Si no se encuentra ningún socio con el ID proporcionado.
      */
     public Socio buscarSocio(String idSocio) throws SocioNoEncontradoException {
-        for (Socio socio : socios) {
-            if (socio.getIdSocio().equals(idSocio)) {
-                return socio;
-            }
-        }
-        throw new SocioNoEncontradoException("Socio con ID " + idSocio + " no encontrado.");
+        Socio socio = socioDAO.findById(idSocio);
+        if (socio == null) throw new SocioNoEncontradoException("Socio no encontrado");
+        return socio;
     }
 
     // Métodos para gestionar excursiones
@@ -109,12 +99,7 @@ public class SistemaExcursionista {
      * @throws ExcursionYaExisteException Si ya existe una excursión con el mismo ID.
      */
     public void registrarExcursion(Excursion excursion) throws ExcursionYaExisteException {
-        for (Excursion e : excursiones) {
-            if (e.getIdExcursion().equals(excursion.getIdExcursion())) {
-                throw new ExcursionYaExisteException("La excursión con ID " + excursion.getIdExcursion() + " ya existe.");
-            }
-        }
-        excursiones.add(excursion);
+        excursionDAO.save(excursion);
     }
 
     /**
@@ -125,12 +110,9 @@ public class SistemaExcursionista {
      * @throws ExcursionNoEncontradaException Si no se encuentra ninguna excursión con el ID proporcionado.
      */
     public Excursion buscarExcursion(String idExcursion) throws ExcursionNoEncontradaException {
-        for (Excursion excursion : excursiones) {
-            if (excursion.getIdExcursion().equals(idExcursion)) {
-                return excursion;
-            }
-        }
-        throw new ExcursionNoEncontradaException("Excursión con ID " + idExcursion + " no encontrada.");
+        Excursion excursion = excursionDAO.findById(idExcursion);
+        if (excursion == null) throw new ExcursionNoEncontradaException("Excursión no encontrada");
+        return excursion;
     }
 
     // Métodos para gestionar inscripciones
@@ -146,8 +128,8 @@ public class SistemaExcursionista {
     public void inscribirSocioEnExcursion(String idSocio, String idExcursion) throws SocioNoEncontradoException, ExcursionNoEncontradaException {
         Socio socio = buscarSocio(idSocio);
         Excursion excursion = buscarExcursion(idExcursion);
-        Inscripcion inscripcion = new Inscripcion(inscripciones.size() + 1, socio, excursion, LocalDate.now());
-        inscripciones.add(inscripcion);
+        Inscripcion inscripcion = new Inscripcion(0, socio, excursion, LocalDate.now());
+        inscripcionDAO.save(inscripcion);
     }
 
     /**
@@ -158,20 +140,8 @@ public class SistemaExcursionista {
      * @throws InscripcionNoEncontradaException Si no se encuentra la inscripción o la excursión ya ha comenzado.
      */
     public void eliminarInscripcion(int idInscripcion, LocalDate fechaActual) throws InscripcionNoEncontradaException {
-        Inscripcion inscripcionAEliminar = null;
-        for (Inscripcion inscripcion : inscripciones) {
-            if (inscripcion.getIdInscripcion() == idInscripcion && fechaActual.isBefore(inscripcion.getExcursion().getFechaExcursion())) {
-                inscripcionAEliminar = inscripcion;
-                break;
-            }
-        }
-        if (inscripcionAEliminar != null) {
-            inscripciones.remove(inscripcionAEliminar);
-        } else {
-            throw new InscripcionNoEncontradaException("Inscripción no encontrada o no es posible eliminarla.");
-        }
+        inscripcionDAO.deleteById(idInscripcion);
     }
-
     /**
      * Lista los socios inscritos en una excursión específica.
      *
@@ -180,14 +150,10 @@ public class SistemaExcursionista {
      * @throws ExcursionNoEncontradaException Si no se encuentra la excursión.
      */
     public List<Socio> listarSociosEnExcursion(String idExcursion) throws ExcursionNoEncontradaException {
-        List<Socio> sociosInscritos = new ArrayList<>();
-        Excursion excursion = buscarExcursion(idExcursion);
-        for (Inscripcion inscripcion : inscripciones) {
-            if (inscripcion.getExcursion().equals(excursion)) {
-                sociosInscritos.add(inscripcion.getSocio());
-            }
-        }
-        return sociosInscritos;
+        return inscripcionDAO.findAll().stream()
+                .filter(ins -> ins.getExcursion().getIdExcursion().equals(idExcursion))
+                .map(Inscripcion::getSocio)
+                .collect(Collectors.toList());
     }
 
     // Métodos adicionales
@@ -200,13 +166,9 @@ public class SistemaExcursionista {
      * @return Una lista de excursiones que ocurren entre las fechas especificadas.
      */
     public List<Excursion> mostrarExcursionesPorFechas(LocalDate fechaInicio, LocalDate fechaFin) {
-        List<Excursion> excursionesFiltradas = new ArrayList<>();
-        for (Excursion excursion : excursiones) {
-            if (!excursion.getFechaExcursion().isBefore(fechaInicio) && !excursion.getFechaExcursion().isAfter(fechaFin)) {
-                excursionesFiltradas.add(excursion);
-            }
-        }
-        return excursionesFiltradas;
+        return excursionDAO.findAll().stream()
+                .filter(exc -> !exc.getFechaExcursion().isBefore(fechaInicio) && !exc.getFechaExcursion().isAfter(fechaFin))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -217,28 +179,8 @@ public class SistemaExcursionista {
      * @throws SocioConInscripcionesActivasException Si el socio tiene inscripciones activas.
      * @throws SocioConHijosException               Si el socio es tutor de un socio infantil.
      */
-    public void eliminarSocio(String idSocio) throws SocioNoEncontradoException, SocioConInscripcionesActivasException, SocioConHijosException {
-        Socio socioAEliminar = buscarSocio(idSocio);
-
-        // Verificar si el socio tiene inscripciones activas
-        for (Inscripcion inscripcion : inscripciones) {
-            if (inscripcion.getSocio().equals(socioAEliminar)) {
-                throw new SocioConInscripcionesActivasException("El socio tiene inscripciones activas.");
-            }
-        }
-
-        // Verificar si es tutor de algún socio infantil
-        for (Socio socio : socios) {
-            if (socio instanceof SocioInfantil) {
-                SocioInfantil socioInfantil = (SocioInfantil) socio;
-                if (socioInfantil.getIdSocioTutor().equals(idSocio)) {
-                    throw new SocioConHijosException("No se puede eliminar el socio porque es tutor de un socio infantil.");
-                }
-            }
-        }
-
-        // Eliminar el socio
-        socios.remove(socioAEliminar);
+    public void eliminarSocio(String idSocio) throws SocioNoEncontradoException {
+        socioDAO.delete(idSocio);
     }
 
     /**
@@ -247,26 +189,9 @@ public class SistemaExcursionista {
      * @param idSocio El ID del socio.
      * @return Una cadena de texto que representa la factura mensual.
      */
-    public String mostrarFacturaMensual(String idSocio) {
-        StringBuilder factura = new StringBuilder();
-        try {
-            Socio socio = buscarSocio(idSocio);
-            float totalExcursiones = 0.0f;
-            for (Inscripcion inscripcion : inscripciones) {
-                if (inscripcion.getSocio().getIdSocio().equals(idSocio)) {
-                    totalExcursiones += socio.calcularPrecioExcursion(inscripcion.getExcursion());
-                }
-            }
-            float totalCuota = socio.calcularCuotaMensual();
-            float totalPagar = totalCuota + totalExcursiones;
-            factura.append("Factura mensual para el socio ").append(socio.getNombre()).append(":\n")
-                    .append("Cuota mensual: ").append(totalCuota).append(" euros\n")
-                    .append("Total por excursiones: ").append(totalExcursiones).append(" euros\n")
-                    .append("Total a pagar: ").append(totalPagar).append(" euros");
-        } catch (SocioNoEncontradoException e) {
-            return e.getMessage();
-        }
-        return factura.toString();
+    // Métodos adicionales
+    public float mostrarFacturaMensual(String idSocio) {
+        return socioDAO.obtenerFacturaMensual(idSocio);
     }
 
     /**
@@ -278,12 +203,7 @@ public class SistemaExcursionista {
      * @throws TipoSocioNoValidoException Si el socio no es de tipo estándar.
      */
     public void modificarSeguroSocioEstandar(String idSocio, TipoSeguro nuevoSeguro) throws SocioNoEncontradoException, TipoSocioNoValidoException {
-        Socio socioModificar = buscarSocio(idSocio);
-        if (socioModificar instanceof SocioEstandar) {
-            ((SocioEstandar) socioModificar).setSeguro(nuevoSeguro);
-        } else {
-            throw new TipoSocioNoValidoException("El socio no es de tipo estándar.");
-        }
+        socioDAO.modificarSeguro(idSocio, nuevoSeguro);
     }
 
     /**
@@ -295,24 +215,15 @@ public class SistemaExcursionista {
      * @return Una lista de inscripciones que coinciden con los filtros.
      */
     public List<Inscripcion> mostrarInscripcionesFiltradas(String idSocio, LocalDate fechaInicio, LocalDate fechaFin) {
-        List<Inscripcion> inscripcionesFiltradas = new ArrayList<>();
-
-        for (Inscripcion inscripcion : inscripciones) {
-            boolean coincideSocio = (idSocio == null || idSocio.isEmpty() || inscripcion.getSocio().getIdSocio().equals(idSocio));
-            boolean coincideFecha = (fechaInicio == null || fechaFin == null) ||
-                    (!inscripcion.getExcursion().getFechaExcursion().isBefore(fechaInicio) &&
-                            !inscripcion.getExcursion().getFechaExcursion().isAfter(fechaFin));
-
-            // Filtrar por fecha si no se proporciona un ID de socio, o por ambas condiciones si se proporcionan ambos filtros
-            if (coincideSocio && coincideFecha) {
-                inscripcionesFiltradas.add(inscripcion);
-            }
-        }
-
-        return inscripcionesFiltradas;
+        return inscripcionDAO.findAll().stream()
+                .filter(ins -> ins.getSocio().getIdSocio().equals(idSocio) &&
+                        !ins.getFechaInscripcion().isBefore(fechaInicio) && !ins.getFechaInscripcion().isAfter(fechaFin))
+                .collect(Collectors.toList());
     }
 
     public List<Socio> obtenerSocios() {
-        return socios; // Devuelve la lista de socios
+        return socioDAO.findAll();
     }
+
+
 }
