@@ -184,7 +184,7 @@ public class Main {
                     vistaInscripciones.mostrarMensaje("Opción no válida.");
             }
         }
-
+        /*
         //DAO
         ExcursionDAO excursionDAO = new ExcursionDAOImpl();
 
@@ -205,5 +205,8 @@ public class Main {
 
         //Eliminar excursión
         excursionDAO.delete("EXC-001");
+
+
+         */
     }
 }
