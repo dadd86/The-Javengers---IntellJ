@@ -1,17 +1,12 @@
-package org.thejavengers.DAO;
+package org.thejavengers.dao;
 
-import org.thejavengers.modelo.Socio;
-import org.thejavengers.modelo.TipoSeguro;
-import java.util.List;
+import org.thejavengers.modelo.Excursion;
+import java.util.*;
 
-public interface SocioDAO {
+public interface ExcursionDAO {
     void save(Socio socio);
     Socio findById(String id);
     List<Socio> findAll();
     void update(Socio socio);
     void delete(String id);
-
-    // Métodos adicionales
-    float obtenerFacturaMensual(String idSocio);
-    void modificarSeguro(String idSocio, TipoSeguro nuevoSeguro);
 }
