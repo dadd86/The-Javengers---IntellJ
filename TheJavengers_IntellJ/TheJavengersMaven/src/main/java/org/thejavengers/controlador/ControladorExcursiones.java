@@ -33,7 +33,7 @@ public class ControladorExcursiones {
     }
 
     /**
-     * Método para agregar una nueva excursión al sistema.
+     * Metodo para agregar una nueva excursión al sistema.
      * Solicita los datos de la excursión a la vista y los registra en el sistema.
      * Valida los datos de entrada y maneja las excepciones que puedan surgir, como
      * que la excursión ya exista.
@@ -97,7 +97,7 @@ public class ControladorExcursiones {
     }
 
     /**
-     * Método para filtrar y mostrar las excursiones que ocurren dentro de un rango de fechas.
+     * Metodo para filtrar y mostrar las excursiones que ocurren dentro de un rango de fechas.
      * Solicita al usuario las fechas de inicio y fin, valida las entradas, y muestra las excursiones
      * que ocurren en ese rango de fechas. Si no hay excursiones, muestra un mensaje informativo.
      */
