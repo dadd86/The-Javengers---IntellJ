@@ -1,4 +1,4 @@
-package test.java.org.thejavengers; // Ajustado al paquete correcto
+package org.thejavengers; // Ajustado al paquete correcto
 
 import static org.junit.jupiter.api.Assertions.*;
 
