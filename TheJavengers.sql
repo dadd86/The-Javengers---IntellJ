@@ -1,152 +1,168 @@
--- Crear tabla 'Excursiones' para almacenar información de las excursiones del centro excursionista.
--- Comentarios adicionales:
--- 1. Se usa VARCHAR(10) para 'codigo_excursion' para permitir códigos alfanuméricos cortos. Si los códigos reales son más largos, ajustar el tamaño.
--- 2. El campo 'descripcion' es obligatorio y usa el tipo TEXT porque la descripción de la excursión puede ser extensa.
--- 3. Se aplican restricciones CHECK para garantizar que los datos ingresados sean válidos:
---    - La fecha de la excursión debe ser igual o posterior a la fecha actual.
---    - El número de días debe ser mayor que cero.
---    - El precio de la inscripción debe ser positivo o cero.
--- 4. Se agrega un índice UNIQUE para evitar excursiones duplicadas con la misma descripción y fecha.
--- 5. Estas restricciones aseguran la integridad de los datos y evitan inconsistencias o entradas inválidas en la base de datos.
+-- MySQL dump 10.13  Distrib 8.0.36, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: thejavengers
+-- ------------------------------------------------------
+-- Server version	8.3.0
 
--- Crear tabla 'Excursiones' sin la restricción CHECK de la fecha
-DROP TABLE IF EXISTS Excursiones;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-CREATE TABLE Excursiones (
-    codigo_excursion VARCHAR(10) PRIMARY KEY, -- Código único alfanumérico que identifica cada excursión
-    descripcion TEXT NOT NULL, -- Descripción detallada de la excursión (campo obligatorio)
-    fecha DATE NOT NULL, -- Fecha de la excursión
-    numero_dias INT NOT NULL CHECK (numero_dias > 0), -- Número de días de la excursión, debe ser mayor que cero
-    precio_inscripcion DECIMAL(10, 2) NOT NULL CHECK (precio_inscripcion >= 0), -- Precio de inscripción, no puede ser negativo
-    UNIQUE (descripcion(255), fecha), -- Restricción única para evitar duplicados en la combinación de los primeros 255 caracteres de la descripción y la fecha
-    CONSTRAINT CHK_precio_pos CHECK (precio_inscripcion >= 0) -- Asegura que el precio no sea negativo
-);
+--
+-- Table structure for table `excursiones`
+--
 
--- Crear TRIGGER para validar que la fecha de la excursión no sea en el pasado
--- Cambiar el delimitador para crear el disparador
-DELIMITER $$
-CREATE TRIGGER before_insert_excursion
-BEFORE INSERT ON Excursiones
-FOR EACH ROW
-BEGIN
-    IF NEW.fecha < CURDATE() THEN
-        SIGNAL SQLSTATE '45000' 
-        SET MESSAGE_TEXT = 'La fecha de la excursión no puede ser en el pasado.';
-    END IF;
-END$$
+DROP TABLE IF EXISTS `excursiones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `excursiones` (
+  `codigo_excursion` varchar(10) NOT NULL,
+  `descripcion` text NOT NULL,
+  `fecha` date NOT NULL,
+  `numero_dias` int NOT NULL,
+  `precio_inscripcion` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`codigo_excursion`),
+  UNIQUE KEY `descripcion` (`descripcion`(255),`fecha`),
+  CONSTRAINT `CHK_precio_pos` CHECK ((`precio_inscripcion` >= 0)),
+  CONSTRAINT `excursiones_chk_1` CHECK ((`numero_dias` > 0)),
+  CONSTRAINT `excursiones_chk_2` CHECK ((`precio_inscripcion` >= 0))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Crear TRIGGER para las actualizaciones
-CREATE TRIGGER before_update_excursion
-BEFORE UPDATE ON Excursiones
-FOR EACH ROW
-BEGIN
-    IF NEW.fecha < CURDATE() THEN
-        SIGNAL SQLSTATE '45000' 
-        SET MESSAGE_TEXT = 'La fecha de la excursión no puede ser en el pasado.';
-    END IF;
-END$$
--- Restaurar el delimitador original
-DELIMITER ;
+--
+-- Dumping data for table `excursiones`
+--
 
--- Crear tabla 'Federaciones' para almacenar los códigos y nombres de las federaciones de los socios federados.
--- Comentarios adicionales:
--- 1. 'codigo_federacion' es la clave primaria y se asegura que sea único para cada federación. Se utiliza VARCHAR(10) para códigos alfanuméricos. Si los códigos reales fueran más largos, este tamaño se puede ajustar.
--- 2. 'nombre' es un campo obligatorio y almacena el nombre de la federación. Se establece un límite de 100 caracteres para mantener la flexibilidad.
--- 3. Se añade una restricción CHECK para asegurar que 'codigo_federacion' no esté vacío. Esto previene que se inserten registros con un código vacío, asegurando que siempre haya un identificador válido.
--- 4. En esta tabla no se utiliza AUTO_INCREMENT porque los códigos de las federaciones no se generan automáticamente. Se espera que los códigos se proporcionen manualmente y sean únicos.
--- 5. En el caso de que el nombre de la federación deba ser único, se podría agregar un índice único adicional en el campo 'nombre'. Sin embargo, en esta implementación se permite que varias federaciones puedan tener nombres similares, si fuese necesario.
--- 6. Esta tabla es pequeña y simple, lo que facilita su mantenimiento y asegura una integridad básica de los datos sin una sobrecarga innecesaria de validaciones adicionales.
-DROP TABLE IF EXISTS Federaciones;
-CREATE TABLE Federaciones (
-    codigo_federacion VARCHAR(10) PRIMARY KEY, -- Código único alfanumérico para identificar cada federación
-    nombre VARCHAR(100) NOT NULL -- Nombre de la federación (campo obligatorio)
-);
--- Crear tabla 'Socios' para almacenar la información de los socios del centro excursionista.
--- Comentarios adicionales:
--- 1. Se usa AUTO_INCREMENT para 'numero_socio', permitiendo que MySQL genere automáticamente un identificador único para cada socio.
--- 2. El campo 'nombre' es obligatorio, por lo que debe tener al menos un valor no nulo.
--- 3. El campo 'nif' es opcional (puede ser NULL), ya que no es obligatorio para socios infantiles.
--- 4. El campo 'tipo_socio' es obligatorio y define el tipo de socio, lo que permite gestionar las características y restricciones de cada tipo.
--- 5. 'seguro_contratado' solo es obligatorio para los socios estándar. Para los federados y los infantiles, este campo puede ser NULL.
--- 6. 'numero_padre_o_madre' solo aplica a los socios infantiles, y establece una relación jerárquica con otro socio (su padre o madre).
--- 7. 'federacion_codigo' solo aplica a socios federados. Se relaciona con la tabla 'Federaciones'.
--- 8. Las claves foráneas están configuradas con 'ON DELETE SET NULL' para evitar la eliminación de registros dependientes y evitar conflictos de integridad.
--- 9. 'cuota_mensual' está predefinida en 10€, pero se puede ajustar en función de las reglas de negocio. Se utiliza DECIMAL para asegurar la precisión en las cantidades monetarias.
--- 10. Las restricciones ON DELETE y ON UPDATE aseguran que si los registros relacionados son eliminados o modificados, los datos en esta tabla se actualizan o ponen en NULL automáticamente para mantener la integridad.
-DROP TABLE IF EXISTS Socios;
-CREATE TABLE Socios (
-    numero_socio INT AUTO_INCREMENT PRIMARY KEY, -- Identificador único de cada socio, generado automáticamente
-    nombre VARCHAR(100) NOT NULL, -- Nombre del socio, campo obligatorio
-    nif VARCHAR(15) DEFAULT NULL, -- Número de identificación fiscal (NIF), puede no estar presente para los socios infantiles
-    tipo_socio ENUM('estandar', 'federado', 'infantil') NOT NULL, -- Tipo de socio: estándar, federado o infantil (campo obligatorio)
-    seguro_contratado ENUM('basico', 'completo') DEFAULT NULL, -- Seguro contratado para los socios estándar, no aplicable a los federados o infantiles
-    numero_padre_o_madre INT DEFAULT NULL, -- Número de socio del padre o madre, solo para los socios infantiles
-    federacion_codigo VARCHAR(10) DEFAULT NULL, -- Código de la federación, aplicable solo a socios federados
-    cuota_mensual DECIMAL(10, 2) NOT NULL DEFAULT 10.00, -- Cuota mensual del socio, 10€ por defecto con posibles descuentos aplicables
-    FOREIGN KEY (numero_padre_o_madre) REFERENCES Socios(numero_socio)
-        ON DELETE SET NULL ON UPDATE CASCADE, -- Si el padre o madre es eliminado, este valor se pone a NULL
-    FOREIGN KEY (federacion_codigo) REFERENCES Federaciones(codigo_federacion)
-        ON DELETE SET NULL ON UPDATE CASCADE -- Si la federación es eliminada, este valor se pone a NULL
-);
--- Crear tabla 'Inscripciones' para almacenar las inscripciones de los socios en las excursiones.
--- Comentarios adicionales:
--- 1. 'numero_inscripcion' es la clave primaria y se genera automáticamente mediante AUTO_INCREMENT, lo que garantiza que cada inscripción tenga un identificador único.
--- 2. 'numero_socio' y 'codigo_excursion' son campos obligatorios, asegurando que cada inscripción esté relacionada con un socio y una excursión.
--- 3. Se añade una restricción CHECK para asegurar que 'fecha_inscripcion' no sea en el pasado, garantizando que solo se registren inscripciones válidas en el sistema.
--- 4. Las claves foráneas 'numero_socio' y 'codigo_excursion' están enlazadas a las tablas 'Socios' y 'Excursiones', respectivamente. Se utilizan ON DELETE CASCADE y ON UPDATE CASCADE para mantener la integridad referencial:
-   -- Si se elimina un socio o una excursión, sus inscripciones correspondientes se eliminan automáticamente (ON DELETE CASCADE).
-   -- Si se actualizan los datos de un socio o una excursión, las inscripciones asociadas se actualizan automáticamente (ON UPDATE CASCADE).
--- 5. 'fecha_inscripcion' tiene como valor predeterminado la fecha actual (CURRENT_DATE), lo que permite registrar inscripciones automáticamente con la fecha del día en que se insertan, si no se especifica otra.
--- 6. En caso de que quieras evitar múltiples inscripciones del mismo socio a la misma excursión, puedes agregar un índice único compuesto entre 'numero_socio' y 'codigo_excursion':
-    -- `UNIQUE (numero_socio, codigo_excursion)` evita que el mismo socio se inscriba más de una vez a la misma excursión.
-DROP TABLE IF EXISTS Inscripciones;
-CREATE TABLE Inscripciones (
-    numero_inscripcion INT AUTO_INCREMENT PRIMARY KEY, -- Identificador único de cada inscripción, generado automáticamente
-    numero_socio INT NOT NULL, -- Número de socio que se inscribe en la excursión (obligatorio)
-    codigo_excursion VARCHAR(10) NOT NULL, -- Código de la excursión a la que se inscribe el socio (obligatorio)
-    fecha_inscripcion DATE NOT NULL, -- Fecha de inscripción, obligatoria
-    FOREIGN KEY (numero_socio) REFERENCES Socios(numero_socio) 
-        ON DELETE CASCADE ON UPDATE CASCADE, -- Si se elimina un socio, se eliminan sus inscripciones
-    FOREIGN KEY (codigo_excursion) REFERENCES Excursiones(codigo_excursion)
-        ON DELETE CASCADE ON UPDATE CASCADE -- Si se elimina una excursión, se eliminan las inscripciones asociadas
-);
+LOCK TABLES `excursiones` WRITE;
+/*!40000 ALTER TABLE `excursiones` DISABLE KEYS */;
+/*!40000 ALTER TABLE `excursiones` ENABLE KEYS */;
+UNLOCK TABLES;
 
+--
+-- Table structure for table `federaciones`
+--
 
--- Usa este TRIGGER para asegurar que la fecha de inscripción no sea anterior a la fecha actual:
-DELIMITER $$
-CREATE TRIGGER before_insert_inscripcion
-BEFORE INSERT ON Inscripciones
-FOR EACH ROW
-BEGIN
-    IF NEW.fecha_inscripcion < CURDATE() THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'La fecha de inscripción no puede ser en el pasado.';
-    END IF;
-END$$
-DELIMITER ;
+DROP TABLE IF EXISTS `federaciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `federaciones` (
+  `codigo_federacion` varchar(10) NOT NULL,
+  `nombre` varchar(100) NOT NULL,
+  PRIMARY KEY (`codigo_federacion`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
+--
+-- Dumping data for table `federaciones`
+--
 
--- Si también quieres asegurarte de que las actualizaciones no permitan fechas de inscripción en el pasado, usa este TRIGGER:
-DELIMITER $$
-CREATE TRIGGER before_update_inscripcion
-BEFORE UPDATE ON Inscripciones
-FOR EACH ROW
-BEGIN
-    IF NEW.fecha_inscripcion < CURDATE() THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'La fecha de inscripción no puede ser en el pasado.';
-    END IF;
-END$$
-DELIMITER ;
+LOCK TABLES `federaciones` WRITE;
+/*!40000 ALTER TABLE `federaciones` DISABLE KEYS */;
+/*!40000 ALTER TABLE `federaciones` ENABLE KEYS */;
+UNLOCK TABLES;
 
--- Crear tabla 'Seguros' para almacenar los tipos de seguros disponibles y sus precios.
--- Comentarios adicionales:
--- 1. 'tipo_seguro' se define como ENUM con los valores 'basico' y 'completo', asegurando que solo se puedan usar estos dos valores. Además, se establece como PRIMARY KEY porque cada tipo de seguro es único.
--- 2. Se utiliza DECIMAL(10, 2) para 'precio' para asegurar precisión en las cantidades monetarias (hasta dos decimales) y que no haya errores en la gestión de precios.
--- 3. Se agrega una restricción CHECK en 'precio' para asegurar que el valor siempre sea positivo o cero, evitando errores de datos.
--- 4. Esta tabla es pequeña y sencilla, por lo que no se requiere AUTO_INCREMENT u otras optimizaciones más avanzadas, pero se han añadido medidas para garantizar la integridad de los datos.
-DROP TABLE IF EXISTS Seguros;
-CREATE TABLE Seguros (
-    tipo_seguro ENUM('basico', 'completo') PRIMARY KEY, -- Tipo de seguro: básico o completo (valores fijos)
-    precio DECIMAL(10, 2) NOT NULL CHECK (precio >= 0) -- Precio del seguro, no puede ser negativo
-);
+--
+-- Table structure for table `inscripciones`
+--
+
+DROP TABLE IF EXISTS `inscripciones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `inscripciones` (
+  `numero_inscripcion` int NOT NULL AUTO_INCREMENT,
+  `numero_socio` int NOT NULL,
+  `codigo_excursion` varchar(10) NOT NULL,
+  `fecha_inscripcion` date NOT NULL,
+  PRIMARY KEY (`numero_inscripcion`),
+  KEY `numero_socio` (`numero_socio`),
+  KEY `codigo_excursion` (`codigo_excursion`),
+  CONSTRAINT `inscripciones_ibfk_1` FOREIGN KEY (`numero_socio`) REFERENCES `socios` (`numero_socio`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `inscripciones_ibfk_2` FOREIGN KEY (`codigo_excursion`) REFERENCES `excursiones` (`codigo_excursion`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `inscripciones`
+--
+
+LOCK TABLES `inscripciones` WRITE;
+/*!40000 ALTER TABLE `inscripciones` DISABLE KEYS */;
+/*!40000 ALTER TABLE `inscripciones` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `seguros`
+--
+
+DROP TABLE IF EXISTS `seguros`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `seguros` (
+  `tipo_seguro` enum('basico','completo') NOT NULL,
+  `precio` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`tipo_seguro`),
+  CONSTRAINT `seguros_chk_1` CHECK ((`precio` >= 0))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `seguros`
+--
+
+LOCK TABLES `seguros` WRITE;
+/*!40000 ALTER TABLE `seguros` DISABLE KEYS */;
+/*!40000 ALTER TABLE `seguros` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `socios`
+--
+
+DROP TABLE IF EXISTS `socios`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `socios` (
+  `numero_socio` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(100) NOT NULL,
+  `nif` varchar(15) DEFAULT NULL,
+  `tipo_socio` enum('estandar','federado','infantil') NOT NULL,
+  `seguro` varchar(255) DEFAULT NULL,
+  `tutor` int DEFAULT NULL,
+  `federacion` varchar(10) DEFAULT NULL,
+  `cuota_mensual` decimal(10,2) NOT NULL DEFAULT '10.00',
+  `apellidos` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`numero_socio`),
+  KEY `socios_ibfk_2` (`federacion`),
+  KEY `socios_ibfk_1` (`tutor`),
+  CONSTRAINT `socios_ibfk_1` FOREIGN KEY (`tutor`) REFERENCES `socios` (`numero_socio`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `socios_ibfk_2` FOREIGN KEY (`federacion`) REFERENCES `federaciones` (`codigo_federacion`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `socios`
+--
+
+LOCK TABLES `socios` WRITE;
+/*!40000 ALTER TABLE `socios` DISABLE KEYS */;
+INSERT INTO `socios` VALUES (2,'DIEGO','asfasfsf','estandar','COMPLETO',NULL,NULL,10.00,'DIEGO'),(4,'Marina','102','estandar','COMPLETO',NULL,NULL,10.00,'MArina'),(5,'ramon','1230','estandar','BASICO',NULL,NULL,10.00,'ramirez');
+/*!40000 ALTER TABLE `socios` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2024-11-03 19:23:05
