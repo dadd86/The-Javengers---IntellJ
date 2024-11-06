@@ -121,7 +121,7 @@ public class Inscripcion {
     }
 
 
-    // Método toString
+    // Metodo toString
 
     /**
      * Proporciona una representación en forma de cadena de caracteres del objeto Inscripcion.
@@ -138,7 +138,7 @@ public class Inscripcion {
                 '}';
     }
 
-    // Método equals y hashCode
+    // Metodo equals y hashCode
 
     /**
      * Compara este objeto con otro objeto para verificar si son iguales.

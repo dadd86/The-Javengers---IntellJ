@@ -1,15 +1,16 @@
 package org.thejavengers.modelo;
+
 /**
  * Clase que representa una federación.
  * Contiene el código y el nombre de la federación.
  */
 public class Federacion {
-    //Atributos
+    // Atributos
 
-    private String codigo;
+    private int codigo;
     private String nombre;
 
-    //Constructor
+    // Constructor
 
     /**
      * Constructor para inicializar una federación.
@@ -18,26 +19,23 @@ public class Federacion {
      * @param nombre El nombre de la federación.
      * @throws IllegalArgumentException si el código o el nombre son nulos o vacíos.
      */
-    public Federacion(String codigo, String nombre) {
-        if (codigo == null || nombre == null) {
-            throw new IllegalArgumentException("El código y el nombre no pueden ser nulos o vacíos");
+    public Federacion(int codigo, String nombre) {
+        if (nombre == null || nombre.trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
         }
-        //if (nombre == null || nombre.trim().isEmpty()) {
-          //  throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
-        //}
 
         this.codigo = codigo;
         this.nombre = nombre;
     }
 
-    //Getters
+    // Getters
 
     /**
      * Obtiene el código de la federación.
      *
      * @return El código de la federación.
      */
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
@@ -58,9 +56,9 @@ public class Federacion {
      * @param codigo El nuevo código de la federación. No puede ser nulo o vacío.
      * @throws IllegalArgumentException si el código es nulo o vacío.
      */
-    public void setCodigo(String codigo) {
-        if (codigo == null || codigo.trim().isEmpty()) {
-            throw new IllegalArgumentException("El código no puede ser nulo o vacío");
+    public void setCodigo(int codigo) {
+        if (codigo <= 0) {  // Validación del código
+            throw new IllegalArgumentException("El código debe ser mayor que cero");
         }
         this.codigo = codigo;
     }
@@ -78,12 +76,12 @@ public class Federacion {
         this.nombre = nombre;
     }
 
-    //Metodo ToString
+    // Método ToString
 
     @Override
     public String toString() {
         return "Federacion{" +
-                "codigo='" + codigo + '\'' +
+                "codigo=" + codigo +
                 ", nombre='" + nombre + '\'' +
                 '}';
     }

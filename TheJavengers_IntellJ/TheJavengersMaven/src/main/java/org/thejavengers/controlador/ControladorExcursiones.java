@@ -40,12 +40,18 @@ public class ControladorExcursiones {
      */
     public void agregarExcursion() {
         // Pedir datos de la excursión
-        String idExcursion = vistaExcursiones.pedirTexto("Introduce ID de la excursión:");
-        if (idExcursion == null || idExcursion.trim().isEmpty()) {
-            vistaExcursiones.mostrarMensaje("El ID de la excursión no puede estar vacío.");
+        String idExcursionStr = vistaExcursiones.pedirTexto("Introduce ID de la excursión:");
+        int idExcursion;
+
+        // Validar que el ID de la excursión es un número válido
+        try {
+            idExcursion = Integer.parseInt(idExcursionStr);
+        } catch (NumberFormatException e) {
+            vistaExcursiones.mostrarMensaje("El ID de la excursión debe ser un número válido.");
             return;
         }
 
+        // Validar la descripción
         String descripcion = vistaExcursiones.pedirTexto("Introduce descripción:");
         if (descripcion == null || descripcion.trim().isEmpty()) {
             vistaExcursiones.mostrarMensaje("La descripción no puede estar vacía.");
@@ -61,7 +67,7 @@ public class ControladorExcursiones {
             return;
         }
 
-        // Validar el número de días y el precio
+        // Validar el número de días
         int numeroDias;
         try {
             numeroDias = Integer.parseInt(vistaExcursiones.pedirTexto("Introduce el número de días:"));
@@ -74,6 +80,7 @@ public class ControladorExcursiones {
             return;
         }
 
+        // Validar el precio
         float precio;
         try {
             precio = Float.parseFloat(vistaExcursiones.pedirTexto("Introduce el precio:"));
@@ -95,6 +102,7 @@ public class ControladorExcursiones {
             vistaExcursiones.mostrarMensaje(e.getMessage());
         }
     }
+
 
     /**
      * Metodo para filtrar y mostrar las excursiones que ocurren dentro de un rango de fechas.
@@ -120,26 +128,37 @@ public class ControladorExcursiones {
     }
 
     /**
-     * Método para mostrar los socios inscritos en una excursión específica.
+     * Metodo para mostrar los socios inscritos en una excursión específica.
      * Solicita el ID de la excursión al usuario y muestra los datos de los socios inscritos.
      * Si no hay socios inscritos o si ocurre un error, se muestra un mensaje apropiado.
      */
     public void mostrarSociosInscritos() {
         try {
-            String idExcursion = vistaExcursiones.pedirTexto("Introduce el ID de la excursión:");
-            if (idExcursion == null || idExcursion.trim().isEmpty()) {
-                vistaExcursiones.mostrarMensaje("El ID de la excursión no puede estar vacío.");
+            // Pedir el ID de la excursión
+            String idExcursionStr = vistaExcursiones.pedirTexto("Introduce el ID de la excursión:");
+            int idExcursion;
+
+            // Validar que el ID de la excursión es un número válido
+            try {
+                idExcursion = Integer.parseInt(idExcursionStr);  // Convertir el texto a un int
+            } catch (NumberFormatException e) {
+                vistaExcursiones.mostrarMensaje("El ID de la excursión debe ser un número válido.");
                 return;
             }
 
+            // Obtener la lista de socios inscritos en la excursión
             var sociosInscritos = sistema.listarSociosEnExcursion(idExcursion);
+
+            // Verificar si hay socios inscritos
             if (sociosInscritos.isEmpty()) {
                 vistaExcursiones.mostrarMensaje("No hay socios inscritos en la excursión.");
             } else {
+                // Mostrar los socios inscritos
                 sociosInscritos.forEach(socio -> vistaExcursiones.mostrarMensaje(socio.toString()));
             }
         } catch (Exception e) {
             vistaExcursiones.mostrarMensaje("Error al mostrar los socios inscritos: " + e.getMessage());
         }
     }
+
 }

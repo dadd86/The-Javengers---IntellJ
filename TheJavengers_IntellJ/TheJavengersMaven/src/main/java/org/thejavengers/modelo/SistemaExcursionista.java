@@ -61,7 +61,7 @@ public class SistemaExcursionista {
      * @return La federación encontrada.
      * @throws FederacionNoEncontradaException Si no se encuentra ninguna federación con el código proporcionado.
      */
-    public Federacion buscarFederacion(String codigo) throws FederacionNoEncontradaException {
+    public Federacion buscarFederacion(int codigo) throws FederacionNoEncontradaException {
         Federacion federacion = federacionDAO.findByCodigo(codigo);
         if (federacion == null) throw new FederacionNoEncontradaException("Federación no encontrada");
         return federacion;
@@ -86,7 +86,7 @@ public class SistemaExcursionista {
      * @throws SocioNoEncontradoException Si no se encuentra ningún socio con el ID proporcionado.
      */
     public Socio buscarSocio(String idSocio) throws SocioNoEncontradoException {
-        Socio socio = socioDAO.findById(idSocio);
+        Socio socio = socioDAO.findById(Integer.parseInt(idSocio));
         if (socio == null) throw new SocioNoEncontradoException("Socio no encontrado");
         return socio;
     }
@@ -150,12 +150,13 @@ public class SistemaExcursionista {
      * @return Una lista de socios inscritos en la excursión.
      * @throws ExcursionNoEncontradaException Si no se encuentra la excursión.
      */
-    public List<Socio> listarSociosEnExcursion(String idExcursion) throws ExcursionNoEncontradaException {
+    public List<Socio> listarSociosEnExcursion(int idExcursion) throws ExcursionNoEncontradaException {
         return inscripcionDAO.findAll().stream()
-                .filter(ins -> ins.getExcursion().getIdExcursion().equals(idExcursion))
+                .filter(ins -> ins.getExcursion().getIdExcursion() == idExcursion)
                 .map(Inscripcion::getSocio)
                 .collect(Collectors.toList());
     }
+
 
     // Métodos adicionales
 
@@ -181,7 +182,7 @@ public class SistemaExcursionista {
      * @throws SocioConHijosException               Si el socio es tutor de un socio infantil.
      */
     public void eliminarSocio(String idSocio) throws SocioNoEncontradoException {
-        socioDAO.delete(idSocio);
+        socioDAO.delete(Integer.parseInt(idSocio));
     }
 
     /**
@@ -192,7 +193,7 @@ public class SistemaExcursionista {
      */
     // Métodos adicionales
     public float mostrarFacturaMensual(String idSocio) {
-        return socioDAO.obtenerFacturaMensual(idSocio);
+        return socioDAO.obtenerFacturaMensual(Integer.parseInt(idSocio));
     }
 
     /**
@@ -203,7 +204,7 @@ public class SistemaExcursionista {
      * @throws SocioNoEncontradoException Si no se encuentra el socio.
      * @throws TipoSocioNoValidoException Si el socio no es de tipo estándar.
      */
-    public void modificarSeguroSocioEstandar(String idSocio, TipoSeguro nuevoSeguro) throws SocioNoEncontradoException, TipoSocioNoValidoException {
+    public void modificarSeguroSocioEstandar(int idSocio, TipoSeguro nuevoSeguro) throws SocioNoEncontradoException, TipoSocioNoValidoException {
         socioDAO.modificarSeguro(idSocio, nuevoSeguro);
     }
 
@@ -215,12 +216,14 @@ public class SistemaExcursionista {
      * @param fechaFin    La fecha de fin del filtro (puede ser nula).
      * @return Una lista de inscripciones que coinciden con los filtros.
      */
-    public List<Inscripcion> mostrarInscripcionesFiltradas(String idSocio, LocalDate fechaInicio, LocalDate fechaFin) {
+    public List<Inscripcion> mostrarInscripcionesFiltradas(int idSocio, LocalDate fechaInicio, LocalDate fechaFin) {
         return inscripcionDAO.findAll().stream()
-                .filter(ins -> ins.getSocio().getIdSocio().equals(idSocio) &&
-                        !ins.getFechaInscripcion().isBefore(fechaInicio) && !ins.getFechaInscripcion().isAfter(fechaFin))
+                .filter(ins -> ins.getSocio().getIdSocio() == idSocio &&  // Compara como int
+                        !ins.getFechaInscripcion().isBefore(fechaInicio) &&
+                        !ins.getFechaInscripcion().isAfter(fechaFin))
                 .collect(Collectors.toList());
     }
+
 
     public List<Socio> obtenerSocios() {
         return socioDAO.findAll();
