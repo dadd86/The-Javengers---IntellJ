@@ -39,7 +39,7 @@ class GestionSociosTest {
   @Test
   void agregarSocioEstandar() throws SocioYaExisteException {
     // Simulación de entrada del usuario para agregar un socio estándar
-    String idSocio = "S001";
+    int idSocio = 1;
     String nombre = "Juan";
     String apellidos = "Pérez González";
     String nif = "12345678A";
@@ -63,17 +63,17 @@ class GestionSociosTest {
   @Test
   void agregarSocioInfantil() throws SocioYaExisteException {
     // Simulación de la creación de un socio infantil
-    String idSocioTutor = "T001";
+    int idSocioTutor = 1;
     SocioEstandar socioTutor = new SocioEstandar(idSocioTutor, "Carlos", "Gómez Blanco", "23456789B", TipoSeguro.BASICO);
     sistema.registrarSocio(socioTutor);// Registrar el socio tutor
 
     // Creamos un socio infantil asociado al tutor y lo agregamos al sistema
-    String idSocioInfantil = "I001";
+    int idSocioInfantil = 2;
     String nombreInfantil = "Pedro";
     String apellidosInfantil = "Gómez García";
     float descuentoCuota = 0.05f; // 50% descuento
 
-    SocioInfantil socioInfantil = new SocioInfantil(idSocioInfantil, nombreInfantil, apellidosInfantil, idSocioTutor, descuentoCuota);
+    SocioInfantil socioInfantil = new SocioInfantil(idSocioInfantil, nombreInfantil, apellidosInfantil, idSocioTutor);
     sistema.registrarSocio(socioInfantil);
 
     // Comprobamos que el socio infantil se haya agregado correctamente
@@ -83,7 +83,7 @@ class GestionSociosTest {
     assertEquals(idSocioTutor, socioInfantil.getIdSocioTutor(), "El ID del tutor coincide con el del socio estándar asociado");
 
     // Comprobamos que el descuento aplicado sea correcto
-    assertEquals(descuentoCuota, socioInfantil.getDescuentoCuota(), "El descuento en la cuota es del 50%");
+    assertEquals(descuentoCuota, socioInfantil.calcularCuotaMensual(), "El descuento en la cuota es del 50%");
   }
   /**
    * Prueba que se pueda agregar correctamente un socio federado al sistema.
@@ -96,7 +96,7 @@ class GestionSociosTest {
   @Test
   void agregarSocioFederado() throws SocioYaExisteException {
     // Simulación de la creación de un socio federado
-    String idSocio = "F001";
+    int idSocio = 2;
     String nombre = "Luis";
     String apellidos = "Martínez Delgado";
     String nif = "87654321C";
@@ -125,7 +125,7 @@ class GestionSociosTest {
   @Test
   void cuotaSocioFederado() throws SocioYaExisteException {
     // Creamos un socio federado
-    SocioFederado socioFederado = new SocioFederado("F001", "Luis", "Martínez Delgado", "87654321C", sistema.obtenerFederaciones().get(0));
+    SocioFederado socioFederado = new SocioFederado(2, "Luis", "Martínez Delgado", "87654321C", sistema.obtenerFederaciones().get(0));
     sistema.registrarSocio(socioFederado);
 
     // Comprobamos que la cuota mensual calculada para el socio federado es correcta
@@ -144,11 +144,11 @@ class GestionSociosTest {
   @Test
   void precioExcursionFederado() throws SocioYaExisteException, ExcursionYaExisteException {
     // Creamos una excursión válida
-    Excursion excursion = new Excursion("EXC001", "Primera excursión a la montaña de noviembre", LocalDate.of(2024, 11, 1), 3, 200.0f);
+    Excursion excursion = new Excursion(1, "Primera excursión a la montaña de noviembre", LocalDate.of(2024, 11, 1), 3, 200.0f);
     sistema.registrarExcursion(excursion);
 
     // Creamos un socio federado
-    SocioFederado socioFederado = new SocioFederado("F001", "Luis", "Martínez Delgado", "87654321C", sistema.obtenerFederaciones().get(0));
+    SocioFederado socioFederado = new SocioFederado(1, "Luis", "Martínez Delgado", "87654321C", sistema.obtenerFederaciones().get(0));
     sistema.registrarSocio(socioFederado);// Registrar el socio federado
 
     // Calculamos el precio de la excursión con el descuento del 10% aplicado
@@ -172,7 +172,7 @@ class GestionSociosTest {
   @Test
   void testAgregarSocioEstandarYaExistente() {
     // Simular entrada de datos
-    String idSocio = "S001";
+    int idSocio = 1;
     String nombre = "Juan";
     String apellidos = "Pérez";
     String nif = "12345678Z";

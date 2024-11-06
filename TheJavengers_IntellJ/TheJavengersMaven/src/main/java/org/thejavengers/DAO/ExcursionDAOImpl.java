@@ -19,7 +19,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
         String sql = "INSERT INTO excursiones (idExcursion, descripcion, fechaExcursion, numero_dias, precio) VALUES (?,?, ?, ?, ?)";
         try (Connection conn = getConnection();
             PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, excursion.getIdExcursion());
+            statement.setInt(1, excursion.getIdExcursion());
             statement.setString(2, excursion.getDescripcion());
             statement.setDate(3, Date.valueOf(excursion.getFechaExcursion()));
             statement.setInt(4, excursion.getNumero_dias());
@@ -38,7 +38,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return new Excursion (
-                        resultSet.getString("idExcursion"),
+                        resultSet.getInt("idExcursion"),
                         resultSet.getString("descripcion"),
                         resultSet.getDate("fechaExcursion").toLocalDate(),
                         resultSet.getInt("numero_dias"),
@@ -59,7 +59,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
             ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
                 excursiones.add(new Excursion(
-                        resultSet.getString("idExcursion"),
+                        resultSet.getInt("idExcursion"),
                         resultSet.getString("descripcion"),
                         resultSet.getDate("fechaExcursion").toLocalDate(),
                         resultSet.getInt("numero_dias"),
@@ -80,7 +80,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
             statement.setDate(2, Date.valueOf(excursion.getFechaExcursion()));
             statement.setInt(3, excursion.getNumero_dias());
             statement.setFloat(4, excursion.getPrecio());
-            statement.setString(5, excursion.getIdExcursion());
+            statement.setInt(5, excursion.getIdExcursion());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

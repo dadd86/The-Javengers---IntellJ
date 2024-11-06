@@ -33,14 +33,14 @@ public class SocioDAOImpl implements SocioDAO {
                 statement.setString(3, "federado");
                 statement.setString(4, ((SocioFederado) socio).getNif());
                 statement.setNull(5, Types.VARCHAR);
-                statement.setString(6, ((SocioFederado) socio).getFederacion().getCodigo());
+                statement.setInt(6, ((SocioFederado) socio).getFederacion().getCodigo());
                 statement.setNull(7, Types.VARCHAR);
             } else if (socio instanceof SocioInfantil) {
                 statement.setString(3, "infantil");
                 statement.setNull(4, Types.VARCHAR);
                 statement.setNull(5, Types.VARCHAR);
                 statement.setNull(6, Types.VARCHAR);
-                statement.setString(7, ((SocioInfantil) socio).getIdSocioTutor());
+                statement.setInt(7, ((SocioInfantil) socio).getIdSocioTutor());
             }
 
             statement.executeUpdate();
@@ -50,11 +50,11 @@ public class SocioDAOImpl implements SocioDAO {
     }
 
     @Override
-    public Socio findById(String id) {
+    public Socio findById(int id) {
         String sql = "SELECT * FROM Socios WHERE idSocio = ?";
         try (Connection conn = getConnection();
              PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, id);
+            statement.setInt(1, id);
             ResultSet rs = statement.executeQuery();
 
             if (rs.next()) {
@@ -69,12 +69,12 @@ public class SocioDAOImpl implements SocioDAO {
                         return new SocioEstandar(id, nombre, apellidos, nif, seguro);
                     case "federado":
                         nif = rs.getString("nif");
-                        String federacionCodigo = rs.getString("federacion");
+                        int federacionCodigo = Integer.parseInt(rs.getString("federacion"));
                         Federacion federacion = new Federacion(federacionCodigo, "");
                         return new SocioFederado(id, nombre, apellidos, nif, federacion);
                     case "infantil":
-                        String idSocioTutor = rs.getString("tutor");
-                        return new SocioInfantil(id, nombre, apellidos, idSocioTutor, SocioInfantil.CUOTA_MENSUAL);
+                        int idSocioTutor = Integer.parseInt(rs.getString("tutor"));
+                        return new SocioInfantil(id, nombre, apellidos, idSocioTutor);
                 }
             }
         } catch (SQLException e) {
@@ -91,7 +91,7 @@ public class SocioDAOImpl implements SocioDAO {
              Statement statement = conn.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
-                String id = resultSet.getString("idSocio");
+                int id = resultSet.getInt("idSocio");
                 String tipoSocio = resultSet.getString("tipo_socio");
                 String nombre = resultSet.getString("nombre");
                 String apellidos = resultSet.getString("apellidos");
@@ -104,13 +104,13 @@ public class SocioDAOImpl implements SocioDAO {
                         break;
                     case "federado":
                         nif = resultSet.getString("nif");
-                        String federacionCodigo = resultSet.getString("federacion");
+                        int federacionCodigo = Integer.parseInt(resultSet.getString("federacion"));
                         Federacion federacion = new Federacion(federacionCodigo, "");
                         socios.add(new SocioFederado(id, nombre, apellidos, nif, federacion));
                         break;
                     case "infantil":
-                        String idSocioTutor = resultSet.getString("tutor");
-                        socios.add(new SocioInfantil(id, nombre, apellidos, idSocioTutor, SocioInfantil.CUOTA_MENSUAL));
+                        int idSocioTutor = Integer.parseInt(resultSet.getString("tutor"));
+                        socios.add(new SocioInfantil(id, nombre, apellidos, idSocioTutor));
                         break;
                 }
             }
@@ -121,11 +121,11 @@ public class SocioDAOImpl implements SocioDAO {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(int id) {
         String sql = "DELETE FROM Socios WHERE idSocio = ?";
         try (Connection conn = getConnection();
              PreparedStatement statement = conn.prepareStatement(sql)) {
-            statement.setString(1, id);
+            statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -151,17 +151,17 @@ public class SocioDAOImpl implements SocioDAO {
                 statement.setString(3, "federado");
                 statement.setString(4, ((SocioFederado) socio).getNif());
                 statement.setNull(5, Types.VARCHAR);
-                statement.setString(6, ((SocioFederado) socio).getFederacion().getCodigo());
+                statement.setInt(6, ((SocioFederado) socio).getFederacion().getCodigo());
                 statement.setNull(7, Types.VARCHAR);
             } else if (socio instanceof SocioInfantil) {
                 statement.setString(3, "infantil");
                 statement.setNull(4, Types.VARCHAR);
                 statement.setNull(5, Types.VARCHAR);
                 statement.setNull(6, Types.VARCHAR);
-                statement.setString(7, ((SocioInfantil) socio).getIdSocioTutor());
+                statement.setInt(7, ((SocioInfantil) socio).getIdSocioTutor());
             }
 
-            statement.setString(8, socio.getIdSocio());
+            statement.setInt(8, socio.getIdSocio());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -169,7 +169,7 @@ public class SocioDAOImpl implements SocioDAO {
     }
 
     @Override
-    public float obtenerFacturaMensual(String idSocio) {
+    public float obtenerFacturaMensual(int idSocio) {
         Socio socio = findById(idSocio);
         if (socio == null) {
             throw new IllegalArgumentException("Socio no encontrado con ID: " + idSocio);
@@ -181,12 +181,12 @@ public class SocioDAOImpl implements SocioDAO {
 
 
     @Override
-    public void modificarSeguro(String idSocio, TipoSeguro nuevoSeguro) {
+    public void modificarSeguro(int idSocio, TipoSeguro nuevoSeguro) {
         String sql = "UPDATE Socios SET seguro = ? WHERE numero_socio = ? AND tipo_socio = 'estandar'";
         try (Connection conn = getConnection();
              PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, nuevoSeguro.name());
-            statement.setString(2, idSocio);
+            statement.setInt(2, idSocio);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
