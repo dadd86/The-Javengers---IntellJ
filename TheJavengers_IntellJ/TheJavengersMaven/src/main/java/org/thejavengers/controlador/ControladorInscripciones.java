@@ -1,10 +1,12 @@
 package org.thejavengers.controlador;
 
+import org.thejavengers.modelo.Excursion;
 import org.thejavengers.modelo.SistemaExcursionista;
 import org.thejavengers.modelo.Inscripcion;
 import org.thejavengers.Excepciones.SocioNoEncontradoException;
 import org.thejavengers.Excepciones.ExcursionNoEncontradaException;
 import org.thejavengers.Excepciones.InscripcionNoEncontradaException;
+import org.thejavengers.modelo.Socio;
 import org.thejavengers.vista.VistaInscripciones;
 
 import java.time.LocalDate;
@@ -45,33 +47,46 @@ public class ControladorInscripciones {
      */
     public void inscribirSocioEnExcursion() {
         // Solicitar los datos de inscripción al usuario
-        String idSocio = vistaInscripciones.pedirTexto("Introduce el ID del socio:");
-        if (idSocio == null || idSocio.trim().isEmpty()) {
+        String idSocioStr = vistaInscripciones.pedirTexto("Introduce el ID del socio:");
+        if (idSocioStr == null || idSocioStr.trim().isEmpty()) {
             vistaInscripciones.mostrarMensaje("El ID del socio no puede estar vacío.");
             return;
         }
 
-        String idExcursion = vistaInscripciones.pedirTexto("Introduce el ID de la excursión:");
-        if (idExcursion == null || idExcursion.trim().isEmpty()) {
+        String idExcursionStr = vistaInscripciones.pedirTexto("Introduce el ID de la excursión:");
+        if (idExcursionStr == null || idExcursionStr.trim().isEmpty()) {
             vistaInscripciones.mostrarMensaje("El ID de la excursión no puede estar vacío.");
             return;
         }
 
         // Intentar inscribir al socio en la excursión
         try {
-            sistema.inscribirSocioEnExcursion(idSocio, idExcursion);
+            Socio socio = sistema.buscarSocio(idSocioStr);
+            Excursion excursion = sistema.buscarExcursion(idExcursionStr);
+
+            if (socio == null) {
+                throw new SocioNoEncontradoException("Socio no encontrado con el ID: " + idSocioStr);
+            }
+            if (excursion == null) {
+                throw new ExcursionNoEncontradaException("Excursión no encontrada con el ID: " + idExcursionStr);
+            }
+
+            sistema.inscribirSocioEnExcursion(idSocioStr, idExcursionStr);
+
+            // Agregar la inscripción en el controlador
             controladorInscripciones.agregarElemento(
                     new Inscripcion(controladorInscripciones.obtenerElementos().size() + 1,
-                            sistema.buscarSocio(idSocio),
-                            sistema.buscarExcursion(idExcursion),
+                            socio,
+                            excursion,
                             LocalDate.now())
             );
-            vistaInscripciones.mostrarMensaje("Socio inscrito correctamente en la excursion.");
+            vistaInscripciones.mostrarMensaje("Socio inscrito correctamente en la excursión.");
         } catch (SocioNoEncontradoException | ExcursionNoEncontradaException e) {
             // Manejar excepciones específicas para casos de socio o excursión no encontrados
             vistaInscripciones.mostrarMensaje(e.getMessage());
         }
     }
+
 
     /**
      * Elimina una inscripción de una excursión. Solicita el ID de la inscripción al usuario,
@@ -102,17 +117,33 @@ public class ControladorInscripciones {
      */
     public void mostrarInscripcionesConFiltro() {
         // Pedir los parámetros de filtro al usuario
-        String idSocio = vistaInscripciones.pedirTexto("Introduce el ID del socio (deja vacío para no filtrar por socio):");
+        String idSocioStr = vistaInscripciones.pedirTexto("Introduce el ID del socio (deja vacío para no filtrar por socio):");
         LocalDate fechaInicio = vistaInscripciones.pedirFecha("Introduce la fecha de inicio (dd/MM/yyyy):");
         LocalDate fechaFin = vistaInscripciones.pedirFecha("Introduce la fecha de fin (dd/MM/yyyy):");
+
+        int idSocio = -1;  // Valor por defecto para cuando no se filtra por socio
+
+        // Si se ha proporcionado un ID de socio, convertirlo a int
+        if (idSocioStr != null && !idSocioStr.trim().isEmpty()) {
+            try {
+                idSocio = Integer.parseInt(idSocioStr);
+            } catch (NumberFormatException e) {
+                vistaInscripciones.mostrarMensaje("El ID de socio debe ser un número válido.");
+                return;
+            }
+        }
 
         // Obtener y mostrar las inscripciones que coinciden con los filtros
         List<Inscripcion> inscripciones = sistema.mostrarInscripcionesFiltradas(idSocio, fechaInicio, fechaFin);
 
         // Mostrar las inscripciones filtradas
-        System.out.println("Inscripciones filtradas:");
-        for (Inscripcion ins : inscripciones) {
-            System.out.println(ins);
+        if (inscripciones.isEmpty()) {
+            vistaInscripciones.mostrarMensaje("No se encontraron inscripciones que coincidan con los filtros.");
+        } else {
+            System.out.println("Inscripciones filtradas:");
+            for (Inscripcion ins : inscripciones) {
+                System.out.println(ins);
+            }
         }
     }
 

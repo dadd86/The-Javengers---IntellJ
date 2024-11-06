@@ -12,12 +12,13 @@ public class FederacionDAOImpl implements FederacionDAO {
         System.out.print("Federación guardada: " + federacion);
     }
 
-    public Federacion findByCodigo (String codigo) {
+    public Federacion findByCodigo(int codigo) {
         return federaciones.stream()
-                .filter(f -> f.getCodigo().equals(codigo))
+                .filter(f -> f.getCodigo() == codigo)
                 .findFirst()
                 .orElse(null);
     }
+
 
     public List<Federacion> findAll() {
         return new ArrayList<>(federaciones);
@@ -33,8 +34,9 @@ public class FederacionDAOImpl implements FederacionDAO {
         }
     }
 
-    public void delete(String codigo) {
-        federaciones.removeIf(f -> f.getCodigo(). equals(codigo));
+    public void delete(int codigo) {
+        federaciones.removeIf(f -> f.getCodigo() == codigo);
         System.out.print("Federación eliminada con código: " + codigo);
     }
+
 }

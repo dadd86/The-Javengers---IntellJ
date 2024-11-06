@@ -69,7 +69,7 @@ public class ControladorSocios {
      * valida las entradas y maneja la excepción si el socio ya existe.
      */
     private void agregarSocioEstandar() {
-        String idSocio = vistaSocios.pedirTexto("Introduce ID del socio:");
+        int idSocio = Integer.parseInt(vistaSocios.pedirTexto("Introduce ID del socio:"));
         String nombre = vistaSocios.pedirTexto("Introduce el nombre del socio:");
         String apellidos = vistaSocios.pedirTexto("Introduce los apellidos del socio:");
         String nif = vistaSocios.pedirTexto("Introduce el NIF del socio:");
@@ -105,7 +105,7 @@ public class ControladorSocios {
      * Maneja la excepción si el socio ya existe.
      */
     private void agregarSocioFederado() {
-        String idSocio = vistaSocios.pedirTexto("Introduce ID del socio:");
+        int idSocio = Integer.parseInt(vistaSocios.pedirTexto("Introduce ID del socio:"));
         String nombre = vistaSocios.pedirTexto("Introduce el nombre del socio:");
         String apellidos = vistaSocios.pedirTexto("Introduce los apellidos del socio:");
         String nif = vistaSocios.pedirTexto("Introduce el NIF del socio:");
@@ -141,13 +141,13 @@ public class ControladorSocios {
      * Maneja la excepción si ya existe un socio con el mismo ID.
      */
     private void agregarSocioInfantil() {
-        String idSocio = vistaSocios.pedirTexto("Introduce ID del socio:");
+        int idSocio = Integer.parseInt(vistaSocios.pedirTexto("Introduce ID del socio:"));
         String nombre = vistaSocios.pedirTexto("Introduce el nombre del socio:");
         String apellidos = vistaSocios.pedirTexto("Introduce los apellidos del socio:");
-        String idSocioTutor = vistaSocios.pedirTexto("Introduce el ID del socio padre/madre:");
+        int idSocioTutor = Integer.parseInt(vistaSocios.pedirTexto("Introduce el ID del socio padre/madre:"));
 
         // Crear el socio infantil
-        SocioInfantil socio = new SocioInfantil(idSocio, nombre, apellidos, idSocioTutor, SocioInfantil.CUOTA_MENSUAL);
+        SocioInfantil socio = new SocioInfantil(idSocio, nombre, apellidos, idSocioTutor);
         try {
             sistema.registrarSocio(socio);
             vistaSocios.mostrarMensaje("Socio infantil agregado correctamente.");
@@ -159,6 +159,9 @@ public class ControladorSocios {
     /**
      * Elimina un socio del sistema.
      * Solicita el ID del socio y gestiona la eliminación, mostrando el resultado al usuario.
+     *
+     * @throws SocioConInscripcionesActivasException Si el socio tiene inscripciones activas.
+     * @throws SocioConHijosException Si el socio tiene hijos.
      */
     public void eliminarSocio() throws SocioConInscripcionesActivasException, SocioConHijosException {
         String idSocio = vistaSocios.pedirTexto("Introduce el ID del socio a eliminar:");
@@ -193,19 +196,13 @@ public class ControladorSocios {
         }
 
         try {
-            sistema.modificarSeguroSocioEstandar(idSocio, seguro);
+            sistema.modificarSeguroSocioEstandar(Integer.parseInt(idSocio), seguro);
             vistaSocios.mostrarMensaje("Seguro del socio actualizado correctamente.");
-        } catch (SocioNoEncontradoException e) {
-            vistaSocios.mostrarMensaje("No se encontró el socio con el ID proporcionado.");
-        } catch (TipoSocioNoValidoException e) {
-            vistaSocios.mostrarMensaje("El socio no es de tipo estándar, no se puede modificar el seguro.");
+        } catch (SocioNoEncontradoException | TipoSocioNoValidoException e) {
+            vistaSocios.mostrarMensaje("Socio no encontrado.");
         }
     }
 
-    /**
-     * Muestra la factura mensual de un socio, que incluye su cuota mensual y el costo de las excursiones.
-     * Solicita el ID del socio al usuario y muestra la factura resultante.
-     */
     public void mostrarFacturaMensual() {
         String idSocio = vistaSocios.pedirTexto("Introduce el ID del socio para mostrar la factura:");
         String factura = String.valueOf(sistema.mostrarFacturaMensual(idSocio));

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.thejavengers.modelo.*;
 import org.thejavengers.Excepciones.*; // Ajustado a minúsculas
-import org.thejavengers.modelo.TipoSeguro;
+
 
 import java.time.LocalDate;
 /**
@@ -16,8 +16,8 @@ import java.time.LocalDate;
  */
 class GestionSociosTest {
 
-    private SistemaExcursionista sistema;  // Instancia del sistema a ser probado
-    private Federacion federacion;  // Instancia de federación utilizada en algunas pruebas
+    private org.thejavengers.modelo.SistemaExcursionista sistema;  // Instancia del sistema a ser probado
+    private org.thejavengers.modelo.Federacion federacion;  // Instancia de federación utilizada en algunas pruebas
 
     /**
      * Configura el entorno antes de cada prueba.
@@ -27,7 +27,7 @@ class GestionSociosTest {
     @BeforeEach
     void setUp() {
         // Inicializa SistemaExcursionista antes de cada prueba
-        sistema = new SistemaExcursionista();
+        sistema = new org.thejavengers.modelo.SistemaExcursionista();
     }
     /**
      * Prueba que se pueda agregar correctamente un socio estándar al sistema.
@@ -37,7 +37,7 @@ class GestionSociosTest {
      */
 
     @Test
-    void agregarSocioEstandar() throws SocioYaExisteException {
+    void agregarSocioEstandar() throws org.thejavengers.Excepciones.SocioYaExisteException {
         // Simulación de entrada del usuario para agregar un socio estándar
         String idSocio = "S001";
         String nombre = "Juan";
@@ -198,4 +198,3 @@ class GestionSociosTest {
         assertTrue(actualMessage.contains(expectedMessage), "Debería lanzar una excepción porque el socio ya existe.");
     }
 }
-
