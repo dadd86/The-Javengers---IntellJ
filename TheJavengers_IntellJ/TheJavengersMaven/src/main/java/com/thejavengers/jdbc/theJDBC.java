@@ -12,10 +12,11 @@ public class theJDBC {
      * */
     public static final String url="jdbc:mysql://localhost:3306/thejavengers?serverTimezone=UTC";
     public static final String username="root";
+
     /*
      * Aqui cada uno tiene que poner el password que tiene su root o el usuario
      * */
-    public static final String password = "Admin";
+    public static final String password = "UOC.edu1";
     public static void main(String[] args) {
 
         try {

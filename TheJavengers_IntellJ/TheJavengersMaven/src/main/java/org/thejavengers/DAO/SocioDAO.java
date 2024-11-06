@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface SocioDAO {
     void save(Socio socio);
-    Socio findById(String id);
+    Socio findById(int id);
     List<Socio> findAll();
     void update(Socio socio);
-    void delete(String id);
+    void delete(int id);
 
     // Métodos adicionales
-    float obtenerFacturaMensual(String idSocio);
-    void modificarSeguro(String idSocio, TipoSeguro nuevoSeguro);
+    float obtenerFacturaMensual(int idSocio);
+    void modificarSeguro(int idSocio, TipoSeguro nuevoSeguro);
 }
