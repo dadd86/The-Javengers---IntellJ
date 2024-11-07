@@ -1,5 +1,6 @@
 package com.thejavengers.jdbc;
 
+import java.sql.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -24,27 +25,63 @@ public class theJDBC {
              * el DriverManager.getConnection puede recibir hasta tres variables, escogemos este opcion
              * */
             Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException("Error al cargar el driver JDBC", e);
+        }
+    }
 
-            Connection connection = DriverManager.getConnection(url, username, password);
-            Statement statement = connection.createStatement();
-            /*
-            * Prueba de funcionamiento de la comunicacion con mysql
-            *
-            * */
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM excursiones");
-            while(resultSet.next()){
-                System.out.println(resultSet.getShort("codigo_excursion")+" | "+ resultSet.getShort(2));
+    /**
+     * Obtiene una conexión a la base de datos.
+     *
+     * @return una conexión activa
+     * @throws SQLException si ocurre un error al conectar
+     */
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(url, username, password);
+    }
 
+    /**
+     * Maneja el commit de una transacción.
+     *
+     * @param connection la conexión activa
+     */
+    public static void commitTransaction(Connection connection) {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.commit();
             }
-            /*
-            * Siempre que se termine de ejecutar los comandos de SQL se tiene que cerrar la conexion con SQL
-            * */
-            connection.close();
-            statement.close();
-            resultSet.close();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al realizar commit", e);
+        }
+    }
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+    /**
+     * Maneja el rollback de una transacción.
+     *
+     * @param connection la conexión activa
+     */
+    public static void rollbackTransaction(Connection connection) {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.rollback();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al realizar rollback", e);
+        }
+    }
+
+    /**
+     * Cierra una conexión.
+     *
+     * @param connection la conexión activa
+     */
+    public static void closeConnection(Connection connection) {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error al cerrar la conexión", e);
         }
     }
 }
