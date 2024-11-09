@@ -110,7 +110,7 @@ public class SistemaExcursionista {
      * @return La excursión encontrada.
      * @throws ExcursionNoEncontradaException Si no se encuentra ninguna excursión con el ID proporcionado.
      */
-    public Excursion buscarExcursion(String idExcursion) throws ExcursionNoEncontradaException {
+    public Excursion buscarExcursion(int idExcursion) throws ExcursionNoEncontradaException {
         Excursion excursion = excursionDAO.findById(idExcursion);
         if (excursion == null) throw new ExcursionNoEncontradaException("Excursión no encontrada");
         return excursion;
@@ -126,7 +126,7 @@ public class SistemaExcursionista {
      * @throws SocioNoEncontradoException      Si no se encuentra el socio.
      * @throws ExcursionNoEncontradaException  Si no se encuentra la excursión.
      */
-    public void inscribirSocioEnExcursion(String idSocio, String idExcursion) throws SocioNoEncontradoException, ExcursionNoEncontradaException {
+    public void inscribirSocioEnExcursion(String idSocio, int idExcursion) throws SocioNoEncontradoException, ExcursionNoEncontradaException {
         Socio socio = buscarSocio(idSocio);
         Excursion excursion = buscarExcursion(idExcursion);
         Inscripcion inscripcion = new Inscripcion(0, socio, excursion, LocalDate.now());
@@ -151,11 +151,17 @@ public class SistemaExcursionista {
      * @throws ExcursionNoEncontradaException Si no se encuentra la excursión.
      */
     public List<Socio> listarSociosEnExcursion(int idExcursion) throws ExcursionNoEncontradaException {
-        return inscripcionDAO.findAll().stream()
-                .filter(ins -> ins.getExcursion().getIdExcursion() == idExcursion)
-                .map(Inscripcion::getSocio)
-                .collect(Collectors.toList());
+        // Comprueba si la excursión existe antes de buscar los socios
+        Excursion excursion = excursionDAO.findById(idExcursion);
+        if (excursion == null) {
+            throw new ExcursionNoEncontradaException("Excursión no encontrada con ID: " + idExcursion);
+        }
+
+        // Usa el DAO para obtener la lista de socios
+        return socioDAO.findByExcursionId(idExcursion);
     }
+
+
 
 
     // Métodos adicionales

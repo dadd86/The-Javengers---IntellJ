@@ -59,33 +59,50 @@ public class ControladorInscripciones {
             return;
         }
 
+        int idSocio;
+        int idExcursion;
+
+        try {
+            // Intentar convertir los valores ingresados a enteros
+            idSocio = Integer.parseInt(idSocioStr.trim());
+            idExcursion = Integer.parseInt(idExcursionStr.trim());
+        } catch (NumberFormatException e) {
+            vistaInscripciones.mostrarMensaje("El ID del socio y el ID de la excursión deben ser números válidos.");
+            return;
+        }
+
         // Intentar inscribir al socio en la excursión
         try {
-            Socio socio = sistema.buscarSocio(idSocioStr);
-            Excursion excursion = sistema.buscarExcursion(idExcursionStr);
+            Socio socio = sistema.buscarSocio(String.valueOf(idSocio)); // Cambiado a int
+            Excursion excursion = sistema.buscarExcursion(idExcursion); // Cambiado a int
 
             if (socio == null) {
-                throw new SocioNoEncontradoException("Socio no encontrado con el ID: " + idSocioStr);
+                throw new SocioNoEncontradoException("Socio no encontrado con el ID: " + idSocio);
             }
             if (excursion == null) {
-                throw new ExcursionNoEncontradaException("Excursión no encontrada con el ID: " + idExcursionStr);
+                throw new ExcursionNoEncontradaException("Excursión no encontrada con el ID: " + idExcursion);
             }
 
-            sistema.inscribirSocioEnExcursion(idSocioStr, idExcursionStr);
+            sistema.inscribirSocioEnExcursion(String.valueOf(idSocio), idExcursion); // Cambiado a int
 
             // Agregar la inscripción en el controlador
             controladorInscripciones.agregarElemento(
-                    new Inscripcion(controladorInscripciones.obtenerElementos().size() + 1,
+                    new Inscripcion(
+                            controladorInscripciones.obtenerElementos().size() + 1,
                             socio,
                             excursion,
-                            LocalDate.now())
+                            LocalDate.now()
+                    )
             );
+
             vistaInscripciones.mostrarMensaje("Socio inscrito correctamente en la excursión.");
         } catch (SocioNoEncontradoException | ExcursionNoEncontradaException e) {
             // Manejar excepciones específicas para casos de socio o excursión no encontrados
             vistaInscripciones.mostrarMensaje(e.getMessage());
         }
     }
+
+
 
 
     /**
