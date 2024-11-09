@@ -35,11 +35,11 @@ public class ExcursionDAOImpl implements ExcursionDAO {
     }
 
     @Override
-    public Excursion findById(String id) {
+    public Excursion findById(int id) {
         String sql = "{CALL obtenerExcursionId(?)}";
         try (Connection conn = theJDBC.getConnection();
              CallableStatement callableStatement = conn.prepareCall(sql)) {
-            callableStatement.setString(1, id);
+            callableStatement.setInt(1, id);
             try (ResultSet resultSet = callableStatement.executeQuery()) {
                 if (resultSet.next()) {
                     return new Excursion(
