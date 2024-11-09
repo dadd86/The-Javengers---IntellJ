@@ -22,7 +22,7 @@ public class Controlador<T> {
         elementos.remove(elemento);
     }
 
-    // Método para obtener todos los elementos
+    // Metodo para obtener todos los elementos
     public List<T> obtenerElementos() {
         return elementos;
     }
