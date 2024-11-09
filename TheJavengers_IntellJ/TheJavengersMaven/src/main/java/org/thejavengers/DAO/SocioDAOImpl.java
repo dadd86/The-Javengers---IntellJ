@@ -213,7 +213,7 @@ public class SocioDAOImpl implements SocioDAO {
 
     @Override
     public void modificarSeguro(int idSocio, TipoSeguro nuevoSeguro) {
-        String sql = "UPDATE Socios SET seguro = ? WHERE numero_socio = ? AND tipo_socio = 'estandar'";
+        String sql = "UPDATE Socios SET seguro = ? WHERE idSocio = ? AND tipo_socio = 'estandar'";
         try (Connection conn = getConnection();
              PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, nuevoSeguro.name());

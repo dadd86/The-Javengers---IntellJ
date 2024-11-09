@@ -6,6 +6,7 @@ import org.thejavengers.vista.VistaExcursiones;
 import org.thejavengers.Excepciones.ExcursionYaExisteException;
 
 import java.time.LocalDate;
+import java.util.*;
 
 /**
  * Clase que actúa como controlador para gestionar las excursiones en el sistema excursionista.
@@ -115,7 +116,7 @@ public class ControladorExcursiones {
             LocalDate fechaInicio = vistaExcursiones.pedirFecha("Introduce la fecha de inicio (dd/MM/yyyy):");
             LocalDate fechaFin = vistaExcursiones.pedirFecha("Introduce la fecha de fin (dd/MM/yyyy):");
 
-            var excursionesFiltradas = sistema.mostrarExcursionesPorFechas(fechaInicio, fechaFin);
+            List<Excursion> excursionesFiltradas = sistema.mostrarExcursionesPorFechas(fechaInicio, fechaFin);
 
             if (excursionesFiltradas.isEmpty()) {
                 vistaExcursiones.mostrarMensaje("No se encontraron excursiones en el rango de fechas especificado.");
@@ -147,7 +148,7 @@ public class ControladorExcursiones {
             }
 
             // Obtener la lista de socios inscritos en la excursión
-            var sociosInscritos = sistema.listarSociosEnExcursion(idExcursion);
+            List<org.thejavengers.modelo.Socio> sociosInscritos = sistema.listarSociosEnExcursion(idExcursion);
 
             // Verificar si hay socios inscritos
             if (sociosInscritos.isEmpty()) {

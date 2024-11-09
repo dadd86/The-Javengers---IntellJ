@@ -19,7 +19,7 @@ public class InscripcionDAOImpl implements InscripcionDAO {
 
     @Override
     public void save(Inscripcion inscripcion) {
-        String sql = "{CALL insertarInscripcion(?, ?, ?, ?)}"; //Procedimiento almacenado
+        String sql = "{CALL insertarInscripcion(?, ?, ?)}"; //Procedimiento almacenado
         try (Connection conn = getConnection();
              CallableStatement callableStatement = conn.prepareCall(sql)) {
 
@@ -28,7 +28,7 @@ public class InscripcionDAOImpl implements InscripcionDAO {
             callableStatement.setInt(1, inscripcion.getSocio().getIdSocio());
             callableStatement.setInt(2, inscripcion.getExcursion().getIdExcursion());
             callableStatement.setDate(3, Date.valueOf(inscripcion.getFechaInscripcion()));
-            callableStatement.setBoolean(4, true);
+            //callableStatement.setBoolean(4, true);
 
             callableStatement.execute();
             conn.commit(); //Confirma la transacción
@@ -87,6 +87,64 @@ public class InscripcionDAOImpl implements InscripcionDAO {
         return null;
     }
 
+    @Override
+    public List<Inscripcion> findByDateRange(LocalDate fechaInicio, LocalDate fechaFin) {
+        List<Inscripcion> inscripciones = new ArrayList<>();
+        String sql = "{CALL obtenerInscripcionFechas(?, ?)}"; // Procedimiento almacenado
+
+        try (Connection conn = getConnection();
+             CallableStatement callableStatement = conn.prepareCall(sql)) {
+
+            callableStatement.setDate(1, Date.valueOf(fechaInicio));
+            callableStatement.setDate(2, Date.valueOf(fechaFin));
+
+            try (ResultSet resultSet = callableStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    // Datos del socio
+                    int idSocio = resultSet.getInt("idSocio");
+                    String nombreSocio = resultSet.getString("nombreSocio");
+                    String apellidosSocio = resultSet.getString("apellidosSocio");
+                    String tipoSocio = resultSet.getString("tipoSocio");
+
+                    Socio socio = null;
+                    if ("estandar".equalsIgnoreCase(tipoSocio)) {
+                        String nif = resultSet.getString("nif");
+                        TipoSeguro seguro = TipoSeguro.valueOf(resultSet.getString("tipoSeguro"));
+                        socio = new SocioEstandar(idSocio, nombreSocio, apellidosSocio, nif, seguro);
+                    } else if ("federado".equalsIgnoreCase(tipoSocio)) {
+                        String nif = resultSet.getString("nif");
+                        Federacion federacion = new Federacion(
+                                resultSet.getInt("idFederacion"),
+                                resultSet.getString("nombreFederacion")
+                        );
+                        socio = new SocioFederado(idSocio, nombreSocio, apellidosSocio, nif, federacion);
+                    }
+
+                    // Datos de la excursión
+                    int idExcursion = resultSet.getInt("idExcursion");
+                    Excursion excursion = new Excursion(
+                            idExcursion,
+                            resultSet.getString("descripcionExcursion"),
+                            resultSet.getDate("fechaExcursion").toLocalDate(),
+                            resultSet.getInt("numeroDias"),
+                            resultSet.getFloat("precioExcursion")
+                    );
+
+                    // Datos de la inscripción
+                    int idInscripcion = resultSet.getInt("idInscripcion");
+                    LocalDate fechaInscripcion = resultSet.getDate("fechaInscripcion").toLocalDate();
+
+                    // Crear la inscripción y añadir a la lista
+                    Inscripcion inscripcion = new Inscripcion(idInscripcion, socio, excursion, fechaInscripcion);
+                    inscripciones.add(inscripcion);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return inscripciones;
+    }
 
     @Override
     public List<Inscripcion> findAll() {

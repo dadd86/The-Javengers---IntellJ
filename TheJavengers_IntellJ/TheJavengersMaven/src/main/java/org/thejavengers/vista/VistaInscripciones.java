@@ -89,7 +89,7 @@ public class VistaInscripciones {
 
     /**
      * Solicita al usuario que ingrese un texto y lo devuelve como cadena.
-     * Este método es útil para capturar datos como ID o nombres.
+     * Este metodo es útil para capturar datos como ID o nombres.
      *
      * @param mensaje El mensaje que se mostrará para solicitar el texto.
      * @return El texto ingresado por el usuario.
@@ -101,7 +101,7 @@ public class VistaInscripciones {
 
     /**
      * Muestra un mensaje en la consola.
-     * Este método es útil para informar al usuario sobre el resultado de una operación o para mostrar mensajes de error.
+     * Este metodo es útil para informar al usuario sobre el resultado de una operación o para mostrar mensajes de error.
      *
      * @param mensaje El mensaje que se mostrará en la consola.
      */
