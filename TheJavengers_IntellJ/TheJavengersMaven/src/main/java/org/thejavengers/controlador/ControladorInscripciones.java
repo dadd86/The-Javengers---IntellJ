@@ -116,14 +116,11 @@ public class ControladorInscripciones {
      * Si no se encuentran inscripciones, se informa al usuario.
      */
     public void mostrarInscripcionesConFiltro() {
-        // Pedir los parámetros de filtro al usuario
         String idSocioStr = vistaInscripciones.pedirTexto("Introduce el ID del socio (deja vacío para no filtrar por socio):");
         LocalDate fechaInicio = vistaInscripciones.pedirFecha("Introduce la fecha de inicio (dd/MM/yyyy):");
         LocalDate fechaFin = vistaInscripciones.pedirFecha("Introduce la fecha de fin (dd/MM/yyyy):");
 
-        int idSocio = -1;  // Valor por defecto para cuando no se filtra por socio
-
-        // Si se ha proporcionado un ID de socio, convertirlo a int
+        Integer idSocio = null;
         if (idSocioStr != null && !idSocioStr.trim().isEmpty()) {
             try {
                 idSocio = Integer.parseInt(idSocioStr);
@@ -133,17 +130,12 @@ public class ControladorInscripciones {
             }
         }
 
-        // Obtener y mostrar las inscripciones que coinciden con los filtros
         List<Inscripcion> inscripciones = sistema.mostrarInscripcionesFiltradas(idSocio, fechaInicio, fechaFin);
 
-        // Mostrar las inscripciones filtradas
         if (inscripciones.isEmpty()) {
             vistaInscripciones.mostrarMensaje("No se encontraron inscripciones que coincidan con los filtros.");
         } else {
-            System.out.println("Inscripciones filtradas:");
-            for (Inscripcion ins : inscripciones) {
-                System.out.println(ins);
-            }
+            inscripciones.forEach(System.out::println);
         }
     }
 

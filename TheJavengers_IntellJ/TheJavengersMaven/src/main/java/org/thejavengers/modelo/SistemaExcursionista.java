@@ -216,13 +216,10 @@ public class SistemaExcursionista {
      * @param fechaFin    La fecha de fin del filtro (puede ser nula).
      * @return Una lista de inscripciones que coinciden con los filtros.
      */
-    public List<Inscripcion> mostrarInscripcionesFiltradas(int idSocio, LocalDate fechaInicio, LocalDate fechaFin) {
-        return inscripcionDAO.findAll().stream()
-                .filter(ins -> ins.getSocio().getIdSocio() == idSocio &&  // Compara como int
-                        !ins.getFechaInscripcion().isBefore(fechaInicio) &&
-                        !ins.getFechaInscripcion().isAfter(fechaFin))
-                .collect(Collectors.toList());
+    public List<Inscripcion> mostrarInscripcionesFiltradas(Integer idSocio, LocalDate fechaInicio, LocalDate fechaFin) {
+        return inscripcionDAO.findAll(idSocio, fechaInicio, fechaFin);
     }
+
 
 
     public List<Socio> obtenerSocios() {
