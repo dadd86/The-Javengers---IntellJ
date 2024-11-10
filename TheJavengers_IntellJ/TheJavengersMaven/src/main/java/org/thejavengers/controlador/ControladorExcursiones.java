@@ -41,16 +41,7 @@ public class ControladorExcursiones {
      */
     public void agregarExcursion() {
         // Pedir datos de la excursión
-        String idExcursionStr = vistaExcursiones.pedirTexto("Introduce ID de la excursión:");
-        int idExcursion;
-
-        // Validar que el ID de la excursión es un número válido
-        try {
-            idExcursion = Integer.parseInt(idExcursionStr);
-        } catch (NumberFormatException e) {
-            vistaExcursiones.mostrarMensaje("El ID de la excursión debe ser un número válido.");
-            return;
-        }
+        int idExcursion=0;
 
         // Validar la descripción
         String descripcion = vistaExcursiones.pedirTexto("Introduce descripción:");
