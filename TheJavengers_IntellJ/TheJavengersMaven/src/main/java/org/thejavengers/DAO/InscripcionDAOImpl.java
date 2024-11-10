@@ -224,8 +224,6 @@ public class InscripcionDAOImpl implements InscripcionDAO {
              ResultSet resultSet = callableStatement.executeQuery()) {
 
             while (resultSet.next()) {
-                // Extrae datos de las inscripciones aquí...
-                // Mismo código que ya tienes.
             }
         } catch (SQLException e) {
             e.printStackTrace();

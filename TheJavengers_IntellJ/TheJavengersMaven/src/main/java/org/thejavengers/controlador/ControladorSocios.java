@@ -69,7 +69,7 @@ public class ControladorSocios {
      * valida las entradas y maneja la excepción si el socio ya existe.
      */
     private void agregarSocioEstandar() {
-        int idSocio = Integer.parseInt(vistaSocios.pedirTexto("Introduce ID del socio:"));
+        int idSocio = 0;
         String nombre = vistaSocios.pedirTexto("Introduce el nombre del socio:");
         String apellidos = vistaSocios.pedirTexto("Introduce los apellidos del socio:");
         String nif = vistaSocios.pedirTexto("Introduce el NIF del socio:");
@@ -105,7 +105,7 @@ public class ControladorSocios {
      * Maneja la excepción si el socio ya existe.
      */
     private void agregarSocioFederado() {
-        int idSocio = Integer.parseInt(vistaSocios.pedirTexto("Introduce ID del socio:"));
+        int idSocio = 0;
         String nombre = vistaSocios.pedirTexto("Introduce el nombre del socio:");
         String apellidos = vistaSocios.pedirTexto("Introduce los apellidos del socio:");
         String nif = vistaSocios.pedirTexto("Introduce el NIF del socio:");
@@ -141,7 +141,7 @@ public class ControladorSocios {
      * Maneja la excepción si ya existe un socio con el mismo ID.
      */
     private void agregarSocioInfantil() {
-        int idSocio = Integer.parseInt(vistaSocios.pedirTexto("Introduce ID del socio:"));
+        int idSocio = 0;
         String nombre = vistaSocios.pedirTexto("Introduce el nombre del socio:");
         String apellidos = vistaSocios.pedirTexto("Introduce los apellidos del socio:");
         int idSocioTutor = Integer.parseInt(vistaSocios.pedirTexto("Introduce el ID del socio padre/madre:"));
