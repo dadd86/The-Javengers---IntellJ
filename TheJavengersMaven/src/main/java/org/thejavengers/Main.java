@@ -10,7 +10,12 @@ import org.thejavengers.vista.VistaInscripciones;
 import org.thejavengers.controlador.ControladorSocios;
 import org.thejavengers.controlador.ControladorExcursiones;
 import org.thejavengers.controlador.ControladorInscripciones;
-
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.thejavengers.DAO.ExcursionDAO;
 import org.thejavengers.DAO.ExcursionDAOImpl;
 import org.thejavengers.modelo.Excursion;
@@ -23,7 +28,24 @@ import java.time.LocalDate;
  * Implementa un bucle principal para que el usuario pueda navegar entre las
  * diferentes funcionalidades del sistema.
  */
-public class Main {
+/**
+ * Clase principal para lanzar la aplicación JavaFX.
+ */
+public class Main extends Application  {
+    /**
+     * Método principal de JavaFX que inicializa el `Stage` principal.
+     * Configura una escena con un mensaje de saludo y la muestra en la ventana principal.
+     *
+     * @param primaryStage El escenario principal proporcionado por JavaFX
+     */
+    @Override
+    public void start(Stage primaryStage) {
+        Label label = new Label("Hello, JavaFX!");
+        Scene scene = new Scene(label, 400, 300);
+        primaryStage.setScene(scene);
+        primaryStage.setTitle("JavaFX Example");
+        primaryStage.show();
+    }
 
     /**
      * Método principal (punto de entrada) del sistema.
@@ -33,6 +55,11 @@ public class Main {
      * @param args Los argumentos de línea de comando (no se utilizan).
      */
     public static void main(String[] args) throws SocioConInscripcionesActivasException, SocioConHijosException {
+        /**
+         * Método main para lanzar la aplicación.
+         * @param args Argumentos de línea de comandos (no se usan aquí).
+         */
+        launch(args);
         // Inicialización del modelo (lógica del sistema)
         SistemaExcursionista sistema = new SistemaExcursionista();
 

@@ -12,6 +12,8 @@
     <url>http://maven.apache.org</url>
 
     <properties>
+        <PATH_TO_FX>C:\Program Files\Java\javafx-sdk-21.0.5\lib</PATH_TO_FX> <!-- Ruta a tu SDK de JavaFX -->
+        <path.to.javafx.lib>C:\Program Files\Java\javafx-sdk-21.0.5\lib</path.to.javafx.lib>
         <maven.compiler.source>17</maven.compiler.source>  <!-- Cambia a la versión de Java que estés utilizando -->
         <maven.compiler.target>17</maven.compiler.target>  <!-- Cambia a la versión de Java que estés utilizando -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -55,7 +57,35 @@
             <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
+        <!-- JavaFX Base -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-base</artifactId>
+            <version>21.0.5</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- JavaFX Graphics -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>21.0.5</version>
+            <scope>runtime</scope>
+        </dependency>
+        <!-- JavaFX Controls -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>21.0.5</version>
+            <scope>runtime</scope>
+        </dependency>
 
+        <!-- JavaFX FXML (opcional, si utilizas FXML) -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>21.0.5</version>
+            <scope>runtime</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -80,6 +110,20 @@
                     <includes>
                         <include>**/GestionSociosTest.java</include>
                     </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <mainClass>org.thejavengers.Main</mainClass> <!-- Reemplaza con tu clase principal -->
+                    <arguments>
+                        <argument>--module-path</argument>
+                        <argument>${PATH_TO_FX}</argument>
+                        <argument>--add-modules</argument>
+                        <argument>javafx.controls,javafx.fxml</argument>
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>
