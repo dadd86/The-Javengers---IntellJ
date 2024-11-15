@@ -1,64 +1,29 @@
-# Compiled class files
-*.class
-
-# Log files
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
-
-# Maven
-target/
-pom.xml.tag
-pom.xml.releaseBackup
-pom.xml.versionsBackup
-pom.xml.next
-dependency-reduced-pom.xml
-release.properties
-dependency-reduced-pom.xml
-buildNumber.properties
-.mvn/timing.properties
-
-# Gradle
-.gradle/
-build/
-
-# IntelliJ IDEA
+### IntelliJ IDEA ###
 out/
-.idea/
-*.iws
-*.iml
-*.ipr
+!**/src/main/**/out/
+!**/src/test/**/out/
 
-# Eclipse
+### Eclipse ###
+.apt_generated
 .classpath
+.factorypath
 .project
-.settings/
-.metadata
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
 
-# NetBeans
+### NetBeans ###
 /nbproject/private/
-/build/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-# OS files
+### VS Code ###
+.vscode/
+
+### Mac OS ###
 .DS_Store
-Thumbs.db
-/bin/
