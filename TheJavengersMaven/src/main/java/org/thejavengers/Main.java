@@ -19,6 +19,9 @@ import javafx.stage.Stage;
 import org.thejavengers.DAO.ExcursionDAO;
 import org.thejavengers.DAO.ExcursionDAOImpl;
 import org.thejavengers.modelo.Excursion;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import java.time.LocalDate;
 /**
@@ -32,6 +35,10 @@ import java.time.LocalDate;
  * Clase principal para lanzar la aplicación JavaFX.
  */
 public class Main extends Application  {
+
+    // Declarar el logger al inicio de la clase
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
+
     /**
      * Método principal de JavaFX que inicializa el `Stage` principal.
      * Configura una escena con un mensaje de saludo y la muestra en la ventana principal.
@@ -40,11 +47,16 @@ public class Main extends Application  {
      */
     @Override
     public void start(Stage primaryStage) {
+        logger.info("Inicializando la aplicación JavaFX");
+
         Label label = new Label("Hello, JavaFX!");
         Scene scene = new Scene(label, 400, 300);
+
         primaryStage.setScene(scene);
         primaryStage.setTitle("JavaFX Example");
         primaryStage.show();
+
+        logger.info("Aplicación JavaFX inicializada exitosamente");
     }
 
     /**
@@ -60,6 +72,9 @@ public class Main extends Application  {
          * @param args Argumentos de línea de comandos (no se usan aquí).
          */
         launch(args);
+
+
+
         // Inicialización del modelo (lógica del sistema)
         SistemaExcursionista sistema = new SistemaExcursionista();
 

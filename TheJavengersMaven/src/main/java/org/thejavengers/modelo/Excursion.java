@@ -1,5 +1,6 @@
 package org.thejavengers.modelo;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 
 /**
@@ -7,15 +8,39 @@ import java.time.LocalDate;
  * Contiene información como el identificador de la excursión, descripción, fecha,
  * duración en días y el precio.
  */
+@Entity
+@Table(name = "excursiones") // Nombre de la tabla en la base de datos
 public class Excursion {
-    // Atributos
-    private final int idExcursion;
+
+    // Constantes para validaciones
+    private static final float PRECIO_MAXIMO = 10_000.0f;
+    private static final int DURACION_MAXIMA_DIAS = 365;
+
+    // Atributos mapeados
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Generación automática de ID
+    @Column(name = "id_excursion", nullable = false)
+    private int idExcursion;
+
+    @Column(name = "descripcion", nullable = false, length = 255)
     private String descripcion;
+
+    @Column(name = "fecha_excursion", nullable = false)
     private LocalDate fechaExcursion;
-    private int numero_dias;
+
+    @Column(name = "numero_dias", nullable = false)
+    private int numeroDias;
+
+    @Column(name = "precio", nullable = false)
     private float precio;
 
-    // Constructor
+    /**
+     * Constructor vacío requerido por Hibernate.
+     */
+    public Excursion() {
+        // Constructor por defecto para Hibernate
+    }
+
     /**
      * Constructor para inicializar una excursión con todos sus atributos.
      *
@@ -27,26 +52,22 @@ public class Excursion {
      * @throws IllegalArgumentException si alguno de los parámetros no cumple con las condiciones requeridas.
      */
     public Excursion(int idExcursion, String descripcion, LocalDate fechaExcursion, int numeroDias, float precio) {
-        if (idExcursion < 0) {
-            throw new IllegalArgumentException("El idExcursion no puede ser negativo");
-        }
         if (descripcion == null || descripcion.trim().isEmpty()) {
-            throw new IllegalArgumentException("La descripción no puede ser nula o vacía");
+            throw new IllegalArgumentException("La descripción no puede ser nula o vacía.");
         }
         if (fechaExcursion == null) {
-            throw new IllegalArgumentException("La fecha de la excursión no puede ser nula");
+            throw new IllegalArgumentException("La fecha de la excursión no puede ser nula.");
         }
-        if (numeroDias <= 0 || numeroDias > 365) {
-            throw new IllegalArgumentException("El número de días debe ser mayor a cero y menor o igual a 365");
+        if (numeroDias <= 0 || numeroDias > DURACION_MAXIMA_DIAS) {
+            throw new IllegalArgumentException("El número de días debe ser mayor a cero y menor o igual a 365.");
         }
-        if (precio < 0 || precio > 10000) {
-            throw new IllegalArgumentException("El precio debe ser mayor o igual a cero y menor que 10,000");
+        if (precio < 0 || precio > PRECIO_MAXIMO) {
+            throw new IllegalArgumentException("El precio debe ser mayor o igual a cero y menor que 10,000.");
         }
-
         this.idExcursion = idExcursion;
         this.descripcion = descripcion;
         this.fechaExcursion = fechaExcursion;
-        this.numero_dias = numeroDias;
+        this.numeroDias = numeroDias;
         this.precio = precio;
     }
 
@@ -84,8 +105,8 @@ public class Excursion {
      *
      * @return El número de días de la excursión.
      */
-    public int getNumero_dias() {
-        return numero_dias;
+    public int getNumeroDias() {
+        return numeroDias;
     }
 
     /**
@@ -97,7 +118,7 @@ public class Excursion {
         return precio;
     }
 
-    // Setters con Validación
+    // Setters con validación
 
     /**
      * Establece una nueva descripción para la excursión.
@@ -107,7 +128,7 @@ public class Excursion {
      */
     public void setDescripcion(String descripcion) {
         if (descripcion == null || descripcion.trim().isEmpty()) {
-            throw new IllegalArgumentException("La descripción no puede ser nula o vacía");
+            throw new IllegalArgumentException("La descripción no puede ser nula o vacía.");
         }
         this.descripcion = descripcion;
     }
@@ -120,7 +141,7 @@ public class Excursion {
      */
     public void setFechaExcursion(LocalDate fecha) {
         if (fecha == null) {
-            throw new IllegalArgumentException("La fecha de la excursión no puede ser nula");
+            throw new IllegalArgumentException("La fecha de la excursión no puede ser nula.");
         }
         this.fechaExcursion = fecha;
     }
@@ -128,14 +149,14 @@ public class Excursion {
     /**
      * Establece un nuevo número de días para la excursión.
      *
-     * @param numero_dias El nuevo número de días. Debe ser mayor a cero y menor que 365.
+     * @param numeroDias El nuevo número de días. Debe ser mayor a cero y menor o igual a 365.
      * @throws IllegalArgumentException si el número de días es inválido.
      */
-    public void setNumero_dias(int numero_dias) {
-        if (numero_dias <= 0 || numero_dias > 365) {
-            throw new IllegalArgumentException("El número de días debe ser mayor a cero y menor o igual a 365");
+    public void setNumeroDias(int numeroDias) {
+        if (numeroDias <= 0 || numeroDias > DURACION_MAXIMA_DIAS) {
+            throw new IllegalArgumentException("El número de días debe ser mayor a cero y menor o igual a 365.");
         }
-        this.numero_dias = numero_dias;
+        this.numeroDias = numeroDias;
     }
 
     /**
@@ -145,13 +166,11 @@ public class Excursion {
      * @throws IllegalArgumentException si el precio es inválido.
      */
     public void setPrecio(float precio) {
-        if (precio < 0 || precio > 10000) {
-            throw new IllegalArgumentException("El precio debe ser mayor o igual a cero y menor que 10,000");
+        if (precio < 0 || precio > PRECIO_MAXIMO) {
+            throw new IllegalArgumentException("El precio debe ser mayor o igual a cero y menor que 10,000.");
         }
         this.precio = precio;
     }
-
-    // Método toString
 
     /**
      * Proporciona una representación en forma de cadena de caracteres del objeto Excursion.
@@ -164,7 +183,7 @@ public class Excursion {
                 "idExcursion=" + idExcursion +
                 ", descripcion='" + descripcion + '\'' +
                 ", fechaExcursion=" + fechaExcursion +
-                ", numeroDias=" + numero_dias +
+                ", numeroDias=" + numeroDias +
                 ", precio=" + precio +
                 '}';
     }
