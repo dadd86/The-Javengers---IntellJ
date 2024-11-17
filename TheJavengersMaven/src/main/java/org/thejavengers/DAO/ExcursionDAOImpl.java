@@ -1,222 +1,153 @@
 package org.thejavengers.DAO;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.thejavengers.modelo.Excursion;
-import com.thejavengers.jdbc.theJDBC;
-import java.sql.*;
-import java.util.ArrayList;
+import org.thejavengers.utils.HibernateUtil;
+
 import java.util.List;
 
+/**
+ * Implementación de la interfaz {@link ExcursionDAO} utilizando Hibernate.
+ *
+ * <p>Esta clase gestiona las operaciones CRUD para el modelo {@link Excursion}
+ * mediante el uso del ORM Hibernate, asegurando un manejo adecuado de transacciones
+ * y sesiones.</p>
+ *
+ * <p><strong>Mejoras en Seguridad y Robustez:</strong></p>
+ * <ul>
+ *     <li>Logger para registrar errores y eventos importantes.</li>
+ *     <li>Manejo adecuado de transacciones para garantizar atomicidad en las operaciones.</li>
+ *     <li>Validación previa de datos para evitar operaciones no deseadas.</li>
+ *     <li>Gestión de excepciones con mensajes detallados para facilitar la depuración.</li>
+ * </ul>
+ */
 public class ExcursionDAOImpl implements ExcursionDAO {
 
+    // Logger para registrar eventos y errores
+    private static final Logger logger = LoggerFactory.getLogger(ExcursionDAOImpl.class);
+
+    /**
+     * Guarda una nueva excursión en la base de datos.
+     *
+     * @param excursion El objeto {@link Excursion} que se desea guardar.
+     */
     @Override
     public void save(Excursion excursion) {
-        String sql = "{CALL insertarExcursion(?, ?, ?, ?, ?)}";
-        Connection conn = null;
-        try {
-            conn = theJDBC.getConnection();
-            conn.setAutoCommit(false); //Inicia la transacción
-
-            try (CallableStatement callableStatement = conn.prepareCall(sql)) {
-                callableStatement.setInt(1, excursion.getIdExcursion());
-                callableStatement.setString(2, excursion.getDescripcion());
-                callableStatement.setDate(3, Date.valueOf(excursion.getFechaExcursion()));
-                callableStatement.setInt(4, excursion.getNumero_dias());
-                callableStatement.setFloat(5, excursion.getPrecio());
-                callableStatement.execute();
-            }
-
-            theJDBC.commitTransaction(conn); //Confirma la transacción
-        } catch (SQLException e) {
-            theJDBC.rollbackTransaction(conn); //Deshace la transacción en caso de error
-            e.printStackTrace();
-        } finally {
-            theJDBC.closeConnection(conn); //Cierra la conexión
+        if (excursion == null) {
+            logger.warn("No se puede guardar una excursión nula");
+            throw new IllegalArgumentException("La excursión no puede ser nula.");
+        }
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.persist(excursion);
+            transaction.commit();
+            logger.info("Excursión guardada correctamente: {}", excursion);
+        } catch (IllegalArgumentException e) {
+            logger.error("Error en los datos de la excursión: {}", e.getMessage());
+            throw e;
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            logger.error("Error al guardar la excursión: {}", e.getMessage());
         }
     }
 
+
+    /**
+     * Recupera una excursión de la base de datos por su ID.
+     *
+     * @param id El ID de la excursión que se desea recuperar.
+     * @return La excursión correspondiente al ID, o {@code null} si no se encuentra.
+     */
     @Override
     public Excursion findById(int id) {
-        String sql = "{CALL obtenerExcursionId(?)}";
-        try (Connection conn = theJDBC.getConnection();
-             CallableStatement callableStatement = conn.prepareCall(sql)) {
-            callableStatement.setInt(1, id);
-            try (ResultSet resultSet = callableStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return new Excursion(
-                            resultSet.getInt("idExcursion"),
-                            resultSet.getString("descripcion"),
-                            resultSet.getDate("fechaExcursion").toLocalDate(),
-                            resultSet.getInt("numero_dias"),
-                            resultSet.getFloat("precio")
-                    );
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (id <= 0) {
+            logger.warn("ID inválido para buscar excursión: {}", id);
+            return null;
         }
-        return null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Excursion excursion = session.get(Excursion.class, id);
+            if (excursion != null) {
+                logger.info("Excursión encontrada: {}", excursion);
+            } else {
+                logger.warn("No se encontró excursión con ID: {}", id);
+            }
+            return excursion;
+        } catch (Exception e) {
+            logger.error("Error al buscar la excursión con ID {}: {}", id, e.getMessage());
+            return null;
+        }
     }
 
+    /**
+     * Recupera todas las excursiones almacenadas en la base de datos.
+     *
+     * @return Una lista de objetos {@link Excursion}, o una lista vacía si no hay resultados.
+     */
     @Override
     public List<Excursion> findAll() {
-        List<Excursion> excursiones = new ArrayList<>();
-        String sql = "{CALL encontrarTodasExcursiones()}";
-
-        try (Connection conn = theJDBC.getConnection();
-             CallableStatement callableStatement = conn.prepareCall(sql);
-             ResultSet resultSet = callableStatement.executeQuery()) {
-            while (resultSet.next()) {
-                excursiones.add(new Excursion(
-                        resultSet.getInt("idExcursion"),
-                        resultSet.getString("descripcion"),
-                        resultSet.getDate("fechaExcursion").toLocalDate(),
-                        resultSet.getInt("numero_dias"),
-                        resultSet.getFloat("precio")
-                ));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            List<Excursion> excursiones = session.createQuery("from Excursion", Excursion.class).list();
+            logger.info("Se recuperaron {} excursiones", excursiones.size());
+            return excursiones;
+        } catch (Exception e) {
+            logger.error("Error al recuperar todas las excursiones: {}", e.getMessage());
+            return List.of(); // Devuelve una lista vacía en caso de error
         }
-        return excursiones;
     }
 
+
+    /**
+     * Actualiza los datos de una excursión existente en la base de datos.
+     *
+     * @param excursion El objeto {@link Excursion} con los datos actualizados.
+     */
     @Override
     public void update(Excursion excursion) {
-        String sql = "{CALL actualizarExcursion(?, ?, ?, ?, ?)}";
-        Connection conn = null;
-        try{
-            conn = theJDBC.getConnection();
-            conn.setAutoCommit(false); //Inicia la transacción
-            try (CallableStatement callableStatement = conn.prepareCall(sql)) {
-                callableStatement.setInt(1, excursion.getIdExcursion());
-                callableStatement.setString(2, excursion.getDescripcion());
-                callableStatement.setDate(3, Date.valueOf(excursion.getFechaExcursion()));
-                callableStatement.setInt(4, excursion.getNumero_dias());
-                callableStatement.setFloat(5, excursion.getPrecio());
-                callableStatement.execute();
-            }
-
-            theJDBC.commitTransaction(conn); //Confirma la transacción
-        } catch (SQLException e) {
-            theJDBC.rollbackTransaction(conn); // Deshace la transacción en caso de error
-            e.printStackTrace();
-        } finally {
-            theJDBC.closeConnection(conn); //Cierra la conexión
+        if (excursion == null) {
+            logger.warn("No se puede actualizar una excursión nula");
+            return;
+        }
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            session.merge(excursion); // Cambiado de update() a merge()
+            transaction.commit();
+            logger.info("Excursión actualizada correctamente: {}", excursion);
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            logger.error("Error al actualizar la excursión con ID {}: {}", excursion.getIdExcursion(), e.getMessage());
         }
     }
 
+    /**
+     * Elimina una excursión de la base de datos por su ID.
+     *
+     * @param id El ID de la excursión que se desea eliminar.
+     */
     @Override
-    public void delete(String id) {
-        String sql = "{CALL eliminarExcursion(?)}";
-        Connection conn = null;
-        try {
-            conn = theJDBC.getConnection();
-            conn.setAutoCommit(false); //Inicia la transacción
-
-            try (CallableStatement callableStatement = conn.prepareCall(sql)) {
-                callableStatement.setString(1, id);
-                callableStatement.execute();
+    public void delete(int id) {
+        if (id <= 0) {
+            logger.warn("ID inválido para eliminar excursión: {}", id);
+            return;
+        }
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            Excursion excursion = session.get(Excursion.class, id);
+            if (excursion != null) {
+                session.remove(excursion); // Cambiado de delete() a remove()
+                transaction.commit();
+                logger.info("Excursión con ID {} eliminada correctamente", id);
+            } else {
+                logger.warn("No se encontró la excursión con ID: {}", id);
             }
-
-            theJDBC.commitTransaction(conn); //Confirma la transacción
-        } catch (SQLException e) {
-            theJDBC.rollbackTransaction(conn); // Deshace la transacción en caso de error
-            e.printStackTrace();
-        } finally {
-            theJDBC.closeConnection(conn); //Cierra la conexión
+        } catch (Exception e) {
+            if (transaction != null) transaction.rollback();
+            logger.error("Error al eliminar la excursión con ID {}: {}", id, e.getMessage());
         }
     }
-
-
-
-//    private final String jdbcURL = theJDBC.url;
-//    private final String jdbcusername = theJDBC.username;
-//    private final String jdbcpassword = theJDBC.password;
-//
-//    private Connection getConnection() throws SQLException {
-//        return DriverManager.getConnection(jdbcURL, jdbcusername, jdbcpassword);
-//    }
-//
-//    public void save(Excursion excursion) {
-//        String sql = "INSERT INTO excursiones (idExcursion, descripcion, fechaExcursion, numero_dias, precio) VALUES (?,?, ?, ?, ?)";
-//        try (Connection conn = getConnection();
-//            PreparedStatement statement = conn.prepareStatement(sql)) {
-//            statement.setInt(1, excursion.getIdExcursion());
-//            statement.setString(2, excursion.getDescripcion());
-//            statement.setDate(3, Date.valueOf(excursion.getFechaExcursion()));
-//            statement.setInt(4, excursion.getNumero_dias());
-//            statement.setFloat(5, excursion.getPrecio());
-//            statement.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public Excursion findById(String id) {
-//        String sql = "SELECT * FROM excursiones WHERE idExcursion = ?";
-//        try (Connection conn = getConnection();
-//            PreparedStatement statement = conn.prepareStatement(sql)) {
-//            statement.setString(1, id);
-//            ResultSet resultSet = statement.executeQuery();
-//            if (resultSet.next()) {
-//                return new Excursion (
-//                        resultSet.getInt("idExcursion"),
-//                        resultSet.getString("descripcion"),
-//                        resultSet.getDate("fechaExcursion").toLocalDate(),
-//                        resultSet.getInt("numero_dias"),
-//                        resultSet.getFloat("precio")
-//                );
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-//
-//    public List<Excursion> findAll() {
-//        List<Excursion> excursiones = new ArrayList<>();
-//        String sql = "SELECT * FROM excursiones";
-//        try (Connection conn = getConnection();
-//            Statement statement = conn.createStatement();
-//            ResultSet resultSet = statement.executeQuery(sql)) {
-//            while (resultSet.next()) {
-//                excursiones.add(new Excursion(
-//                        resultSet.getInt("idExcursion"),
-//                        resultSet.getString("descripcion"),
-//                        resultSet.getDate("fechaExcursion").toLocalDate(),
-//                        resultSet.getInt("numero_dias"),
-//                        resultSet.getFloat("precio")
-//                ));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return excursiones;
-//    }
-//
-//    public void update(Excursion excursion) {
-//        String sql = "UPDATE excursiones SET descripcion = ?, fechaExcursion = ?, numeroDias = ?, precio = ? WHERE idExcursion = ?";
-//        try (Connection conn = getConnection();
-//            PreparedStatement statement = conn.prepareStatement(sql)) {
-//            statement.setString(1, excursion.getDescripcion());
-//            statement.setDate(2, Date.valueOf(excursion.getFechaExcursion()));
-//            statement.setInt(3, excursion.getNumero_dias());
-//            statement.setFloat(4, excursion.getPrecio());
-//            statement.setInt(5, excursion.getIdExcursion());
-//            statement.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    public void delete(String id) {
-//        String sql = "DELETE FROM excursiones WHERE idExcursion = ?";
-//        try (Connection conn = getConnection();
-//            PreparedStatement statement = conn.prepareStatement(sql)) {
-//                statement.setString(1, id);
-//                statement.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

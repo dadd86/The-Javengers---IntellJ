@@ -11,9 +11,11 @@
     <name>TheJavengersMaven</name>
     <url>http://maven.apache.org</url>
 
+    <!-- Propiedades del proyecto -->
     <properties>
-        <PATH_TO_FX>C:\Program Files\Java\javafx-sdk-21.0.5\lib</PATH_TO_FX> <!-- Ruta a tu SDK de JavaFX -->
-        <path.to.javafx.lib>C:\Program Files\Java\javafx-sdk-21.0.5\lib</path.to.javafx.lib>
+        <!-- Ruta al SDK de JavaFX -->
+        <PATH_TO_FX>C:\Program Files\Java\javafx-sdk-21.0.5\lib</PATH_TO_FX>
+        <!-- Versión de Java -->
         <maven.compiler.source>17</maven.compiler.source>  <!-- Cambia a la versión de Java que estés utilizando -->
         <maven.compiler.target>17</maven.compiler.target>  <!-- Cambia a la versión de Java que estés utilizando -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -25,7 +27,7 @@
              Despues de descargar e instalar MARVEN, como en el video que os pase
              https://www.youtube.com/watch?v=rl5-yyrmp-0 , en la terminal ejecutar ese comando
              mvn clean install -->
-
+        <!-- MySQL Connector -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -34,7 +36,7 @@
         </dependency>
 
 
-        <!-- JUnit 5 API -->
+        <!-- JUnit 5 (para pruebas unitarias) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -57,35 +59,53 @@
             <version>5.8.1</version>
             <scope>test</scope>
         </dependency>
-        <!-- JavaFX Base -->
+
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
         <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-base</artifactId>
-            <version>21.0.5</version>
-            <scope>runtime</scope>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.6.2.Final</version>
         </dependency>
-        <!-- JavaFX Graphics -->
+        <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-swing -->
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics</artifactId>
-            <version>21.0.5</version>
-            <scope>runtime</scope>
-        </dependency>
-        <!-- JavaFX Controls -->
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
+            <artifactId>javafx-swing</artifactId>
             <version>21.0.5</version>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- JavaFX FXML (opcional, si utilizas FXML) -->
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.6.2.Final</version>
+            <type>pom</type>
+        </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>21.0.5</version>
-            <scope>runtime</scope>
+            <artifactId>javafx-graphics</artifactId>
+            <version>23</version>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>23</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.16</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.12</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -117,7 +137,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>3.0.0</version>
                 <configuration>
-                    <mainClass>org.thejavengers.Main</mainClass> <!-- Reemplaza con tu clase principal -->
+                    <mainClass>org.thejavengers.Main</mainClass>
                     <arguments>
                         <argument>--module-path</argument>
                         <argument>${PATH_TO_FX}</argument>
