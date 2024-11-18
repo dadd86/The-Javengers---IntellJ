@@ -1,4 +1,4 @@
-package org.thejavengers; // Ajustado al paquete correcto
+package src.test.java.org.thejavengers; // Ajustado al paquete correcto
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
