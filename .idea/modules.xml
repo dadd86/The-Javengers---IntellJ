@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TheJavengers_IntellJ/TheJavengersMaven/TheJavengersMaven.iml" filepath="$PROJECT_DIR$/TheJavengers_IntellJ/TheJavengersMaven/TheJavengersMaven.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TheJavengersMaven.iml" filepath="$PROJECT_DIR$/TheJavengersMaven.iml" />
     </modules>
   </component>
 </project>
