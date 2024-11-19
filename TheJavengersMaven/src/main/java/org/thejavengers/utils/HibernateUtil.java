@@ -14,7 +14,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
  * <p>Incluye las siguientes responsabilidades:</p>
  * <ul>
  *     <li>Configurar Hibernate desde el archivo de configuración `hibernate.cfg.xml`.</li>
- *     <li>Proporcionar un método para obtener el `SessionFactory`.</li>
+ *     <li>Proporcionar un metodo para obtener el `SessionFactory`.</li>
  *     <li>Gestionar el cierre del `SessionFactory` y el `StandardServiceRegistry` para evitar fugas de memoria.</li>
  * </ul>
  *
