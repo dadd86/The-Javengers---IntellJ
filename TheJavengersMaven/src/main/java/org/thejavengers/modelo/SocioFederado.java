@@ -1,10 +1,16 @@
 package org.thejavengers.modelo;
-
+import jakarta.persistence.*;
+@Entity
+@DiscriminatorValue("federado") // Valor discriminante para identificar este tipo de socio
 public class SocioFederado extends Socio {
+    @Column(nullable = false, unique = true)
     private String nif;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "federacion", nullable = false) // Clave foránea hacia la tabla Federacion
     private Federacion federacion;
-
+    @Transient
     private static final float DESCUENTO_CUOTA_FEDERADO = 0.05f; //Descuento del 5% en cuota mensual
+    @Transient
     private static final float DESCUENTO_EXCURSIONES_FEDERADO = 0.1f; //Descuento del 10% en excursiones
 
     public SocioFederado(int idSocio, String nombre, String apellidos, String nif, Federacion federacion) {
@@ -14,6 +20,8 @@ public class SocioFederado extends Socio {
         }
         this.nif = nif;
         this.federacion = federacion;
+    } // Constructor sin argumentos necesario para JPA
+    public SocioFederado() {
     }
 
     public String getNif() {
