@@ -1,16 +1,29 @@
 package org.thejavengers.modelo;
 
+import jakarta.persistence.*;
+
 /**
  * Clase que representa una federación.
  * Contiene el código y el nombre de la federación.
  */
+@Entity
+@Table(name = "federaciones") // Nombre de la tabla en la base de datos
 public class Federacion {
-    // Atributos
 
+    // Atributos mapeados
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Generación automática del código
+    @Column(name = "codigo", nullable = false, unique = true) // El código debe ser único
     private int codigo;
+
+    @Column(name = "nombre", nullable = false)
     private String nombre;
 
-    // Constructor
+    /**
+     * Constructor vacío requerido por Hibernate.
+     */
+    public Federacion() {
+    }
 
     /**
      * Constructor para inicializar una federación.
@@ -23,7 +36,6 @@ public class Federacion {
         if (nombre == null || nombre.trim().isEmpty()) {
             throw new IllegalArgumentException("El nombre no puede ser nulo o vacío");
         }
-
         this.codigo = codigo;
         this.nombre = nombre;
     }

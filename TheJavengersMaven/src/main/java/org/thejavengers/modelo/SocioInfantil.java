@@ -1,11 +1,16 @@
 package org.thejavengers.modelo;
 
+import jakarta.persistence.*;
+@Entity
+@DiscriminatorValue("infantil") // Valor para distinguir este tipo en la tabla "Socio"
 /**
  * Clase que representa a un socio infantil.
  * Hereda de la clase Socio y define un descuento en la cuota mensual para este tipo de socio.
  */
 public class SocioInfantil extends Socio {
+    @Column(name = "tutor", nullable = false)
     private int idSocioTutor;
+    @Transient
     private static final float DESCUENTO_INFANTIL = 0.5f; // 50% de descuento
 
     /**
@@ -20,7 +25,9 @@ public class SocioInfantil extends Socio {
         super(idSocio, nombre, apellidos);
         this.idSocioTutor = idSocioTutor;
     }
-
+    // Constructor sin argumentos necesario para JPA
+    public SocioInfantil() {
+    }
     /**
      * Obtiene el identificador único del socio estándar responsable del infantil.
      *
