@@ -22,14 +22,35 @@ public class SocioDAOImpl implements SocioDAO {
         }
 
         Transaction transaction = null;
+
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // Iniciar transacción
             transaction = session.beginTransaction();
+
+            // Log de depuración del objeto socio
+            logger.debug("Guardando el siguiente socio: {}", socio);
+
+            // Persistir el objeto socio
             session.persist(socio);
+
+            // Confirmar transacción
             transaction.commit();
             logger.info("Socio guardado correctamente: {}", socio);
+
         } catch (Exception e) {
-            if (transaction != null) transaction.rollback();
+            // Si ocurre un error, intentar rollback solo si la transacción está activa
+            if (transaction != null && transaction.isActive()) {
+                try {
+                    transaction.rollback();
+                    logger.warn("Transacción revertida debido a un error.");
+                } catch (Exception rollbackEx) {
+                    logger.error("Error al hacer rollback: {}", rollbackEx.getMessage(), rollbackEx);
+                }
+            }
+
+            // Registrar el error original
             logger.error("Error al guardar el socio: {}", e.getMessage(), e);
+            throw new RuntimeException("Error al guardar el socio: " + e.getMessage(), e);
         }
     }
 

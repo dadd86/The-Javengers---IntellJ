@@ -8,9 +8,8 @@ public class SocioEstandar extends Socio {
     private String nif;
     // Relación muchos-a-uno: muchos socios estándar pueden estar asociados con un tipo de seguro.
 // La estrategia de carga EAGER asegura que los datos del tipo de seguro se carguen automáticamente junto con el socio.
-    @ManyToOne(fetch = FetchType.EAGER)
-
-    @JoinColumn(name = "TipoSeguro", nullable = false)
+    @Enumerated(EnumType.STRING) // Usa el nombre del enum como valor en la base de datos
+    @Column(name = "seguro", nullable = false)
     private TipoSeguro seguro;
 
     public SocioEstandar(int idSocio, String nombre, String apellidos, String nif, TipoSeguro seguro) {

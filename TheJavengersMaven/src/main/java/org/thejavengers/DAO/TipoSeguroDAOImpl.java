@@ -1,45 +1,40 @@
 package org.thejavengers.DAO;
 
+import org.hibernate.Session;
+import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.thejavengers.modelo.TipoSeguro;
-import java.sql.*;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Connection;
-import com.thejavengers.jdbc.theJDBC;
+import org.thejavengers.utils.HibernateUtil;
 
 public class TipoSeguroDAOImpl implements TipoSeguroDAO {
 
+    private static final Logger logger = LoggerFactory.getLogger(TipoSeguroDAOImpl.class);
+
+    /**
+     * Busca un TipoSeguro en la base de datos basado en su nombre.
+     *
+     * @param name El nombre del tipo de seguro (por ejemplo, "BASICO" o "COMPLETO").
+     * @return El TipoSeguro correspondiente, o null si no se encuentra.
+     */
     @Override
     public TipoSeguro findById(String name) {
-        String sql = "{CALL obtenerTipoSeguroNombre(?)}"; //Procedimiento almacenado
         TipoSeguro tipoSeguro = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            String hql = "from TipoSeguro where name = :name"; // Consulta HQL para buscar por nombre
+            Query<TipoSeguro> query = session.createQuery(hql, TipoSeguro.class);
+            query.setParameter("name", name.toUpperCase());
+            tipoSeguro = query.uniqueResult();
 
-        try (Connection conn = DriverManager.getConnection(theJDBC.url, theJDBC.username, theJDBC.password);
-             PreparedStatement statement = conn.prepareStatement(sql)) {
-
-            statement.setString(1, name.toUpperCase()); //Convertimos a mayúsculas, por si acaso
-            ResultSet resultSet = statement.executeQuery();
-
-            if (resultSet.next()) {
-                tipoSeguro = TipoSeguro.valueOf(resultSet.getString("nombre").toUpperCase()); //Aseguramos que sea en mayúsculas
+            if (tipoSeguro != null) {
+                logger.info("TipoSeguro encontrado: {}", tipoSeguro);
             } else {
-                System.out.println("Tipo de seguro no encontrado: " + name);
+                logger.warn("Tipo de seguro no encontrado: {}", name);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            logger.error("Error al buscar el TipoSeguro con nombre {}: {}", name, e.getMessage(), e);
         }
 
         return tipoSeguro;
     }
-
-//    @Override
-//    public TipoSeguro findById(String name) {
-//        try {
-//            return TipoSeguro.valueOf(name.toUpperCase()); // Usamos valueOf y convertimos a mayúsculas si es necesario
-//        } catch (IllegalArgumentException e) {
-//            System.out.println("Tipo de seguro no encontrado: " + name);
-//            return null; // Retornamos null si e
-//        }
-//    }
 }

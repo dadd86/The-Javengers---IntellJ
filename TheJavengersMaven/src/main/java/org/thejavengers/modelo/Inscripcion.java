@@ -20,12 +20,12 @@ public class Inscripcion {
     @Column(name = "idInscripcion", nullable=false, unique=true) // El ID debe ser único
     private int idInscripcion;
 
-    @ManyToOne(fetch=FetchType.LAZY) // Varias inscripciones pueden ser del mismo socio
-    @JoinColumn(name = "idSocio", nullable=false) // Columna que se relaciona con la tabla socios
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idSocio", nullable = false)
     private Socio socio;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "idExcursion", nullable=false) // Columna que se relaciona con la tabla excursiones
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idExcursion", nullable = false)
     private Excursion excursion;
 
     @Column(name = "fechaInscripcion", nullable=false)
