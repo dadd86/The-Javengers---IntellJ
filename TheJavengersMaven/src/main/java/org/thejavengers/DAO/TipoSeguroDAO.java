@@ -1,8 +1,7 @@
 package org.thejavengers.DAO;
 
 import org.thejavengers.modelo.TipoSeguro;
-import java.util.*;
 
 public interface TipoSeguroDAO {
-    TipoSeguro findById(String name); //Devuelve el tipo de seguro
+    TipoSeguro findById(String name); // Devuelve el TipoSeguro correspondiente
 }

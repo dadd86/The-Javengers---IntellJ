@@ -42,6 +42,9 @@
     <mapping class="org.thejavengers.modelo.Inscripcion"/>
     <mapping class="org.thejavengers.modelo.Federacion"/>
     <mapping class="org.thejavengers.modelo.TipoSeguro"/>
+    <mapping class="org.thejavengers.modelo.SocioEstandar" />
+    <mapping class="org.thejavengers.modelo.SocioFederado" />
+    <mapping class="org.thejavengers.modelo.SocioInfantil" />
 
   </session-factory>
 </hibernate-configuration>
