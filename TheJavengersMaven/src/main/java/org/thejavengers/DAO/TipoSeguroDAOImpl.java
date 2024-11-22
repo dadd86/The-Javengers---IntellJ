@@ -21,12 +21,16 @@ public class TipoSeguroDAOImpl implements TipoSeguroDAO {
     public TipoSeguro findById(String name) {
         TipoSeguro tipoSeguro = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            String hql = "from TipoSeguro where name = :name"; // Consulta HQL para buscar por nombre
-            Query<TipoSeguro> query = session.createQuery(hql, TipoSeguro.class);
-            query.setParameter("name", name.toUpperCase());
-            tipoSeguro = query.uniqueResult();
+            // Buscamos en la tabla 'seguros' usando el valor del enum en minúsculas.
+            String hql = "SELECT t.TipoSeguro FROM Seguro t WHERE t.TipoSeguro = :name";
 
-            if (tipoSeguro != null) {
+            Query<String> query = session.createQuery(hql, String.class);
+            query.setParameter("name", name.toLowerCase()); // El valor de 'name' debe estar en minúsculas
+            String result = query.uniqueResult();
+
+            if (result != null) {
+                // Si se encuentra, convertimos el valor de la cadena de vuelta al enum.
+                tipoSeguro = TipoSeguro.fromString(result.toUpperCase());
                 logger.info("TipoSeguro encontrado: {}", tipoSeguro);
             } else {
                 logger.warn("Tipo de seguro no encontrado: {}", name);
