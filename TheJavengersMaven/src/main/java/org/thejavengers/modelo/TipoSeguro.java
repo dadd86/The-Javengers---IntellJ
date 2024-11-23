@@ -28,15 +28,24 @@ public enum TipoSeguro {
     }
 
     @Converter(autoApply = true)
-    public static class TipoSeguroConverter implements AttributeConverter<TipoSeguro, String> {
+    public class TipoSeguroConverter implements AttributeConverter<TipoSeguro, String> {
+
         @Override
         public String convertToDatabaseColumn(TipoSeguro tipoSeguro) {
-            return tipoSeguro != null ? tipoSeguro.name().toLowerCase() : null; // Convertir a minúsculas para coincidir con la base de datos
+            if (tipoSeguro == null) {
+                return null;
+            }
+            return tipoSeguro.name();
         }
 
         @Override
-        public TipoSeguro convertToEntityAttribute(String tipoSeguro) {
-            return tipoSeguro != null ? TipoSeguro.fromString(tipoSeguro) : null;
+        public TipoSeguro convertToEntityAttribute(String dbData) {
+            if (dbData == null || dbData.isEmpty()) {
+                return null;
+            }
+            return TipoSeguro.valueOf(dbData);
         }
     }
+
+
 }
