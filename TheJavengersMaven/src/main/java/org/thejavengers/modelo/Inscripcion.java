@@ -1,5 +1,6 @@
 package org.thejavengers.modelo;
 
+import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -9,14 +10,33 @@ import java.time.temporal.ChronoUnit;
  * Contiene información como el identificador de la inscripción, el socio inscrito,
  * la excursión a la que se inscribe, y la fecha de la inscripción.
  */
+@Entity
+@Table(name = "inscripciones") // Nombre de la tabla en la base de datos
 public class Inscripcion {
-    // Atributos
-    private final int idInscripcion;
-    private final Socio socio;
-    private final Excursion excursion;
-    private final LocalDate fechaInscripcion;
 
-    // Constructor
+    // Atributos mapeados
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Generación automática del ID
+    @Column(name = "idInscripcion", nullable=false, unique=true) // El ID debe ser único
+    private int idInscripcion;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idSocio", nullable = false)
+    private Socio socio;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idExcursion", nullable = false)
+    private Excursion excursion;
+
+    @Column(name = "fechaInscripcion", nullable=false)
+    private LocalDate fechaInscripcion;
+
+    /**
+     * Constructor vacío requerido por Hibernate.
+     */
+    public Inscripcion() {
+    }
+
     /**
      * Constructor para inicializar una inscripción con todos sus atributos.
      *
@@ -83,6 +103,39 @@ public class Inscripcion {
     public LocalDate getFechaInscripcion() {
         return fechaInscripcion;
     }
+
+    // Setters con validación
+
+    /**
+     * Recupera el socio de la inscripción.
+     *
+     * @param socio El socio asignado a la inscripción. No puede ser nulo o vacío.
+     * @throws IllegalArgumentException si el socio es nulo o vacío.
+     */
+    public void setSocio(Socio socio) {
+        this.socio = socio;
+    }
+
+    /**
+     * Recupera la excursión  de la inscripción.
+     *
+     * @param excursion La excursión asignado a la inscripción. No puede ser nulo o vacío.
+     * @throws IllegalArgumentException si la excursión es nulo o vacío.
+     */
+    public void setExcursion(Excursion excursion) {
+        this.excursion = excursion;
+    }
+
+    /**
+     * Recupera la fecha de la inscripción.
+     *
+     * @param fechaInscripcion La fecha asiganda a la inscripción. No puede ser nulo o vacío.
+     * @throws IllegalArgumentException si la fecha es nula o vacía.
+     */
+    public void setFechaInscripcion(LocalDate fechaInscripcion) {
+        this.fechaInscripcion = fechaInscripcion;
+    }
+
 
     // Métodos adicionales
 

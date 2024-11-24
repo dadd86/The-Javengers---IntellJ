@@ -13,7 +13,8 @@
       com.mysql.cj.jdbc.Driver
     </property>
     <property name="connection.username">root</property>
-    <property name="connection.password">Admin</property> <!-- Se recomienda usar variables de entorno -->
+    <!--<property name="connection.password">Admin</property> -->
+    <property name="connection.password">UOC.edu1</property> <!-- Se recomienda usar variables de entorno -->
 
     <!-- Dialecto: Permite que Hibernate traduzca HQL a SQL específico para MySQL -->
     <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
@@ -37,6 +38,13 @@
 
     <!-- Mapeo de entidades -->
     <mapping class="org.thejavengers.modelo.Excursion"/> <!-- Clase de modelo mapeada -->
+    <mapping class="org.thejavengers.modelo.Socio"/>
+    <mapping class="org.thejavengers.modelo.Inscripcion"/>
+    <mapping class="org.thejavengers.modelo.Federacion"/>
+    <mapping class="org.thejavengers.modelo.TipoSeguro"/>
+    <mapping class="org.thejavengers.modelo.SocioEstandar" />
+    <mapping class="org.thejavengers.modelo.SocioFederado" />
+    <mapping class="org.thejavengers.modelo.SocioInfantil" />
 
   </session-factory>
 </hibernate-configuration>

@@ -139,7 +139,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
             transaction = session.beginTransaction();
             Excursion excursion = session.get(Excursion.class, id);
             if (excursion != null) {
-                session.remove(excursion); // Cambiado de delete() a remove()
+                session.delete(excursion); // Cambiado de delete() a remove()
                 transaction.commit();
                 logger.info("Excursión con ID {} eliminada correctamente", id);
             } else {

@@ -19,13 +19,13 @@ public class Excursion {
     // Atributos mapeados
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Generación automática de ID
-    @Column(name = "id_excursion", nullable = false)
+    @Column(name = "idExcursion", nullable = false)
     private int idExcursion;
 
     @Column(name = "descripcion", nullable = false, length = 255)
     private String descripcion;
 
-    @Column(name = "fecha_excursion", nullable = false)
+    @Column(name = "fechaExcursion", nullable = false)
     private LocalDate fechaExcursion;
 
     @Column(name = "numero_dias", nullable = false)

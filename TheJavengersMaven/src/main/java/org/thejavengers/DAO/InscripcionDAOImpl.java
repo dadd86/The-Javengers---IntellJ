@@ -1,231 +1,169 @@
 package org.thejavengers.DAO;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.thejavengers.modelo.Socio;
+import org.thejavengers.modelo.Inscripcion;
+import org.thejavengers.modelo.Excursion;
 import org.thejavengers.modelo.*;
-import com.thejavengers.jdbc.theJDBC;
+import org.thejavengers.utils.HibernateUtil;
 import java.sql.*;
 import java.sql.Date;
 import java.util.*;
 import java.time.LocalDate;
 
+/**
+ * Implementación de la interfaz {@link InscripcionDAO} utilizando Hibernate.
+ *
+ * <p>Esta clase gestiona las operaciones CRUD para el modelo {@link Inscripcion}
+ * mediante el uso del ORM Hibernate, asegurando un manejo adecuado de transacciones
+ * y sesiones.</p>
+ *
+ * <p><strong>Mejoras en Seguridad y Robustez:</strong></p>
+ * <ul>
+ *     <li>Logger para registrar errores y eventos importantes.</li>
+ *     <li>Manejo adecuado de transacciones para garantizar atomicidad en las operaciones.</li>
+ *     <li>Validación previa de datos para evitar operaciones no deseadas.</li>
+ *     <li>Gestión de excepciones con mensajes detallados para facilitar la depuración.</li>
+ * </ul>
+ */
 public class InscripcionDAOImpl implements InscripcionDAO {
 
-    private Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(
-                theJDBC.url,
-                theJDBC.username,
-                theJDBC.password
-        );
-    }
+    // Logger para registrar eventos y errores
+    private static final Logger logger = LoggerFactory.getLogger(InscripcionDAOImpl.class);
 
+    /**
+     * Guarda una nueva inscripción en la base de datos.
+     *
+     * @param inscripcion El objeto {@link Inscripcion} que se desea guardar.
+     */
     @Override
     public void save(Inscripcion inscripcion) {
-        String sql = "{CALL insertarInscripcion(?, ?, ?)}"; //Procedimiento almacenado
-        try (Connection conn = getConnection();
-             CallableStatement callableStatement = conn.prepareCall(sql)) {
+        Transaction transaction = null; // Hibernate gestiona la transacción
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction(); // Inicia la transacción
 
+            session.save(inscripcion); // Persistencia de inscripción en la base de datos
 
-            conn.setAutoCommit(false); // Inicia la transacción
-            callableStatement.setInt(1, inscripcion.getSocio().getIdSocio());
-            callableStatement.setInt(2, inscripcion.getExcursion().getIdExcursion());
-            callableStatement.setDate(3, Date.valueOf(inscripcion.getFechaInscripcion()));
-            //callableStatement.setBoolean(4, true);
-
-            callableStatement.execute();
-            conn.commit(); //Confirma la transacción
+            transaction.commit(); // Confirma la transacción
             System.out.print("Inscripción guardada: " + inscripcion);
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback(); // Realiza rollback en caso de error
+            }
             e.printStackTrace();
             System.err.print("Error al guardar la inscripción. Realizando rollback.");
-            try (Connection conn = getConnection()) {
-                conn.rollback(); //Realizamos rollback si hay un error
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
         }
     }
 
+    /**
+     * Recupera una inscripción de la base de datos por su código.
+     *
+     * @param idInscripcion El ID de la inscripción que se desea recuperar.
+     * @return La inscripción correspondiente al ID, o {@code null} si no se encuentra.
+     */
     @Override
     public Inscripcion findById(int idInscripcion) {
-        String sql = "{CALL obtenerInscripcionId(?)}"; //Procedimiento almacenado
-        try (Connection conn = getConnection();
-             CallableStatement callableStatement = conn.prepareCall(sql)) {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Inscripcion inscripcion = session.get(Inscripcion.class, idInscripcion);
 
-            callableStatement.setInt(1, idInscripcion);
-
-            try (ResultSet resultSet = callableStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    int idSocio = resultSet.getInt("idSocio");
-                    String nombreSocio = resultSet.getString("nombreSocio");
-                    String apellidosSocio = resultSet.getString("apellidosSocio");
-                    String tipoSocio = resultSet.getString("tipoSocio");
-
-                    Socio socio = null;
-                    if ("estandar".equalsIgnoreCase(tipoSocio)) {
-                        String nif = resultSet.getString("nif");
-                        TipoSeguro seguro = TipoSeguro.valueOf(resultSet.getString("tipoSeguro"));
-                        socio = new SocioEstandar(idSocio, nombreSocio, apellidosSocio, nif, seguro);
-                    } else if ("federado".equalsIgnoreCase(tipoSocio)) {
-                        String nif = resultSet.getString("nif");
-                        Federacion federacion = new Federacion(resultSet.getInt("idFederacion"), resultSet.getString("nombreFederacion"));
-                        socio = new SocioFederado(idSocio, nombreSocio, apellidosSocio, nif, federacion);
-                    }
-
-                    int idExcursion = resultSet.getInt("idExcursion");
-                    Excursion excursion = new Excursion(idExcursion, resultSet.getString("descripcionExcursion"),
-                            resultSet.getDate("fechaExcursion").toLocalDate(), resultSet.getInt("numeroDias"),
-                            resultSet.getFloat("precioExcursion"));
-
-                    LocalDate fechaInscripcion = resultSet.getDate("fechaInscripcion").toLocalDate();
-
-                    return new Inscripcion(idInscripcion, socio, excursion, fechaInscripcion);
-                }
+            if (inscripcion != null) {
+                System.out.print("Inscripción encontrada: " + inscripcion);
+                return inscripcion;
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("Inscripción no encontrada con ID: " + idInscripcion);
+
+        System.out.print("Inscripción no encontrada con ID: " + idInscripcion);
         return null;
+
+        // !!!!!! EN CASO DE QUE NO FUNCIONE BIEN POR EL FETCH, PROBAD LO SIGUIENTE !!!!!!
+//        public Inscripcion findById(int idInscripcion) {
+//            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+//                // Utilizamos una consulta HQL con FETCH JOIN para cargar las relaciones
+//                String hql = "FROM Inscripcion i " +
+//                        "JOIN FETCH i.socio " +
+//                        "JOIN FETCH i.excursion " +
+//                        "WHERE i.idInscripcion = :id";
+//                Query<Inscripcion> query = session.createQuery(hql, Inscripcion.class);
+//                query.setParameter("id", idInscripcion);
+//
+//                Inscripcion inscripcion = query.uniqueResult();
+//
+//                if (inscripcion != null) {
+//                    System.out.println("Inscripción encontrada: " + inscripcion);
+//                    return inscripcion;
+//                }
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//
+//            System.out.println("Inscripción no encontrada con ID: " + idInscripcion);
+//            return null;
+//        }
     }
+
 
     @Override
     public List<Inscripcion> findByDateRange(LocalDate fechaInicio, LocalDate fechaFin) {
         List<Inscripcion> inscripciones = new ArrayList<>();
-        String sql = "{CALL obtenerInscripcionFechas(?, ?)}"; // Procedimiento almacenado
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // Consulta HQL para obtener las inscripciones dentro del rango de fechas
+            String hql = "FROM Inscripcion i " + "WHERE i.fechaInscripcion BETWEEN :fechaInicio AND :fechaFin";
 
-        try (Connection conn = getConnection();
-             CallableStatement callableStatement = conn.prepareCall(sql)) {
+            // Crear la consulta y establecer los parámetros
+            Query<Inscripcion> query = session.createQuery(hql, Inscripcion.class);
+            query.setParameter("fechaInicio", fechaInicio);
+            query.setParameter("fechaFin", fechaFin);
 
-            callableStatement.setDate(1, Date.valueOf(fechaInicio));
-            callableStatement.setDate(2, Date.valueOf(fechaFin));
+            // Ejecutar la consulta y obtener los resultados
+            inscripciones = query.list();
 
-            try (ResultSet resultSet = callableStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    // Datos del socio
-                    int idSocio = resultSet.getInt("idSocio");
-                    String nombreSocio = resultSet.getString("nombreSocio");
-                    String apellidosSocio = resultSet.getString("apellidosSocio");
-                    String tipoSocio = resultSet.getString("tipoSocio");
-
-                    Socio socio = null;
-                    if ("estandar".equalsIgnoreCase(tipoSocio)) {
-                        String nif = resultSet.getString("nif");
-                        TipoSeguro seguro = TipoSeguro.valueOf(resultSet.getString("tipoSeguro"));
-                        socio = new SocioEstandar(idSocio, nombreSocio, apellidosSocio, nif, seguro);
-                    } else if ("federado".equalsIgnoreCase(tipoSocio)) {
-                        String nif = resultSet.getString("nif");
-                        Federacion federacion = new Federacion(
-                                resultSet.getInt("idFederacion"),
-                                resultSet.getString("nombreFederacion")
-                        );
-                        socio = new SocioFederado(idSocio, nombreSocio, apellidosSocio, nif, federacion);
-                    }
-
-                    // Datos de la excursión
-                    int idExcursion = resultSet.getInt("idExcursion");
-                    Excursion excursion = new Excursion(
-                            idExcursion,
-                            resultSet.getString("descripcionExcursion"),
-                            resultSet.getDate("fechaExcursion").toLocalDate(),
-                            resultSet.getInt("numeroDias"),
-                            resultSet.getFloat("precioExcursion")
-                    );
-
-                    // Datos de la inscripción
-                    int idInscripcion = resultSet.getInt("idInscripcion");
-                    LocalDate fechaInscripcion = resultSet.getDate("fechaInscripcion").toLocalDate();
-
-                    // Crear la inscripción y añadir a la lista
-                    Inscripcion inscripcion = new Inscripcion(idInscripcion, socio, excursion, fechaInscripcion);
-                    inscripciones.add(inscripcion);
-                }
+            // Si no se encuentran inscripciones
+            if (inscripciones.isEmpty()) {
+                System.out.print("No se encontraron inscripciones en el rango de fechas.");
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return inscripciones;
+
+        // !!!!! SI FUERA NECESARIO OPTIMIZAR LA CONSULTA !!!!!
+//        String hql = "FROM Inscripcion i " +
+//                "JOIN FETCH i.socio " +   // Carga el socio de manera anticipada
+//                "JOIN FETCH i.excursion " + // Carga la excursión de manera anticipada
+//                "WHERE i.fechaInscripcion BETWEEN :fechaInicio AND :fechaFin";
+
     }
 
-    @Override
-    public List<Inscripcion> findAll(Integer idSocio, LocalDate fechaInicio, LocalDate fechaFin) {
-        List<Inscripcion> inscripciones = new ArrayList<>();
-        String sql = "{CALL obtenerInscripcionesFiltradas(?, ?, ?)}"; // Procedimiento almacenado
-
-        try (Connection conn = getConnection();
-             CallableStatement callableStatement = conn.prepareCall(sql)) {
-
-            // Configurar parámetros para el procedimiento
-            if (idSocio != null) {
-                callableStatement.setInt(1, idSocio);
-            } else {
-                callableStatement.setNull(1, Types.INTEGER);
-            }
-
-            if (fechaInicio != null) {
-                callableStatement.setDate(2, Date.valueOf(fechaInicio));
-            } else {
-                callableStatement.setNull(2, Types.DATE);
-            }
-
-            if (fechaFin != null) {
-                callableStatement.setDate(3, Date.valueOf(fechaFin));
-            } else {
-                callableStatement.setNull(3, Types.DATE);
-            }
-
-            // Ejecutar el procedimiento almacenado
-            try (ResultSet resultSet = callableStatement.executeQuery()) {
-                while (resultSet.next()) {
-                    int idInscripcion = resultSet.getInt("idInscripcion");
-                    int idSocioResult = resultSet.getInt("idSocio");
-                    String nombreSocio = resultSet.getString("nombreSocio");
-                    String apellidosSocio = resultSet.getString("apellidosSocio");
-
-                    // Crear objeto Socio básico
-                    Socio socio = new Socio(idSocioResult, nombreSocio, apellidosSocio) {
-                        @Override
-                        public float calcularCuotaMensual() {
-                            return 0; // Lógica predeterminada
-                        }
-
-                        @Override
-                        public float calcularPrecioExcursion(Excursion excursion) {
-                            return excursion.getPrecio();
-                        }
-                    };
-
-                    int idExcursion = resultSet.getInt("idExcursion");
-                    String descripcionExcursion = resultSet.getString("descripcionExcursion");
-                    int numeroDias = resultSet.getInt("numero_dias");
-                    LocalDate fechaExcursion = resultSet.getDate("fechaExcursion").toLocalDate();
-                    float precioExcursion = resultSet.getFloat("precio");
-
-                    Excursion excursion = new Excursion(idExcursion, descripcionExcursion, fechaExcursion, numeroDias, precioExcursion);
-
-                    LocalDate fechaInscripcion = resultSet.getDate("fechaInscripcion").toLocalDate();
-
-                    inscripciones.add(new Inscripcion(idInscripcion, socio, excursion, fechaInscripcion));
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Error al obtener inscripciones: " + e.getMessage(), e);
-        }
-
-        return inscripciones;
-    }
+    /**
+     * Recupera todas las inscripciones almacenadas en la base de datos.
+     *
+     * @return Una lista de objetos {@link Inscripcion}, o una lista vacía si no hay resultados.
+     */
     @Override
     public List<Inscripcion> findAll() {
         List<Inscripcion> inscripciones = new ArrayList<>();
-        String sql = "{CALL obtenerTodasInscripciones()}";
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // Consulta HQL para obtener todas las inscripciones
+            String hql = "FROM Inscripcion";
 
-        try (Connection conn = getConnection();
-             CallableStatement callableStatement = conn.prepareCall(sql);
-             ResultSet resultSet = callableStatement.executeQuery()) {
+            // Crear la consulta
+            Query<Inscripcion> query = session.createQuery(hql, Inscripcion.class);
 
-            while (resultSet.next()) {
+            // Ejecutar la consulta y obtener los resultados
+            inscripciones = query.list();
+
+            // Si no se encuentran inscripciones
+            if (inscripciones.isEmpty()) {
+                System.out.print("No se encontraron inscripciones.");
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Error al obtener todas las inscripciones: " + e.getMessage(), e);
         }
@@ -233,93 +171,118 @@ public class InscripcionDAOImpl implements InscripcionDAO {
         return inscripciones;
     }
 
+
+    @Override
+    public List<Inscripcion> findAll(Integer idSocio, LocalDate fechaInicio, LocalDate fechaFin) {
+        List<Inscripcion> inscripciones = new ArrayList<>();
+        // Usamos HQL para filtrar las inscripciones
+        StringBuilder hql = new StringBuilder("FROM Inscripcion i WHERE 1=1");
+
+        // Añadir condiciones de filtro dinámicamente
+        if (idSocio != null) {
+            hql.append(" AND i.socio.idSocio = :idSocio");
+        }
+
+        if (fechaInicio != null) {
+            hql.append(" AND i.fechaInscripcion >= :fechaInicio");
+        }
+
+        if (fechaFin != null) {
+            hql.append(" AND i.fechaInscripcion <= :fechaFin");
+        }
+
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Query<Inscripcion> query = session.createQuery(hql.toString(), Inscripcion.class);
+
+            if (idSocio != null) {
+                query.setParameter("idSocio", idSocio);
+            }
+            if (fechaInicio != null) {
+                query.setParameter("fechaInicio", fechaInicio);
+            }
+            if (fechaFin != null) {
+                query.setParameter("fechaFin", fechaFin);
+            }
+
+            // Ejecutar la consulta y obtener los resultados
+            inscripciones = query.list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error al obtener todas las inscripciones: " + e.getMessage(), e);
+        }
+
+        return inscripciones;
+    }
+
+    /**
+     * Actualiza los datos de una inscripción existente en la base de datos.
+     *
+     * @param inscripcion El objeto {@link Inscripcion} con los datos actualizados.
+     */
     @Override
     public void update(Inscripcion inscripcion) {
-        String sql = "{CALL actualizarInscripcion(?, ?, ?, ?, ?, ?, ?)}"; //Procedimiento almacenado
-        try (Connection conn = getConnection()) {
-            conn.setAutoCommit(false); //Inicia transacción
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
 
-            try (CallableStatement callableStatement = conn.prepareCall(sql)) {
+            try {
+                // Recuperamos la inscripción existente por su ID
+                Inscripcion existingInscripcion = session.get(Inscripcion.class, inscripcion.getIdInscripcion());
 
-                callableStatement.setInt(1, inscripcion.getIdInscripcion());
-                callableStatement.setInt(2, inscripcion.getSocio().getIdSocio());
-                callableStatement.setInt(3, inscripcion.getExcursion().getIdExcursion());
-                callableStatement.setDate(4, Date.valueOf(inscripcion.getFechaInscripcion()));
-                callableStatement.setInt(5, inscripcion.getSocio().getIdSocio());
-                callableStatement.setInt(6, inscripcion.getExcursion().getIdExcursion());
+                if (existingInscripcion != null) {
+                    // Actualizamos los campos de la inscripción con los nuevos valores
+                    existingInscripcion.setSocio(inscripcion.getSocio());
+                    existingInscripcion.setExcursion(inscripcion.getExcursion());
+                    existingInscripcion.setFechaInscripcion(inscripcion.getFechaInscripcion());
 
+                    // Hibernate maneja automáticamente el proceso de actualización de la entidad
+                    session.update(existingInscripcion);
 
-                callableStatement.executeUpdate();
-                conn.commit();
-                System.out.print("Inscripción actualizada: " + inscripcion);
-            } catch (SQLException e) {
-                conn.rollback(); //Realizamos rollback si hay un error
+                    // Commit de la transacción
+                    transaction.commit();
+                    System.out.print("Inscripción actualizada: " + existingInscripcion);
+                } else {
+                    System.out.print("No se encontró la inscripción con ID: " + inscripcion.getIdInscripcion());
+                }
+            } catch (Exception e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
                 e.printStackTrace();
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Elimina una inscripción de la base de datos por su código.
+     *
+     * @param idInscripcion El ID de la inscripción que se desea eliminar.
+     */
     @Override
     public void deleteById(int idInscripcion) {
-        String sql = "{CALL eliminarInscripcion(?)}"; //Procedimiento almacenado
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Transaction transaction = session.beginTransaction();
 
-        try (Connection conn = getConnection();
-             CallableStatement callableStatement = conn.prepareCall(sql)) {
+            try {
+                Inscripcion inscripcion = session.get(Inscripcion.class, idInscripcion);
 
-            conn.setAutoCommit(false); //Inicia transacción
-            callableStatement.setInt(1, idInscripcion);
-            callableStatement.execute();
+                if (inscripcion != null) {
+                    session.delete(inscripcion);
 
-            conn.commit();
-            System.out.print("Inscripción eliminada con ID: " + idInscripcion);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            System.err.print("Error al eliminar la inscripción. Realizando rollback.");
-            try (Connection conn = getConnection()) {
-                conn.rollback(); //Realizamos rollback si hay un error
-            } catch (SQLException ex) {
-                ex.printStackTrace();
+                    transaction.commit();
+                    System.out.print("Inscripción eliminada con ID: " + idInscripcion);
+                } else {
+                    System.out.print("No se encontró la inscripción con ID: " + idInscripcion);
+                }
+            } catch (Exception e) {
+                if (transaction != null) {
+                    transaction.rollback();
+                }
+                e.printStackTrace();
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
-
-
-//    private final List<Inscripcion> inscripciones = new ArrayList<>();
-//
-//    public List<Inscripcion> findAll() {
-//        List<Inscripcion> inscripciones = new ArrayList<>();
-//        return inscripciones;
-//    }
-//
-//    public void save(Inscripcion inscripcion) {
-//        inscripciones.add(inscripcion);
-//        System.out.print("Inscripción guardada: " + inscripcion);
-//    }
-//
-//    public Inscripcion findById(int idInscripcion) {
-//        return inscripciones.stream()
-//                .filter(i -> i.getIdInscripcion() == idInscripcion)
-//                .findFirst()
-//                .orElse(null);
-//    }
-//
-//    public void update(Inscripcion inscripcion) {
-//        Inscripcion existingInscripcion = findById(inscripcion.getIdInscripcion());
-//        if (existingInscripcion != null) {
-//            inscripciones.remove(existingInscripcion);
-//            inscripciones.add(inscripcion);
-//            System.out.print("Inscripción actualizada: " + inscripcion);
-//        } else {
-//            System.out.print("Inscripción no encontrada para actualizar.");
-//        }
-//    }
-//
-//    public void deleteById(int idInscripcion) {
-//        inscripciones.removeIf(i -> i.getIdInscripcion() == idInscripcion);
-//        System.out.print("Inscripción eliminada con ID: " + idInscripcion);
-//    }
-
 }
