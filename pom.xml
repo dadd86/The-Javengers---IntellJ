@@ -11,13 +11,15 @@
     <name>TheJavengersMaven</name>
     <url>http://maven.apache.org</url>
 
+
     <!-- Propiedades del proyecto -->
     <properties>
         <!-- Ruta al SDK de JavaFX -->
         <PATH_TO_FX>C:\Program Files\Java\javafx-sdk-21.0.5\lib</PATH_TO_FX>
         <!-- Versión de Java -->
-        <maven.compiler.source>17</maven.compiler.source>  <!-- Cambia a la versión de Java que estés utilizando -->
-        <maven.compiler.target>17</maven.compiler.target>  <!-- Cambia a la versión de Java que estés utilizando -->
+        <java.version>17</java.version>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -74,6 +76,13 @@
             <version>21.0.5</version>
             <scope>runtime</scope>
         </dependency>
+        <!-- JavaFX FXML -->
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>21.0.5</version>
+            <scope>runtime</scope>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <dependency>
@@ -103,6 +112,11 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.5.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>23</version>
         </dependency>
 
 
@@ -165,5 +179,13 @@
                 </configuration>
             </plugin>
         </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.fxml</include>
+                </includes>
+            </resource>
+        </resources>
     </build>
 </project>

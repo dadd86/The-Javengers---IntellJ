@@ -1,0 +1,97 @@
+/* Archivo CSS para los estilos de la aplicación */
+
+/* --- Contenedor Principal --- */
+.contenedor-principal {
+    -fx-background-color: #f0f8ff; /* Azul claro */
+    -fx-padding: 20px;
+    -fx-border-radius: 10px;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 10, 0.5, 0, 0);
+}
+
+/* --- Estilo para títulos --- */
+.titulo-principal {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333; /* Gris oscuro */
+    -fx-padding: 10px 0;
+}
+
+.subtitulo {
+    -fx-font-size: 18px;
+    -fx-text-fill: #666666; /* Gris claro */
+    -fx-padding: 5px 0;
+}
+
+/* --- Estilo para botones --- */
+.button {
+    -fx-background-color: #4682B4; /* Azul acero */
+    -fx-text-fill: white;         /* Texto blanco */
+    -fx-font-size: 16px;          /* Tamaño de fuente */
+    -fx-padding: 10px 20px;       /* Espaciado */
+    -fx-border-radius: 10px;      /* Bordes redondeados */
+    -fx-border-color: #3b6a91;    /* Borde más oscuro */
+    -fx-border-width: 2px;
+}
+
+/* Interacción del mouse con los botones */
+.button:hover {
+    -fx-background-color: #5a9bd5; /* Azul más claro */
+    -fx-cursor: hand;              /* Cambia el cursor al pasar sobre el botón */
+}
+
+.button:focused {
+    -fx-border-color: #FF4500; /* Naranja brillante */
+    -fx-border-width: 3px;
+}
+
+/* Estilo específico para el botón de salir */
+.boton-salir {
+    -fx-background-color: #FF6347; /* Rojo tomate */
+    -fx-text-fill: white;
+}
+
+.boton-salir:hover {
+    -fx-background-color: #FF7F50; /* Coral claro */
+}
+
+/* --- Estilo para separadores --- */
+.separator {
+    -fx-background-color: #dddddd; /* Gris claro */
+    -fx-padding: 10px;
+}
+
+/* --- Estilo para etiquetas generales --- */
+.label {
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333; /* Gris oscuro */
+}
+
+/* --- Efectos globales --- */
+/* Clase para agregar sombras a cualquier contenedor */
+.shadow {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0.7, 0, 0);
+}
+/* Estilo para los botones */
+.boton-principal {
+    -fx-background-color: #4682B4; /* Azul acero */
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+}
+.boton-principal:hover {
+    -fx-background-color: #5a9bd5; /* Azul claro */
+    -fx-cursor: hand;
+}
+
+.boton-secundario {
+    -fx-background-color: #dcdcdc; /* Gris claro */
+    -fx-text-fill: #333333;
+    -fx-font-size: 14px;
+    -fx-border-radius: 5px;
+}
+
+.boton-secundario:hover {
+    -fx-background-color: #c0c0c0; /* Gris más oscuro */
+    -fx-cursor: hand;
+}

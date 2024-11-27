@@ -11,7 +11,10 @@ import org.thejavengers.controlador.ControladorSocios;
 import org.thejavengers.controlador.ControladorExcursiones;
 import org.thejavengers.controlador.ControladorInscripciones;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -47,16 +50,20 @@ public class Main extends Application  {
      */
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Inicializando la aplicación JavaFX");
-
-        Label label = new Label("Hello, JavaFX!");
-        Scene scene = new Scene(label, 400, 300);
-
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("JavaFX Example");
-        primaryStage.show();
-
-        logger.info("Aplicación JavaFX inicializada exitosamente");
+        try {
+            logger.info("Iniciando la aplicación JavaFX.");
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            // Agregar el archivo CSS a la escena
+            scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+            primaryStage.setTitle("Sistema de Gestión de Excursiones");
+            primaryStage.setScene(scene);
+            primaryStage.show();
+            logger.info("Aplicación JavaFX iniciada correctamente.");
+        } catch (Exception e) {
+            logger.error("Error crítico al iniciar la aplicación.", e);
+        }
     }
 
     /**
@@ -71,7 +78,14 @@ public class Main extends Application  {
          * Método main para lanzar la aplicación.
          * @param args Argumentos de línea de comandos (no se usan aquí).
          */
-        launch(args);
+        try {
+            logger.info("Inicio de la aplicación.");
+            launch(args);
+            logger.info("Aplicación finalizada.");
+        } catch (Exception e) {
+            logger.error("Error crítico en la aplicación.", e);
+        }
+
 
 
 

@@ -3,8 +3,8 @@
   <component name="AdditionalModuleElements">
     <content url="file://$MODULE_DIR$" dumb="true">
       <sourceFolder url="file://$MODULE_DIR$/TheJavengersMaven/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/TheJavengersMaven/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/TheJavengersMaven/src/test/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/TheJavengersMaven/src/main/java/org/thejavengers/resources" type="java-resource" />
     </content>
   </component>
   <component name="FacetManager">
@@ -14,7 +14,7 @@
           <unit-entry name="hibernate.cfg.xml" value="d3f5dda9-da63-4ff0-b2ad-64abfb660394" />
         </datasource-map>
         <naming-strategy-map />
-        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/TheJavengersMaven/src/main/java/org/thejavengers/resources/hibernate.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/TheJavengersMaven/src/main/resources/hibernate.cfg.xml" />
       </configuration>
     </facet>
     <facet type="jpa" name="JPA">
