@@ -12,21 +12,13 @@ import org.thejavengers.controlador.ControladorExcursiones;
 import org.thejavengers.controlador.ControladorInscripciones;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.thejavengers.DAO.ExcursionDAO;
-import org.thejavengers.DAO.ExcursionDAOImpl;
-import org.thejavengers.modelo.Excursion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.thejavengers.vista.gestionMenuPrincipal.*;
 
-
-import java.time.LocalDate;
 /**
  * Clase principal (Main) del sistema de gestión de excursiones.
  * Se encarga de inicializar el modelo, vistas y controladores, y gestionar
@@ -52,19 +44,31 @@ public class Main extends Application  {
     public void start(Stage primaryStage) {
         try {
             logger.info("Iniciando la aplicación JavaFX.");
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/application.fxml"));
+
+            // Crear instancia de SceneManager con el Stage principal y el CSS por defecto
+            SceneManager sceneManager = new SceneManager(primaryStage, "/styles.css");
+
+            // Cargar el archivo FXML del menú principal
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/application.fxml"));
             Parent root = loader.load();
-            Scene scene = new Scene(root);
-            // Agregar el archivo CSS a la escena
-            scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+
+            // Obtener el controlador del archivo FXML
+            VistaGestionMenuPrincipal controller = loader.getController();
+
+            // Pasar el SceneManager al controlador
+            controller.setSceneManager(sceneManager);
+
+            // Configurar la escena inicial
+            primaryStage.setScene(new Scene(root));
             primaryStage.setTitle("Sistema de Gestión de Excursiones");
-            primaryStage.setScene(scene);
             primaryStage.show();
             logger.info("Aplicación JavaFX iniciada correctamente.");
         } catch (Exception e) {
             logger.error("Error crítico al iniciar la aplicación.", e);
         }
     }
+
+
 
     /**
      * Método principal (punto de entrada) del sistema.
@@ -78,13 +82,18 @@ public class Main extends Application  {
          * Método main para lanzar la aplicación.
          * @param args Argumentos de línea de comandos (no se usan aquí).
          */
+
         try {
-            logger.info("Inicio de la aplicación.");
-            launch(args);
-            logger.info("Aplicación finalizada.");
+            logger.info("Inicio de la aplicación JavaFX.");
+            launch(args); // Lanza la aplicación JavaFX
+            logger.info("Aplicación finalizada exitosamente.");
         } catch (Exception e) {
-            logger.error("Error crítico en la aplicación.", e);
+            // Registro de cualquier excepción crítica
+            logger.error("Error crítico durante la ejecución de la aplicación.", e);
+            System.exit(1); // Opcional: Salir con un código de error
         }
+
+
 
 
 

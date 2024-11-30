@@ -1,5 +1,10 @@
 /* Archivo CSS para los estilos de la aplicación */
-
+/* Alerta */
+.alert {
+    -fx-background-color: #FF6347; /* Rojo */
+    -fx-text-fill: white;
+    -fx-padding: 10px;
+}
 /* --- Contenedor Principal --- */
 .contenedor-principal {
     -fx-background-color: #f0f8ff; /* Azul claro */
@@ -20,6 +25,26 @@
     -fx-font-size: 18px;
     -fx-text-fill: #666666; /* Gris claro */
     -fx-padding: 5px 0;
+}
+
+/* Instrucciones para cada campo */
+.label-instruccion {
+    -fx-font-size: 16px;
+    -fx-text-fill: #666666; /* Gris claro */
+    -fx-padding: 5px 0;
+}
+/* Campos de texto */
+.text-field, .date-picker {
+    -fx-font-size: 14px;
+    -fx-background-color: #ffffff; /* Fondo blanco */
+    -fx-border-color: #c0c0c0; /* Gris claro */
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+/* Efecto al pasar el ratón sobre los campos */
+.text-field:hover, .date-picker:hover {
+    -fx-border-color: #4682B4; /* Azul acero */
 }
 
 /* --- Estilo para botones --- */
@@ -59,7 +84,10 @@
     -fx-background-color: #dddddd; /* Gris claro */
     -fx-padding: 10px;
 }
-
+/* General */
+.root {
+    -fx-background-color: #f9f9f9;
+}
 /* --- Estilo para etiquetas generales --- */
 .label {
     -fx-font-family: "Arial";
