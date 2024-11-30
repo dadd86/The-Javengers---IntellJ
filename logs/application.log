@@ -2376,3 +2376,10 @@ java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMen
 2024-11-30 10:21:09 [JavaFX Application Thread] INFO  org.thejavengers.Main - Aplicación JavaFX iniciada correctamente.
 2024-11-30 10:21:10 [main] INFO  org.thejavengers.Main - Aplicación finalizada exitosamente.
 2024-11-30 10:21:11 [main] INFO  o.t.c.ControladorExcursiones - ControladorExcursiones inicializado correctamente.
+2024-11-30 10:23:47 [main] INFO  org.thejavengers.Main - Inicio de la aplicación JavaFX.
+2024-11-30 10:23:47 [JavaFX Application Thread] INFO  org.thejavengers.Main - Iniciando la aplicación JavaFX.
+2024-11-30 10:23:48 [JavaFX Application Thread] INFO  org.thejavengers.Main - Aplicación JavaFX iniciada correctamente.
+2024-11-30 10:23:53 [JavaFX Application Thread] INFO  o.t.v.g.VistaGestionMenuPrincipal - Navegando a la ventana de Gestión de Excursiones.
+2024-11-30 10:23:53 [JavaFX Application Thread] INFO  o.t.v.g.VistaGestionMenuPrincipal - Ventana de Gestión de Excursiones abierta correctamente.
+2024-11-30 10:25:19 [main] INFO  org.thejavengers.Main - Aplicación finalizada exitosamente.
+2024-11-30 10:25:19 [main] INFO  o.t.c.ControladorExcursiones - ControladorExcursiones inicializado correctamente.
