@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * Clase centralizada para gestionar transiciones entre vistas en la aplicación JavaFX.
@@ -62,6 +63,17 @@ public class SceneManager {
 
             // Almacenar el controlador cargado
             this.controlador = loader.getController();
+            // Configurar el SceneManager si el controlador tiene un método setSceneManager
+            try {
+                var setSceneManagerMethod = controlador.getClass().getMethod("setSceneManager", SceneManager.class);
+                setSceneManagerMethod.invoke(controlador, this);
+            } catch (NoSuchMethodException e) {
+                System.err.println("El método setSceneManager no existe en el controlador: " + e.getMessage());
+            } catch (IllegalAccessException e) {
+                System.err.println("No se pudo acceder al método setSceneManager: " + e.getMessage());
+            } catch (InvocationTargetException e) {
+                System.err.println("Error al invocar el método setSceneManager: " + e.getTargetException());
+            }
 
             Scene scene = new Scene(root);
 
