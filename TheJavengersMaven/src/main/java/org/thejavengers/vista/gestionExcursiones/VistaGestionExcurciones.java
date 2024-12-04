@@ -67,7 +67,11 @@ public class VistaGestionExcurciones {
             // Crear una nueva ventana (Stage)
             Stage stage = new Stage();
             stage.setTitle("Añadir Excursión");
-            stage.setScene(new Scene(root));
+            // Configurar el tamaño de la ventana
+            double ancho = 400.0; // Ancho deseado
+            double alto = 800.0; // Alto deseado
+            Scene scene = new Scene(root, ancho, alto);
+            stage.setScene(scene);
             stage.setResizable(false);
 
             // Mostrar la nueva ventana

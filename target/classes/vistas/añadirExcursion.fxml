@@ -1,38 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!-- Archivo FXML para centrar dinámicamente un VBox dentro de un AnchorPane -->
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.thejavengers.vista.gestionExcursiones.VistaAñadirExcursion"
+            stylesheets="@../styles.css">
+<children>
+    <!-- VBox centrado dinámicamente dentro del AnchorPane -->
+    <VBox alignment="CENTER" spacing="20.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <children>
+            <!-- Título de la ventana -->
+            <Label text="Gestión de Excursiones" styleClass="titulo-principal" />
+            <Label text="Añadir Excursiones" styleClass="subtitulo" />
+            <Separator />
 
+            <!-- Campos de entrada -->
+            <!-- Descripción de la excursión -->
+            <Label text="Introduce una breve descripción de la excursión:" styleClass="label-instruccion" />
+            <TextField fx:id="descripcionField" promptText="Ejemplo: Excursión a la montaña" />
 
-<VBox alignment="CENTER" spacing="15" xmlns:fx="http://javafx.com/fxml" fx:controller="org.thejavengers.vista.gestionExcursiones.VistaAñadirExcursion">
-    <!-- Título de la ventana -->
-    <Label text="Gestión de Excursiones" styleClass="titulo-principal" />
-    <Label text="Añadir Excursiones" styleClass="subtitulo" />
+            <!-- Fecha de la excursión -->
+            <Label text="Selecciona la fecha de la excursión:" styleClass="label-instruccion" />
+            <DatePicker fx:id="fechaPicker" promptText="Selecciona una fecha" />
 
-    <!-- Campos de entrada -->
-    <!-- Descripción de la excursión -->
-    <Label text="Introduce una breve descripción de la excursión:" styleClass="label-instruccion" />
-    <TextField fx:id="descripcionField" promptText="Ejemplo: Excursión a la montaña" />
+            <!-- Número de días -->
+            <Label text="Introduce el número de días que durará la excursión:" styleClass="label-instruccion" />
+            <TextField fx:id="numeroDiasField" promptText="Ejemplo: 3" />
 
-    <!-- Fecha de la excursión -->
-    <Label text="Selecciona la fecha de la excursión:" styleClass="label-instruccion" />
-    <DatePicker fx:id="fechaPicker" promptText="Selecciona una fecha" />
+            <!-- Precio de la excursión -->
+            <Label text="Introduce el precio por persona para la excursión:" styleClass="label-instruccion" />
+            <TextField fx:id="precioField" promptText="Ejemplo: 50.0" />
+            <Separator />
 
-    <!-- Número de días -->
-    <Label text="Introduce el número de días que durará la excursión:" styleClass="label-instruccion" />
-    <TextField fx:id="numeroDiasField" promptText="Ejemplo: 3" />
-
-    <!-- Precio de la excursión -->
-    <Label text="Introduce el precio por persona para la excursión:" styleClass="label-instruccion" />
-    <TextField fx:id="precioField" promptText="Ejemplo: 50.0" />
-
-    <!-- Botones de acción -->
-    <Button text="Agregar Excursión" onAction="#agregarExcursion" styleClass="boton-principal" />
-    <Button text="Volver al Menú Principal" onAction="#manejarVolverMenu" styleClass="boton-secundario" />
-    <!-- Botón para volver al menú principal -->
-</VBox>
+            <!-- Botones de acción -->
+            <Button text="Agregar Excursión" onAction="#agregarExcursion" styleClass="boton-principal" />
+            <Button text="Volver al Menú Principal" onAction="#manejarVolverMenu" styleClass="boton-secundario" />
+            <!-- Botón para volver al menú principal -->
+        </children>
+    </VBox>
+</children>
+</AnchorPane>
 

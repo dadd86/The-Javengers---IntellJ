@@ -64,7 +64,7 @@ public class Main extends Application  {
             Scene scene = new Scene(root, fixedWidth, fixedHeight);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Sistema de Gestión de Excursiones");
-            primaryStage.setResizable(false);
+            primaryStage.setResizable(true);
             primaryStage.show();
 
             logger.info("Aplicación JavaFX iniciada correctamente.");
