@@ -7,6 +7,7 @@ import org.thejavengers.DAO.FederacionDAO;
 import org.thejavengers.DAO.FederacionDAOImpl;
 import org.thejavengers.DAO.SocioDAO;
 import org.thejavengers.DAO.SocioDAOImpl;
+import org.thejavengers.Excepciones.SceneManagerException;
 import org.thejavengers.modelo.*;
 import org.thejavengers.vista.gestionMenuPrincipal.SceneManager;
 
@@ -130,7 +131,7 @@ public class ControladorAgregarSocio {
             try {
                 // Cambiar a la vista de Gestión de Socios
                 sceneManager.cambiarVista("/vistas/GestionSocios.fxml", "Gestión de Socios");
-            } catch (IOException e) {
+            } catch (SceneManagerException e) {
                 e.printStackTrace();
                 // Mostrar alerta si hay un error
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Error al cargar la vista de Gestión de Socios.");

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.thejavengers.DAO.SocioDAO;
 import org.thejavengers.DAO.SocioDAOImpl;
+import org.thejavengers.Excepciones.SceneManagerException;
 import org.thejavengers.modelo.Socio;
 import org.thejavengers.modelo.SocioEstandar;
 import org.thejavengers.modelo.TipoSeguro;
@@ -105,7 +106,7 @@ public class ControladorVistaSocios {
             try {
                 // Cambiar a la vista de agregar socio
                 sceneManager.cambiarVista("/vistas/AgregarSocio.fxml", "Agregar Socio");
-            } catch (IOException e) {
+            } catch (SceneManagerException e) {
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Error al cargar la vista de Agregar Socio.");
                 alert.showAndWait();
@@ -170,10 +171,8 @@ public class ControladorVistaSocios {
         if (sceneManager != null) {
             try {
                 sceneManager.cambiarVista("/vistas/application.fxml", "Menú Principal");
-            } catch (IOException e) {
-                e.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al cargar el menú principal.");
-                alert.showAndWait();
+            } catch (SceneManagerException e) {
+                throw new RuntimeException(e);
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "SceneManager no configurado.");

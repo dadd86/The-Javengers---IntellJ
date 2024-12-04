@@ -11,7 +11,8 @@ import org.slf4j.LoggerFactory;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import java.io.IOException;
-import org.thejavengers.vista.gestionMenuPrincipal.SceneManager;
+import org.thejavengers.vista.gestionMenuPrincipal.*;
+import org.thejavengers.Excepciones.*;
 /**
  * Controlador para la vista del menú principal.
  *
@@ -41,21 +42,34 @@ public class VistaGestionMenuPrincipal {
     public void setSceneManager(SceneManager sceneManager) {
         this.sceneManager = sceneManager;
     }
-
     /**
-     * Abre la vista de Gestión de Excursiones.
+     * Verifica si el SceneManager está configurado correctamente.
+     *
+     * @throws IllegalStateException Si el SceneManager no está configurado.
      */
+    private void validarSceneManager() {
+        if (sceneManager == null) {
+            logger.error("El SceneManager no está configurado. No se puede cambiar la vista.");
+            throw new IllegalStateException("El SceneManager no está configurado.");
+        }
+    }
+
     @FXML
     public void abrirExcursionesVista() {
         logger.info("Navegando a la ventana de Gestión de Excursiones.");
         try {
+            validarSceneManager(); // Verificar que SceneManager está configurado correctamente
             sceneManager.cambiarVista("/vistas/gestionExcursiones.fxml", "Gestión de Excursiones", "/styles.css");
             logger.info("Ventana de Gestión de Excursiones abierta correctamente.");
+        } catch (SceneManagerException e) {
+            logger.error("Error al cambiar la vista para Gestión de Excursiones.", e);
+            mostrarAlertaError("Error de Navegación", e.getMessage());
         } catch (Exception e) {
-            logger.error("Error al abrir la ventana de Gestión de Excursiones.", e);
-            mostrarAlertaError("No se pudo abrir la ventana de Gestión de Excursiones.", e.getMessage());
+            logger.error("Error inesperado al abrir la ventana de Gestión de Excursiones.", e);
+            mostrarAlertaError("Error", "Ocurrió un error inesperado.");
         }
     }
+
 
     /**
      * Abre la vista de Gestión de Inscripciones.
