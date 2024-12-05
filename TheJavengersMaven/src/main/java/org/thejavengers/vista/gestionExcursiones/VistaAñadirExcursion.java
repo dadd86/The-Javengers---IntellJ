@@ -5,20 +5,10 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.thejavengers.DAO.ExcursionDAO;
-import org.thejavengers.DAO.ExcursionDAOImpl;
-import org.thejavengers.Excepciones.SceneManagerException;
-import org.thejavengers.modelo.Excursion;
-import org.thejavengers.vista.gestionMenuPrincipal.SceneManager;
-import org.thejavengers.Excepciones.*;
-import java.io.IOException;
-import java.time.LocalDate;
+import org.thejavengers.controlador.ControladorExcursionesVista;
 
 /**
- * Controlador para la vista de "Añadir Excursión".
- *
- * <p>Gestiona las acciones realizadas en la vista de añadir excursiones,
- * incluyendo validación de datos y cierre de la ventana actual.</p>
+ * Clase encargada de gestionar la interacción de la interfaz gráfica de "Añadir Excursión".
  */
 public class VistaAñadirExcursion {
 
@@ -36,13 +26,13 @@ public class VistaAñadirExcursion {
     @FXML
     private TextField precioField;
 
-    private final ExcursionDAO excursionDAO;
+    private final ControladorExcursionesVista controlador;
 
     /**
-     * Constructor que inicializa el DAO para la gestión de excursiones.
+     * Constructor que inicializa el controlador de excursiones.
      */
     public VistaAñadirExcursion() {
-        this.excursionDAO = new ExcursionDAOImpl();
+        this.controlador = new ControladorExcursionesVista();
     }
 
     /**
@@ -51,65 +41,30 @@ public class VistaAñadirExcursion {
     @FXML
     public void agregarExcursion() {
         try {
-            logger.info("Intentando agregar una nueva excursión.");
-
-            // Validar los campos de entrada
-            String descripcion = descripcionField.getText().trim();
-            if (descripcion.isEmpty()) {
-                mostrarAlerta("Error de Validación", "La descripción no puede estar vacía.");
-                return;
-            }
-
-            LocalDate fecha = fechaPicker.getValue();
-            if (fecha == null || fecha.isBefore(LocalDate.now())) {
-                mostrarAlerta("Error de Validación", "La fecha no puede ser nula ni estar en el pasado.");
-                return;
-            }
-
-            int numeroDias;
-            try {
-                numeroDias = Integer.parseInt(numeroDiasField.getText().trim());
-                if (numeroDias <= 0 || numeroDias > 365) {
-                    mostrarAlerta("Error de Validación", "El número de días debe estar entre 1 y 365.");
-                    return;
-                }
-            } catch (NumberFormatException e) {
-                mostrarAlerta("Error de Validación", "El número de días debe ser un valor numérico.");
-                return;
-            }
-
-            float precio;
-            try {
-                precio = Float.parseFloat(precioField.getText().trim());
-                if (precio < 0 || precio > 10_000) {
-                    mostrarAlerta("Error de Validación", "El precio debe estar entre 0 y 10,000.");
-                    return;
-                }
-            } catch (NumberFormatException e) {
-                mostrarAlerta("Error de Validación", "El precio debe ser un valor numérico.");
-                return;
-            }
-
-            // Crear y guardar la excursión
-            Excursion nuevaExcursion = new Excursion(0, descripcion, fecha, numeroDias, precio);
-            excursionDAO.save(nuevaExcursion);
-
-            logger.info("Excursión agregada exitosamente: {}", nuevaExcursion);
+            logger.info("Iniciando el proceso para agregar una nueva excursión.");
+            controlador.validarYGuardarExcursion(
+                    descripcionField.getText(),
+                    fechaPicker.getValue(),
+                    numeroDiasField.getText(),
+                    precioField.getText()
+            );
             mostrarAlerta("Éxito", "Excursión agregada correctamente.");
             limpiarCampos();
-
+        } catch (IllegalArgumentException e) {
+            mostrarAlerta("Error de Validación", e.getMessage());
+            logger.warn("Error de validación al agregar excursión: {}", e.getMessage());
         } catch (Exception e) {
-            logger.error("Error inesperado al agregar excursión.", e);
             mostrarAlertaError("Error", "Ocurrió un error inesperado.");
+            logger.error("Error inesperado al agregar excursión.", e);
         }
     }
 
     /**
-     * Cierra la ventana actual.
+     * Maneja la acción del botón "Volver al Menú Principal".
      */
     @FXML
-    public void cerrarVentana() {
-        logger.info("Cerrando la ventana de 'Añadir Excursión'.");
+    public void manejarVolverMenu() {
+        logger.info("Cerrando la vista de 'Añadir Excursión' y volviendo al menú principal.");
         Stage stage = (Stage) descripcionField.getScene().getWindow();
         if (stage != null) {
             stage.close();
@@ -119,7 +74,7 @@ public class VistaAñadirExcursion {
     }
 
     /**
-     * Muestra una alerta de información al usuario.
+     * Muestra una alerta informativa al usuario.
      *
      * @param titulo  Título de la alerta.
      * @param mensaje Contenido del mensaje de la alerta.
@@ -154,18 +109,5 @@ public class VistaAñadirExcursion {
         fechaPicker.setValue(null);
         numeroDiasField.clear();
         precioField.clear();
-    }
-    /**
-     * Maneja la acción del botón "Volver al Menú Principal".
-     */
-    @FXML
-    private void manejarVolverMenu() {
-        logger.info("Intentando volver al menú principal.");
-        try {
-            logger.info("Vista del menú principal abierta correctamente.");
-        } catch (Exception e) {
-            logger.error("Error inesperado al volver al menú principal.", e);
-            mostrarAlertaError("Error", "Ocurrió un error inesperado.");
-        }
     }
 }
