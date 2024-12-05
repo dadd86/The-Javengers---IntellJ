@@ -34,7 +34,6 @@
         <!-- Botones de acción -->
         <Button text="Agregar Excursión" onAction="#agregarExcursion" styleClass="boton-principal" />
         <Button text="Volver al Menú Principal" onAction="#volverAlMenu" styleClass="boton-secundario" />
-        <!-- Botón para volver al menú principal -->
-        <Button text="Volver al Menú Principal" onAction="#manejarVolverMenu" />
+
     </VBox>
 </AnchorPane>

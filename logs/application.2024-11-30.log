@@ -1512,7 +1512,7 @@ java.lang.NullPointerException: Cannot invoke "javafx.scene.control.Button.getSc
 2024-11-30 09:38:35 [JavaFX Application Thread] INFO  o.t.v.g.VistaGestionExcurciones - Intentando abrir la vista para añadir una excursión.
 2024-11-30 09:38:35 [JavaFX Application Thread] ERROR o.t.v.g.VistaGestionExcurciones - Error al abrir la vista de añadir excursión.
 java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMenuPrincipal.SceneManager.cambiarVista(String, String, String)" because "this.sceneManager" is null
-	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcurciones.manejarAnadirExcursion(VistaGestionExcurciones.java:44)
+	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones.manejarAnadirExcursion(VistaGestionExcurciones.java:44)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
@@ -1577,7 +1577,7 @@ java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMen
 2024-11-30 09:46:04 [JavaFX Application Thread] INFO  o.t.v.g.VistaGestionExcurciones - Intentando volver al menú principal.
 2024-11-30 09:46:04 [JavaFX Application Thread] ERROR o.t.v.g.VistaGestionExcurciones - Error al volver al menú principal.
 java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMenuPrincipal.SceneManager.cambiarVista(String, String, String)" because "this.sceneManager" is null
-	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcurciones.manejarVolverMenu(VistaGestionExcurciones.java:89)
+	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones.manejarVolverMenu(VistaGestionExcurciones.java:89)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
@@ -1829,7 +1829,7 @@ java.lang.NullPointerException: Cannot invoke "javafx.scene.control.Button.getSc
 2024-11-30 09:53:07 [JavaFX Application Thread] INFO  o.t.v.g.VistaGestionExcurciones - Intentando volver al menú principal.
 2024-11-30 09:53:07 [JavaFX Application Thread] ERROR o.t.v.g.VistaGestionExcurciones - Error al volver al menú principal.
 java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMenuPrincipal.SceneManager.cambiarVista(String, String, String)" because "this.sceneManager" is null
-	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcurciones.manejarVolverMenu(VistaGestionExcurciones.java:89)
+	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones.manejarVolverMenu(VistaGestionExcurciones.java:89)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
@@ -2021,7 +2021,7 @@ java.lang.NullPointerException: Cannot invoke "javafx.scene.control.Button.getSc
 2024-11-30 09:58:05 [JavaFX Application Thread] INFO  o.t.v.g.VistaGestionExcurciones - Intentando volver al menú principal.
 2024-11-30 09:58:05 [JavaFX Application Thread] ERROR o.t.v.g.VistaGestionExcurciones - Error al volver al menú principal.
 java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMenuPrincipal.SceneManager.cambiarVista(String, String, String)" because "this.sceneManager" is null
-	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcurciones.manejarVolverMenu(VistaGestionExcurciones.java:89)
+	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones.manejarVolverMenu(VistaGestionExcurciones.java:89)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
@@ -2086,7 +2086,7 @@ java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMen
 2024-11-30 10:05:53 [JavaFX Application Thread] INFO  o.t.v.g.VistaGestionExcurciones - Intentando volver al menú principal.
 2024-11-30 10:05:53 [JavaFX Application Thread] ERROR o.t.v.g.VistaGestionExcurciones - Error al volver al menú principal.
 java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMenuPrincipal.SceneManager.cambiarVista(String, String, String)" because "this.sceneManager" is null
-	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcurciones.manejarVolverMenu(VistaGestionExcurciones.java:89)
+	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones.manejarVolverMenu(VistaGestionExcurciones.java:89)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
@@ -2316,7 +2316,7 @@ Caused by: java.lang.ClassNotFoundException: gestionSocios
 2024-11-30 10:16:27 [JavaFX Application Thread] INFO  o.t.v.g.VistaGestionExcurciones - Intentando abrir la vista para añadir una excursión.
 2024-11-30 10:16:27 [JavaFX Application Thread] ERROR o.t.v.g.VistaGestionExcurciones - Error al abrir la vista de añadir excursión.
 java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMenuPrincipal.SceneManager.cambiarVista(String, String, String)" because "this.sceneManager" is null
-	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcurciones.manejarAnadirExcursion(VistaGestionExcurciones.java:44)
+	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones.manejarAnadirExcursion(VistaGestionExcurciones.java:44)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
@@ -2391,7 +2391,7 @@ java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMen
 2024-11-30 11:36:01 [JavaFX Application Thread] INFO  o.t.v.g.VistaGestionExcurciones - Intentando abrir la vista para añadir una excursión.
 2024-11-30 11:36:01 [JavaFX Application Thread] ERROR o.t.v.g.VistaGestionExcurciones - Error al abrir la vista de añadir excursión.
 java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMenuPrincipal.SceneManager.cambiarVista(String, String, String)" because "this.sceneManager" is null
-	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcurciones.manejarAnadirExcursion(VistaGestionExcurciones.java:44)
+	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones.manejarAnadirExcursion(VistaGestionExcurciones.java:44)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
@@ -2449,7 +2449,7 @@ java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMen
 2024-11-30 11:36:02 [JavaFX Application Thread] INFO  o.t.v.g.VistaGestionExcurciones - Intentando abrir la vista para filtrar excursiones entre fechas.
 2024-11-30 11:36:02 [JavaFX Application Thread] ERROR o.t.v.g.VistaGestionExcurciones - Error al abrir la vista de filtrar excursiones.
 java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMenuPrincipal.SceneManager.cambiarVista(String, String, String)" because "this.sceneManager" is null
-	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcurciones.manejarFiltrarFechas(VistaGestionExcurciones.java:59)
+	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones.manejarFiltrarFechas(VistaGestionExcurciones.java:59)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
@@ -2507,7 +2507,7 @@ java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMen
 2024-11-30 11:36:05 [JavaFX Application Thread] INFO  o.t.v.g.VistaGestionExcurciones - Intentando abrir la vista para mostrar socios inscritos.
 2024-11-30 11:36:05 [JavaFX Application Thread] ERROR o.t.v.g.VistaGestionExcurciones - Error al abrir la vista de mostrar socios.
 java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMenuPrincipal.SceneManager.cambiarVista(String, String, String)" because "this.sceneManager" is null
-	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcurciones.manejarMostrarSocios(VistaGestionExcurciones.java:74)
+	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones.manejarMostrarSocios(VistaGestionExcurciones.java:74)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)
@@ -2677,7 +2677,7 @@ Caused by: java.lang.ClassNotFoundException: gestionInscripciones
 2024-11-30 20:31:21 [JavaFX Application Thread] INFO  o.t.v.g.VistaGestionExcurciones - Intentando abrir la vista para añadir una excursión.
 2024-11-30 20:31:21 [JavaFX Application Thread] ERROR o.t.v.g.VistaGestionExcurciones - Error al abrir la vista de añadir excursión.
 java.lang.NullPointerException: Cannot invoke "org.thejavengers.vista.gestionMenuPrincipal.SceneManager.cambiarVista(String, String, String)" because "this.sceneManager" is null
-	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcurciones.manejarAnadirExcursion(VistaGestionExcurciones.java:44)
+	at org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones.manejarAnadirExcursion(VistaGestionExcurciones.java:44)
 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
 	at com.sun.javafx.reflect.Trampoline.invoke(MethodUtil.java:72)

@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.thejavengers.DAO.ExcursionDAO;
 import org.thejavengers.DAO.ExcursionDAOImpl;
 import org.thejavengers.modelo.Excursion;
+import org.thejavengers.vista.gestionMenuPrincipal.SceneManager;
 
 import java.time.LocalDate;
 
@@ -37,6 +38,18 @@ public class ControladorExcursionesVista {
     private VBox mainVBox;
 
     private final ExcursionDAO excursionDAO;
+
+    public SceneManager sceneManager;
+
+    /**
+     * Establece el gestor de escenas para este controlador.
+     *
+     * @param sceneManager Instancia del SceneManager.
+     */
+    public void setSceneManager(SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
+    }
+
     /**
      * Constructor que inicializa el DAO para la gestión de excursiones.
      */
@@ -45,7 +58,7 @@ public class ControladorExcursionesVista {
     }
 
     /**
-     * Método llamado al presionar el botón "Agregar Excursión".
+     * Metodo llamado al presionar el botón "Agregar Excursión".
      * Valida las entradas del usuario y simula el proceso de agregar una excursión.
      */
     @FXML
@@ -95,12 +108,33 @@ public class ControladorExcursionesVista {
     }
 
     /**
-     * Método para volver al menú principal.
+     * Metodo para filtrar las excursiones por fecha
+     */
+    @FXML
+    public void filtrarFechas(){
+
+    }
+
+
+    /**
+     * Metodo para volver al menú principal.
      */
     @FXML
     public void volverAlMenu() {
-        logger.info("Volviendo al menú principal.");
-        // Lógica para cambiar a otra escena o cerrar la ventana actual
+        logger.info("Intentando volver al menú principal.");
+
+        if (sceneManager == null) {
+            logger.error("El SceneManager no está configurado.");
+            mostrarAlerta("Error", "El gestor de escenas no está configurado. No se puede volver al menú principal.");
+            return;
+        }
+        try {
+            sceneManager.cambiarVista("/vistas/application.fxml", "Menú Principal", "/styles.css");
+            logger.info("Vista del menú principal abierta correctamente.");
+        } catch (Exception e) {
+            logger.error("Error al volver al menú principal.", e);
+            mostrarAlerta("Error", "No se pudo volver al menú principal.");
+        }
     }
 
     /**
