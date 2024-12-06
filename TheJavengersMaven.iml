@@ -7,4 +7,21 @@
       <sourceFolder url="file://$MODULE_DIR$/TheJavengersMaven/src/main/resources" type="java-resource" />
     </content>
   </component>
+  <component name="FacetManager">
+    <facet type="hibernate" name="Hibernate">
+      <configuration>
+        <datasource-map>
+          <unit-entry name="hibernate.cfg.xml" />
+          <unit-entry name="target:classes:hibernate.cfg.xml" value="f65f8f37-e9af-45fe-95c5-2ea0f7da4492" />
+          <unit-entry name="target:classes:main:resources:hibernate.cfg.xml" value="86e8f8c9-b740-4c20-bd9a-b0e114ede2fa" />
+          <unit-entry name="target:test-classes:main:resources:hibernate.cfg.xml" value="32a29234-4a46-41a2-8d71-b325d19f6df2" />
+        </datasource-map>
+        <naming-strategy-map />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/TheJavengersMaven/src/main/resources/hibernate.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/target/classes/hibernate.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/target/classes/main/resources/hibernate.cfg.xml" />
+        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/target/test-classes/main/resources/hibernate.cfg.xml" />
+      </configuration>
+    </facet>
+  </component>
 </module>

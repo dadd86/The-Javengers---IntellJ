@@ -66,7 +66,7 @@ public class VistaGestionExcursiones {
     private void manejarMostrarSocios() {
         logger.info("Intentando abrir la vista para mostrar socios inscritos.");
         try {
-            sceneManager.cambiarVista("/vistas/mostrarSocios.fxml", "Mostrar Socios Inscritos", "/styles.css");
+            sceneManager.cambiarVista("/vistas/mostrarSociosInscritos.fxml", "Mostrar Socios Inscritos", "/styles.css");
             logger.info("Vista de mostrar socios abierta correctamente.");
         } catch (Exception e) {
             logger.error("Error al abrir la vista de mostrar socios.", e);

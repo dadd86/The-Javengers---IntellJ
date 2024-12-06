@@ -108,15 +108,6 @@ public class ControladorExcursionesVista {
     }
 
     /**
-     * Metodo para filtrar las excursiones por fecha
-     */
-    @FXML
-    public void filtrarFechas(){
-
-    }
-
-
-    /**
      * Metodo para volver al menú principal.
      */
     @FXML

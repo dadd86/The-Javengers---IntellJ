@@ -10,6 +10,7 @@ import org.thejavengers.modelo.Socio;
 import org.thejavengers.modelo.SocioEstandar;
 import org.thejavengers.modelo.TipoSeguro;
 import org.thejavengers.vista.SocioViewModel;
+import org.thejavengers.vista.gestionExcursiones.VistaExcursionesPorFechas;
 import org.thejavengers.vista.gestionMenuPrincipal.SceneManager;
 
 import java.io.IOException;
@@ -65,7 +66,7 @@ public class ControladorVistaSocios {
         socioDAO = new SocioDAOImpl();
         listaSocios = FXCollections.observableArrayList();
     }
-    // Método para configurar el SceneManager
+    // Metodo para configurar el SceneManager
     public void setSceneManager(SceneManager sceneManager) {
         this.sceneManager = sceneManager;
     }
