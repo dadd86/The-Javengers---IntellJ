@@ -13,9 +13,6 @@
     <!-- Botón para filtrar excursiones entre fechas -->
     <Button onAction="#manejarFiltrarFechas" text="Ver Excursiones y filtrar" />
 
-    <!-- Botón para mostrar los socios inscritos -->
-    <Button onAction="#manejarMostrarSocios" text="Mostrar Socios Inscritos" />
-
     <!-- Botón para volver al menú principal -->
     <Button onAction="#manejarVolverMenu" text="Volver al Menú Principal" />
 </VBox>

@@ -59,20 +59,6 @@ public class VistaGestionExcursiones {
         }
     }
 
-    /**
-     * Maneja la acción del botón "Mostrar Socios Inscritos".
-     */
-    @FXML
-    private void manejarMostrarSocios() {
-        logger.info("Intentando abrir la vista para mostrar socios inscritos.");
-        try {
-            sceneManager.cambiarVista("/vistas/mostrarSociosInscritos.fxml", "Mostrar Socios Inscritos", "/styles.css");
-            logger.info("Vista de mostrar socios abierta correctamente.");
-        } catch (Exception e) {
-            logger.error("Error al abrir la vista de mostrar socios.", e);
-            mostrarAlertaError("Error", "No se pudo abrir la vista para mostrar socios.");
-        }
-    }
 
     /**
      * Maneja la acción del botón "Volver al Menú Principal".
