@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.thejavengers.controlador.ControladorExcursionesVista"
+            prefHeight="400.0" prefWidth="600.0">
+    <VBox alignment="CENTER" spacing="15" layoutX="50" layoutY="50" styleClass="contenedor-principal">
+        <!-- Título de la ventana -->
+        <Label text="Gestión de Excursiones" styleClass="titulo-principal" />
+
+        <!-- Campos de entrada -->
+        <!-- Descripción de la excursión -->
+        <Label text="Introduce una breve descripción de la excursión:" styleClass="label-instruccion" />
+        <TextField fx:id="descripcionField" promptText="Ejemplo: Excursión a la montaña" />
+
+        <!-- Fecha de la excursión -->
+        <Label text="Selecciona la fecha de la excursión:" styleClass="label-instruccion" />
+        <DatePicker fx:id="fechaPicker" promptText="Selecciona una fecha" />
+
+        <!-- Número de días -->
+        <Label text="Introduce el número de días que durará la excursión:" styleClass="label-instruccion" />
+        <TextField fx:id="numeroDiasField" promptText="Ejemplo: 3" />
+
+        <!-- Precio de la excursión -->
+        <Label text="Introduce el precio por persona para la excursión:" styleClass="label-instruccion" />
+        <TextField fx:id="precioField" promptText="Ejemplo: 50.0" />
+
+        <!-- Botones de acción -->
+        <Button text="Agregar Excursión" onAction="#agregarExcursion" styleClass="boton-principal" />
+        <Button text="Volver al Menú Principal" onAction="#volverAlMenu" styleClass="boton-secundario" />
+
+    </VBox>
+</AnchorPane>
