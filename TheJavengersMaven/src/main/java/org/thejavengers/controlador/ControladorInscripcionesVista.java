@@ -13,6 +13,7 @@ import org.thejavengers.DAO.InscripcionDAO;
 import org.thejavengers.DAO.InscripcionDAOImpl;
 import org.thejavengers.DAO.SocioDAO;
 import org.thejavengers.DAO.SocioDAOImpl;
+import org.thejavengers.Excepciones.SceneManagerException;
 import org.thejavengers.modelo.Excursion;
 import org.thejavengers.modelo.Inscripcion;
 import org.thejavengers.modelo.Socio;
@@ -37,7 +38,7 @@ public class ControladorInscripcionesVista {
     private TableView<InscripcionViewModel> tablaInscripciones;
 
     @FXML
-    private TableColumn<InscripcionViewModel, Number> idInscripcion;
+    private TableColumn<InscripcionViewModel, Integer> idInscripcion;
 
     @FXML
     private TableColumn<InscripcionViewModel, String> nombreSocio;
@@ -56,6 +57,9 @@ public class ControladorInscripcionesVista {
 
     @FXML
     private TextField idSocioField;
+
+    @FXML
+    private ComboBox<Socio> sociosComboBox;
 
     @FXML
     private ComboBox<Excursion> excursionesComboBox;
@@ -83,6 +87,7 @@ public class ControladorInscripcionesVista {
     private final ExcursionDAO excursionDAO;
 
     private ObservableList<InscripcionViewModel> inscripcionesObservableList;
+    private ObservableList<SocioViewModel> listaSocios;
 
     /**
      * Constructor que inicializa los DAOs necesarios.
@@ -98,25 +103,15 @@ public class ControladorInscripcionesVista {
      *
      * @param sceneManager Instancia del SceneManager.
      */
-    public void setSceneManager(SceneManager sceneManager) {
-        this.sceneManager = sceneManager;
-    }
+    public void setSceneManager(SceneManager sceneManager) {this.sceneManager = sceneManager;}
 
     /**
      * Inicializa la vista y los datos al cargar la interfaz.
+     * * Configura las columnas de la tabla de inscripciones.
      */
     @FXML
     public void initialize() {
-        configurarTabla();
-        cargarExcursiones();
-        cargarInscripciones();
-    }
-
-    /**
-     * Configura las columnas de la tabla de inscripciones.
-     */
-    private void configurarTabla() {
-        idInscripcion.setCellValueFactory(cellData -> cellData.getValue().idInscripcionProperty());
+        idInscripcion.setCellValueFactory(cellData -> cellData.getValue().idInscripcionProperty().asObject());
         nombreSocio.setCellValueFactory(cellData -> cellData.getValue().nombreSocioProperty());
         apellidosSocio.setCellValueFactory(cellData -> cellData.getValue().apellidosProperty());
         descripcionExcursion.setCellValueFactory(cellData -> cellData.getValue().descripcionExcursionProperty());
@@ -125,6 +120,30 @@ public class ControladorInscripcionesVista {
 
         inscripcionesObservableList = FXCollections.observableArrayList();
         tablaInscripciones.setItems(inscripcionesObservableList);
+
+        // Configurar acciones de botones
+        botonInscribir.setOnAction(event -> inscribirSocio());
+        botonEliminar.setOnAction(event -> eliminarInscripcion());
+        botonModificar.setOnAction(event -> modificarInscripcion());
+        botonConsultar.setOnAction(event -> consultarInscripcion());
+        botonCancelar.setOnAction(event -> cancelarInscripcion());
+
+        cargarSocios();
+        cargarExcursiones();
+        cargarInscripciones();
+    }
+
+    /**
+     * Carga los socios disponibles en el ComboBox.
+     */
+    private void cargarSocios() {
+        try {
+            List<Socio> socios = socioDAO.findAll(); // Cambiado a findAll()
+            sociosComboBox.setItems(FXCollections.observableArrayList(socios));
+        } catch (Exception e) {
+            logger.error("Error al cargar socios: ", e);
+            mostrarAlerta("Error", "No se pudieron cargar los socios.");
+        }
     }
 
     /**
@@ -139,7 +158,6 @@ public class ControladorInscripcionesVista {
             mostrarAlerta("Error", "No se pudieron cargar las excursiones.");
         }
     }
-
 
     /**
      * Carga las inscripciones desde la base de datos y las muestra en la tabla.
@@ -175,6 +193,21 @@ public class ControladorInscripcionesVista {
             // Manejar cualquier excepción que ocurra durante la carga
             System.err.println("Error al cargar inscripciones: " + e.getMessage());
             e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void irAMenuAgregarInscripcion() {
+        if (sceneManager != null) {
+            try {
+                // Cambiar a la vista de agregar inscripción
+                sceneManager.cambiarVista("/vistas/AgregarInscripcion.fxml", "Agregar Inscripcion");
+            } catch (SceneManagerException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "SceneManager no configurado.");
+            alert.showAndWait();
         }
     }
 
@@ -228,29 +261,36 @@ public class ControladorInscripcionesVista {
         }
     }
 
+    /**
+     * Maneja la acción del botón "Eliminar".
+     */
     @FXML
     public void eliminarInscripcion() {
+        // Obtener la inscripción seleccionada de la tabla
         InscripcionViewModel seleccionada = tablaInscripciones.getSelectionModel().getSelectedItem();
-        if (seleccionada == null) {
-            mostrarAlerta("Error", "Debe seleccionar una inscripción para eliminar.");
-            return;
-        }
 
-        try {
-            Inscripcion inscripcionOriginal = seleccionada.getInscripcionOriginal();
-            // Eliminar la inscripción de la base de datos usando su ID
-            inscripcionDAO.deleteById(inscripcionOriginal.getIdInscripcion());
-            // Eliminar de la lista observable para actualizar la tabla
+        // Verificar si hay una inscripción seleccionada
+        if (seleccionada != null) {
+            // Eliminar la inscripción del DAO
+            inscripcionDAO.deleteById(seleccionada.getIdInscripcion());
+
+            // Actualizar la tabla eliminando la inscripción de la lista observable
             inscripcionesObservableList.remove(seleccionada);
 
-            logger.info("Inscripción eliminada con éxito: {}", inscripcionOriginal.getIdInscripcion());
-            mostrarAlerta("Éxito", "La inscripción se eliminó correctamente.");
-        } catch (Exception e) {
-            logger.error("Error al eliminar la inscripción", e);
-            mostrarAlerta("Error", "Ocurrió un error al intentar eliminar la inscripción.");
+            // Mostrar un mensaje de éxito
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Inscripción eliminada con éxito.");
+            alert.showAndWait();
+        } else {
+            // Si no hay inscripción seleccionada, mostrar un mensaje de advertencia
+            Alert alert = new Alert(Alert.AlertType.WARNING, "Seleccione una inscripción para eliminar.");
+            alert.showAndWait();
         }
     }
 
+
+    /**
+     * Maneja la acción del botón "Modificar".
+     */
     @FXML
     public void modificarInscripcion() {
         InscripcionViewModel seleccionada = tablaInscripciones.getSelectionModel().getSelectedItem();
@@ -340,6 +380,26 @@ public class ControladorInscripcionesVista {
         }
     }
 
+    /**
+     * Metodo para volver al menú principal.
+     */
+    @FXML
+    public void volverAlMenu() {
+        logger.info("Intentando volver al menú principal.");
+
+        if (sceneManager == null) {
+            logger.error("El SceneManager no está configurado.");
+            mostrarAlerta("Error", "El gestor de escenas no está configurado. No se puede volver al menú principal.");
+            return;
+        }
+        try {
+            sceneManager.cambiarVista("/vistas/application.fxml", "Menú Principal", "/styles.css");
+            logger.info("Vista del menú principal abierta correctamente.");
+        } catch (Exception e) {
+            logger.error("Error al volver al menú principal.", e);
+            mostrarAlerta("Error", "No se pudo volver al menú principal.");
+        }
+    }
 
     /**
      * Muestra una alerta informativa al usuario.
@@ -354,16 +414,3 @@ public class ControladorInscripcionesVista {
         alerta.showAndWait();
     }
 }
-
-
-//public class ControladorInscripcionesVista extends Application {
-//
-//    public static void main(String[] args) {
-//        launch(args);
-//    }
-//
-//    @Override
-//    public void start(Stage primaryStage) {
-//
-//    }
-//}

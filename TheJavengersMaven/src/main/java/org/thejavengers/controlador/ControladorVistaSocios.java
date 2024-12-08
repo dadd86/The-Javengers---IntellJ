@@ -73,6 +73,7 @@ public class ControladorVistaSocios {
     public void setSceneManager(SceneManager sceneManager) {
         this.sceneManager = sceneManager;
     }
+
     @FXML
     public void initialize() {
         // Configurar columnas de la tabla
