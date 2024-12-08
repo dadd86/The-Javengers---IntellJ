@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.thejavengers.DAO.SocioDAO;
 import org.thejavengers.DAO.SocioDAOImpl;
+import org.thejavengers.Excepciones.SceneManagerException;
 import org.thejavengers.modelo.Socio;
 import org.thejavengers.modelo.SocioEstandar;
 import org.thejavengers.modelo.TipoSeguro;
@@ -18,7 +19,9 @@ import java.util.List;
 import java.util.Optional;
 
 public class ControladorVistaSocios {
+
     private SceneManager sceneManager; // Agregar referencia al SceneManager
+
     @FXML
     private TableView<SocioViewModel> tablaSocios;
 
@@ -106,16 +109,30 @@ public class ControladorVistaSocios {
             try {
                 // Cambiar a la vista de agregar socio
                 sceneManager.cambiarVista("/vistas/AgregarSocio.fxml", "Agregar Socio");
-            } catch (IOException e) {
-                e.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al cargar la vista de Agregar Socio.");
-                alert.showAndWait();
+            } catch (SceneManagerException e) {
+                throw new RuntimeException(e);
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "SceneManager no configurado.");
             alert.showAndWait();
         }
     }
+
+//    private void irAMenuAgregarSocio() {
+//        if (sceneManager != null) {
+//            try {
+//                // Cambiar a la vista de agregar socio
+//                sceneManager.cambiarVista("/vistas/AgregarSocio.fxml", "Agregar Socio");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al cargar la vista de Agregar Socio.");
+//                alert.showAndWait();
+//            }
+//        } else {
+//            Alert alert = new Alert(Alert.AlertType.ERROR, "SceneManager no configurado.");
+//            alert.showAndWait();
+//        }
+//    }
 
 
     private void eliminarSocioSeleccionado() {
@@ -171,16 +188,29 @@ public class ControladorVistaSocios {
         if (sceneManager != null) {
             try {
                 sceneManager.cambiarVista("/vistas/application.fxml", "Menú Principal");
-            } catch (IOException e) {
-                e.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al cargar el menú principal.");
-                alert.showAndWait();
+            } catch (SceneManagerException e) {
+                throw new RuntimeException(e);
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "SceneManager no configurado.");
             alert.showAndWait();
         }
     }
+
+//    private void volverAlMenuPrincipal() {
+//        if (sceneManager != null) {
+//            try {
+//                sceneManager.cambiarVista("/vistas/application.fxml", "Menú Principal");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al cargar el menú principal.");
+//                alert.showAndWait();
+//            }
+//        } else {
+//            Alert alert = new Alert(Alert.AlertType.ERROR, "SceneManager no configurado.");
+//            alert.showAndWait();
+//        }
+//    }
 
 }
 

@@ -9,6 +9,7 @@ import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thejavengers.DAO.ExcursionDAOImpl;
+import org.thejavengers.Excepciones.SceneManagerException;
 import org.thejavengers.modelo.Excursion;
 import org.thejavengers.modelo.Inscripcion;
 import org.thejavengers.modelo.Socio;
@@ -244,14 +245,27 @@ public class ControladorFiltrarExcursiones {
         if (sceneManager != null) {
             try {
                 sceneManager.cambiarVista("/vistas/application.fxml", "Menú Principal");
-            } catch (IOException e) {
-                e.printStackTrace();
-                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al cargar el menú principal.");
-                alert.showAndWait();
+            } catch (SceneManagerException e) {
+                throw new RuntimeException(e);
             }
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "SceneManager no configurado.");
             alert.showAndWait();
         }
     }
+
+//    private void volverAlMenuPrincipal() {
+//        if (sceneManager != null) {
+//            try {
+//                sceneManager.cambiarVista("/vistas/application.fxml", "Menú Principal");
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al cargar el menú principal.");
+//                alert.showAndWait();
+//            }
+//        } else {
+//            Alert alert = new Alert(Alert.AlertType.ERROR, "SceneManager no configurado.");
+//            alert.showAndWait();
+//        }
+//    }
 }
