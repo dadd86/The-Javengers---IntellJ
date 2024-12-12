@@ -51,6 +51,7 @@ public interface ExcursionDAO {
      * @return Una lista de todas las excursiones existentes. Nunca será {@code null}.
      * @throws RuntimeException Si ocurre un error al recuperar las excursiones.
      */
+
     List<Excursion> findAll();
 
     /**

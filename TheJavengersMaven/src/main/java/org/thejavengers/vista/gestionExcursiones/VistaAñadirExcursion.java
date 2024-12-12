@@ -100,7 +100,7 @@ public class VistaAñadirExcursion {
     private void manejarVolverMenu() {
         logger.info("Intentando volver al menú principal.");
         try {
-            sceneManager.cambiarVista("/vistas/menuPrincipal.fxml", "Menú Principal", "/styles.css");
+            sceneManager.cambiarVista("/vistas/application.fxml", "Menú Principal", "/styles.css");
             logger.info("Vista del menú principal abierta correctamente.");
         } catch (Exception e) {
             logger.error("Error al volver al menú principal.", e);
