@@ -1,0 +1,360 @@
+* [33m51ef31d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Git merge con Marina_2
+[31m|[m * [33m244e353[m[33m ([m[1;31morigin/Miriam[m[33m, [m[1;32mMiriam[m[33m)[m Actualización Controlador Inscripciones
+[31m|[m * [33m7f917d6[m Controlador Vista Inscripciones
+[31m|[m *   [33m7801432[m Merge remote-tracking branch 'origin/Marina_2' into Miriam
+[31m|[m [33m|[m[31m\[m  
+[31m|[m [33m|[m[31m/[m  
+[31m|[m[31m/[m[33m|[m   
+* [33m|[m [33mf20f6c6[m[33m ([m[1;31morigin/Marina_2[m[33m, [m[1;32mMarina_2[m[33m)[m Muestra socios inscritos en excursión
+* [33m|[m [33m50d3c6f[m Filtrar Excursiones por fecha OK
+* [33m|[m [33m0fb3733[m Volver al menú desde Excursion funcional
+[34m|[m * [33m77fd459[m AñadirExcurssiones terminado
+[34m|[m * [33mae7faa8[m Avanzando JAVAFX
+[34m|[m * [33m6cf41de[m Avanzando
+[34m|[m [34m|[m * [33m30df149[m[33m ([m[1;31morigin/copia_raul_new[m[33m)[m Actualiza .gitignore
+[34m|[m [34m|[m * [33m683f5c8[m Ignorar logs/application.log
+[34m|[m [34m|[m * [33m8a70731[m Resolver conflictos
+[34m|[m [34m|[m[34m/[m  
+[34m|[m[34m/[m[34m|[m   
+* [34m|[m [33m199ffbd[m[33m ([m[1;31morigin/raul_new[m[33m)[m Añadir apartados socios  y ajuste Scene Manager
+* [34m|[m [33ma4b8087[m Ultimo producto
+[34m|[m[34m/[m  
+* [33mf6c3745[m Configure LFS tracking
+* [33m2d55bbe[m Updated .gitattributes to stop tracking large JDK modules file with LFS
+* [33mcb1c7d8[m Primer FX
+* [33mf59f263[m primera FX
+* [33mc831d00[m Configure Git LFS for large files
+* [33m53200df[m Configure Git LFS for large files
+* [33m0d15811[m Primeros pasos con JAVAFX
+*   [33m83ee711[m Merge branch 'Marina_2' of https://github.com/dadd86/The-Javengers---IntellJ
+[36m|[m[1;31m\[m  
+[36m|[m * [33mf7ca93b[m Actualizado
+[36m|[m * [33m124d98f[m Funciona con mvn javafx
+[36m|[m * [33m9648200[m Running
+[36m|[m * [33m053b34c[m Seguro sin probar?
+[36m|[m * [33m6e1bb1b[m Merge branch 'Raul_4' into Marina_2
+[36m|[m * [33m72e9170[m BUGS
+[36m|[m * [33m1d40fc8[m Solucionar errores columnas y implementar Socios, socios...ETC
+[36m|[m * [33me12c7b9[m Prueba locuras configuracion
+[36m|[m * [33m2c1c9f5[m Ignorar configuraciones de IntelliJ
+[36m|[m * [33ma285909[m[33m ([m[1;31morigin/Raul_1[m[33m)[m Guardar todos los cambios en master
+* [1;31m|[m [33mf234a1e[m jdk21
+[1;31m|[m[1;31m/[m  
+* [33md138c14[m JVAFX y Hibernate operativos
+* [33mf6afc73[m JavaFX operativo
+* [33m70ce9d6[m JAVAFX
+* [33m27e9a7e[m[33m ([m[1;31morigin/Raul_2[m[33m, [m[1;32mRaul_2[m[33m)[m modificaciones introduccions id's
+* [33m34da28d[m Cambiar tipo int y filtro socios en excrusiones
+* [33m9ecad4c[m Procedures inscripciones
+* [33m4de0622[m[33m ([m[1;31morigin/Miriam_2[m[33m, [m[1;32mMiriam_2[m[33m)[m Cambios procedimientos almacenados
+[1;31m|[m * [33m7419c20[m[33m ([m[1;31morigin/Raul_4[m[33m)[m BUGS
+[1;31m|[m * [33m7ca976c[m Solucionar errores columnas y implementar Socios, socios...ETC
+[1;31m|[m * [33m9291468[m Prueba locuras configuracion
+[1;31m|[m * [33m8c35f32[m Ignorar configuraciones de IntelliJ
+[1;31m|[m * [33m9fbbaf9[m Guardar todos los cambios en master
+[1;31m|[m [1;32m|[m * [33m5e9f3a9[m[33m ([m[1;31morigin/Marina[m[33m)[m misc
+[1;31m|[m [1;32m|[m * [33m56a74c3[m Updated to main
+[1;31m|[m [1;32m|[m *   [33me769227[m Merge branch 'master' of https://github.com/dadd86/The-Javengers---IntellJ
+[1;31m|[m [1;32m|[m [1;34m|[m[1;32m\[m  
+[1;31m|[m [1;32m|[m [1;34m|[m[1;32m/[m  
+[1;31m|[m [1;32m|[m[1;32m/[m[1;34m|[m   
+[1;31m|[m * [1;34m|[m [33m9ea61ab[m JVAFX y Hibernate operativos
+[1;31m|[m * [1;34m|[m [33m15fce8e[m JavaFX operativo
+[1;31m|[m * [1;34m|[m [33m16c252b[m JAVAFX
+[1;31m|[m [1;35m|[m * [33m70d4299[m Prueba sin errores
+[1;31m|[m [1;35m|[m[1;35m/[m  
+[1;31m|[m * [33m221749a[m modificaciones introduccions id's
+[1;31m|[m * [33m4a034af[m Cambiar tipo int y filtro socios en excrusiones
+[1;31m|[m * [33m6e3aa07[m Procedures inscripciones
+[1;31m|[m * [33mda3f4fa[m Cambios procedimientos almacenados
+[1;31m|[m * [33m4168de8[m Commit Injections+PreparedStatements
+[1;31m|[m *   [33mf8e6d4b[m Merge Marina
+[1;31m|[m [1;36m|[m[31m\[m  
+[1;31m|[m [1;36m|[m * [33mb67f943[m id + codigo ahora con INT
+[1;31m|[m [1;36m|[m * [33m8f252bd[m Cambios ExcursionDAOImpl (conexión BBDD OK)
+[1;31m|[m [1;36m|[m *   [33m20ca8a7[m Merge branch 'Marina' of https://github.com/dadd86/The-Javengers---IntellJ into Marina
+[1;31m|[m [1;36m|[m [32m|[m[33m\[m  
+[1;31m|[m [1;36m|[m [32m|[m *   [33m29bf538[m Merge branch 'master' into Marina
+[1;31m|[m [1;36m|[m [32m|[m [34m|[m[35m\[m  
+[1;31m|[m [1;36m|[m [32m|[m * [35m|[m [33mdcb4be4[m Update SocioDAOImpl
+[1;31m|[m [1;36m|[m [32m|[m * [35m|[m   [33mdecfd81[m Merge branch 'master' into Marina
+[1;31m|[m [1;36m|[m [32m|[m [36m|[m[1;31m\[m [35m\[m  
+[1;31m|[m [1;36m|[m [32m|[m * [1;31m|[m [35m|[m [33m9800181[m SocioDAO + Impl
+[1;31m|[m [1;36m|[m [32m|[m * [1;31m|[m [35m|[m [33m5a8bfd0[m Cambio
+[1;31m|[m [1;36m|[m [32m|[m * [1;31m|[m [35m|[m [33m125d94b[m DAO + SocioDAO
+[1;31m|[m [1;36m|[m [32m|[m * [1;31m|[m [35m|[m   [33ma775a63[m Merge branch 'master' into Marina
+[1;31m|[m [1;36m|[m [32m|[m [1;32m|[m[1;33m\[m [1;31m\[m [35m\[m  
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m40da25e[m Origin del nuevo punto de partida con el maven en funcionamiento y la conexion a sql
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m8ac31f4[m Estructura nueva de MAVEN
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m8b0357d[m SQL
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m0f13b22[m MVC cambios
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33ma3871a1[m Pruebas Main y vista
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m4311638[m Corrección Test y eliminar funciones no necesarias
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m609fc34[m Pruebas1
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m7aafce5[m Paquetes
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m8c1a739[m Paquetes
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33mb6565dc[m rebase
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m0c757ff[m Rebase Main
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m2f594de[m Agregado diagramaClasesyObjetos.drawio
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m9416322[m commit con el JavaDoc
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m62cd6d2[m git con paquete pruebas convertido a paquete de pruebas
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m87df33b[m commit con los comentarios en GestionSociosTest del paquete AppTest, justo antes de hacer el JavaDoc
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m6f32288[m RebaseMain
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33m236b026[m Adaptar Test a Sistema Excrusionista
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m [33mc97ceaf[m Comentarios en todos las clases de cada paquete
+[1;31m|[m [1;36m|[m [32m|[m * [1;33m|[m [1;31m|[m [35m|[m   [33m739af32[m Merge remote-tracking branch 'origin/Marina' into Marina
+[1;31m|[m [1;36m|[m [32m|[m [1;34m|[m[1;35m\[m [1;33m\[m [1;31m\[m [35m\[m  
+[1;31m|[m [1;36m|[m [32m|[m * [1;35m|[m [1;33m|[m [1;31m|[m [35m|[m [33m8c5321e[m Commit con Test GestionSocios
+[1;31m|[m [1;36m|[m * [1;35m|[m [1;35m|[m [1;33m|[m [1;31m|[m [35m|[m [33m64fc3d4[m Conexión nMavenOK
+[1;31m|[m * [1;35m|[m [1;35m|[m [1;35m|[m [1;33m|[m [1;31m|[m [35m|[m [33m17cc691[m Actualizado SQL
+[1;31m|[m [1;35m|[m[1;35m/[m [1;35m/[m [1;35m/[m [1;33m/[m [1;31m/[m [35m/[m  
+[1;31m|[m * [1;35m|[m [1;35m|[m [1;33m|[m [1;31m|[m [35m|[m [33m795d83b[m test
+[1;31m|[m * [1;35m|[m [1;35m|[m [1;33m|[m [1;31m|[m [35m|[m   [33m008e44e[m commit con Raul fse 2
+[1;31m|[m [1;36m|[m[31m\[m [1;35m\[m [1;35m\[m [1;33m\[m [1;31m\[m [35m\[m  
+[1;31m|[m [1;36m|[m * [1;35m|[m [1;35m|[m [1;33m|[m [1;31m|[m [35m|[m [33m7152746[m Cambio nombre incorrecto
+[1;31m|[m [1;36m|[m * [1;35m|[m [1;35m|[m [1;33m|[m [1;31m|[m [35m|[m [33m080cb6e[m Introduccion DAO factory y Socios DAO y adaptación sistema excursionista
+[1;31m|[m [1;36m|[m [35m|[m [1;35m|[m[35m_[m[1;35m|[m[35m_[m[1;33m|[m[35m_[m[1;31m|[m[35m/[m  
+[1;31m|[m [1;36m|[m [35m|[m[35m/[m[1;35m|[m [1;35m|[m [1;33m|[m [1;31m|[m   
+[1;31m|[m * [35m/[m [1;35m|[m [1;35m|[m [1;33m|[m [1;31m|[m [33m30e08e3[m commit antes de merge con raul
+[1;31m|[m [35m|[m[35m/[m [1;35m/[m [1;35m/[m [1;33m/[m [1;31m/[m  
+[1;31m|[m * [1;35m|[m [1;35m|[m [1;33m|[m [1;31m/[m [33md62dcc5[m Errores Miriam solucionados
+[1;31m|[m [1;31m|[m [1;35m|[m[1;31m_[m[1;35m|[m[1;31m_[m[1;33m|[m[1;31m/[m  
+[1;31m|[m [1;31m|[m[1;31m/[m[1;35m|[m [1;35m|[m [1;33m|[m   
+[1;31m|[m * [1;35m|[m [1;35m|[m [1;33m|[m   [33mb31b4b0[m Mt commit -m "Commit con MArina y Miram_2" [master 3a04b86] Commit con MArina y Miram_2  2 files changed, 1 insertion(+), 2 deletions(-)
+[1;31m|[m [32m|[m[33m\[m [1;35m\[m [1;35m\[m [1;33m\[m  
+[1;31m|[m [32m|[m * [1;35m|[m [1;35m|[m [1;33m|[m [33meceff81[m Commit con DAO Miriam
+[1;31m|[m [32m|[m * [1;35m|[m [1;35m|[m [1;33m|[m   [33ma9b2bbc[m Merge remote-tracking branch 'origin/master' into Miriam_2
+[1;31m|[m [32m|[m [34m|[m[1;33m\[m [1;35m\[m [1;35m\[m [1;33m\[m  
+[1;31m|[m [32m|[m [34m|[m [1;33m|[m [1;35m|[m[1;33m_[m[1;35m|[m[1;33m/[m  
+[1;31m|[m [32m|[m [34m|[m [1;33m|[m[1;33m/[m[1;35m|[m [1;35m|[m   
+[1;31m|[m [32m|[m * [1;33m|[m [1;35m|[m [1;35m|[m   [33m1a0d2e4[m Merge remote-tracking branch 'origin/master' into Miriam_2
+[1;31m|[m [32m|[m [1;35m|[m[1;31m\[m [1;33m\[m [1;35m\[m [1;35m\[m  
+[1;31m|[m [32m|[m [1;35m|[m [1;31m|[m[1;35m_[m[1;33m|[m[1;35m_[m[1;35m|[m[1;35m/[m  
+[1;31m|[m [32m|[m [1;35m|[m[1;35m/[m[1;31m|[m [1;33m|[m [1;35m|[m   
+[1;31m|[m [32m|[m * [1;31m|[m [1;33m|[m [1;35m|[m [33me634057[m Corrección Test y eliminar funciones no necesarias
+[1;31m|[m [32m|[m * [1;31m|[m [1;33m|[m [1;35m|[m [33m9c9a4d0[m Pruebas1
+[1;31m|[m [32m|[m * [1;31m|[m [1;33m|[m [1;35m|[m [33mde7a046[m Paquetes
+[1;31m|[m [32m|[m * [1;31m|[m [1;33m|[m [1;35m|[m [33m373d013[m Paquetes
+[1;31m|[m [32m|[m * [1;31m|[m [1;33m|[m [1;35m|[m [33mb85bb56[m Prueba
+[1;31m|[m [32m|[m * [1;31m|[m [1;33m|[m [1;35m|[m [33meeb10d2[m MVC cambios
+[1;31m|[m [32m|[m * [1;31m|[m [1;33m|[m [1;35m|[m [33mfcd1738[m Pruebas Main y vista
+[1;31m|[m [32m|[m [1;35m|[m [1;31m|[m[1;35m_[m[1;33m|[m[1;35m/[m  
+[1;31m|[m [32m|[m [1;35m|[m[1;35m/[m[1;31m|[m [1;33m|[m   
+[1;31m|[m [32m|[m * [1;31m|[m [1;33m|[m [33m015668f[m Changes by miriam
+[1;31m|[m [32m|[m * [1;31m|[m [1;33m|[m [33m4b96e56[m Paquetes
+[1;31m|[m [32m|[m * [1;31m|[m [1;33m|[m [33md057b01[m Prueba
+[1;31m|[m * [1;31m|[m [1;31m|[m [1;33m|[m [33m3a04b86[m Commit con MArina y Miram_2
+[1;31m|[m [1;33m|[m [1;31m|[m[1;33m_[m[1;31m|[m[1;33m/[m  
+[1;31m|[m [1;33m|[m[1;33m/[m[1;31m|[m [1;31m|[m   
+[1;31m|[m * [1;31m|[m [1;31m|[m [33meec6233[m Origin del nuevo punto de partida con el maven en funcionamiento y la conexion a sql
+[1;31m|[m * [1;31m|[m [1;31m|[m [33m4a1d544[m Estructura nueva de MAVEN
+[1;31m|[m * [1;31m|[m [1;31m|[m [33m5f6a3ab[m SQL
+[1;31m|[m [1;31m|[m [1;31m|[m[1;31m/[m  
+[1;31m|[m [1;31m|[m[1;31m/[m[1;31m|[m   
+[1;31m|[m * [1;31m|[m [33mcb73622[m Cambio pedirFecha a dd/MM/yyyy
+[1;31m|[m * [1;31m|[m [33m458c064[m Agregado diagramaClasesyObjetos.drawio
+[1;31m|[m * [1;31m|[m [33mcd92973[m commit con el JavaDoc
+[1;31m|[m * [1;31m|[m [33mb0c83f1[m git con paquete pruebas convertido a paquete de pruebas
+[1;31m|[m * [1;31m|[m [33md326024[m commit con los comentarios en GestionSociosTest del paquete AppTest, justo antes de hacer el JavaDoc
+[1;31m|[m * [1;31m|[m [33mf490680[m Mejorar filto excrursiones por fecho o socio
+[1;31m|[m * [1;31m|[m [33m7a0faab[m Producto dos terminado
+[1;31m|[m * [1;31m|[m [33m7eca715[m Adaptar Test a Sistema Excrusionista
+[1;31m|[m * [1;31m|[m [33mc2edb7c[m Añadir logica MiclassTest
+[1;31m|[m * [1;31m|[m [33mcac3d94[m Añadir logica controlador y modificar Controlador Inscripciones
+[1;31m|[m * [1;31m|[m [33m7c283f8[m Añadir controlador y modificar Controlador Socios
+[1;31m|[m * [1;31m|[m [33m10dd954[m Comentarios en todos las clases de cada paquete
+[1;31m|[m * [1;31m|[m [33mbeef809[m Git fase 2
+[1;31m|[m * [1;31m|[m   [33m68a7d92[m Merge branch 'Raul_2'
+[1;31m|[m [1;32m|[m[1;33m\[m [1;31m\[m  
+[1;31m|[m [1;32m|[m * [1;31m|[m [33m8c1f1c6[m MVC cambios
+[1;31m|[m * [1;33m|[m [1;31m|[m [33mb999a2e[m Commit Fase 2
+[1;31m|[m [1;33m|[m[1;33m/[m [1;31m/[m  
+[1;31m|[m * [1;31m/[m [33m9a6eabc[m Pruebas Main y vista
+[1;31m|[m [1;31m|[m[1;31m/[m  
+[1;31m|[m * [33m287e9ff[m Documentacion fase 1
+[1;31m|[m * [33m43aaff2[m RAUL
+[1;31m|[m * [33m25aea03[m Modificacion clases Socio
+[1;31m|[m * [33md5d2cdc[m commit de confirmacion con Miriam
+[1;31m|[m *   [33m2af23f9[m Merge branch 'Miriam_2'
+[1;31m|[m [1;34m|[m[1;35m\[m  
+[1;31m|[m [1;34m|[m * [33m9bddfe0[m Commit con Socios, seguro y federacion añadidos.
+[1;31m|[m * [1;35m|[m [33mad6cc6c[m Actualizar DiagramaUsoDiegoDiaz.drawio
+[1;31m|[m * [1;35m|[m [33mb66d98f[m Actualizar DiagramaUsoDiegoDiaz.drawio
+[1;31m|[m [1;35m|[m[1;35m/[m  
+[1;31m|[m * [33m1a51141[m Test
+[1;31m|[m * [33mc36fb0a[m Clases Excursion, Socio, inscripcion realizadas
+[1;31m|[m *   [33mfe32bd7[m Merge branch 'master' of https://github.com/dadd86/The-Javengers---IntellJ
+[1;31m|[m [1;36m|[m[31m\[m  
+[1;31m|[m [1;36m|[m * [33mecafed4[m Actualizar DiagramaUsoDiegoDiaz.drawio
+[1;31m|[m [1;36m|[m * [33mf9ee28d[m Actualizar DiagramaUsoDiegoDiaz.drawio
+[1;31m|[m [1;36m|[m * [33m57fa57e[m Actualizar DiagramaUsoDiegoDiaz.drawio
+[1;31m|[m [1;36m|[m * [33me8b5c15[m Agregado DiagramaUsoDiegoDiaz.drawio
+[1;31m|[m * [31m|[m [33m4907e0d[m Commit Prueba Raul eliminado
+[1;31m|[m [31m|[m[31m/[m  
+[1;31m|[m * [33mdc81f0f[m Create FP058_CasoPractico_Senderos (1).pdf
+[1;31m|[m *   [33m98697fd[m Merge branch 'Raul' of https://github.com/dadd86/The-Javengers---IntellJ
+[1;31m|[m [32m|[m[33m\[m  
+[1;31m|[m [32m|[m * [33md07233d[m Añadir clases
+[1;31m|[m * [33m|[m [33mdaaa8da[m Actualizar Diagrama sin título.drawio
+[1;31m|[m * [33m|[m [33mdaa2d58[m Actualizar Diagrama sin título.drawio
+[1;31m|[m * [33m|[m [33m41f2021[m Actualizar Diagrama sin título.drawio
+[1;31m|[m * [33m|[m [33md7961d3[m Actualizar Diagrama sin título.drawio
+[1;31m|[m * [33m|[m [33m15a7f03[m Actualizar Diagrama sin título.drawio
+[1;31m|[m * [33m|[m [33mbf35a4e[m Actualizar Diagrama sin título.drawio
+[1;31m|[m * [33m|[m [33ma16bd95[m Actualizar Diagrama sin título.drawio
+[1;31m|[m * [33m|[m [33md2b24be[m Actualizar Diagrama sin título.drawio
+[1;31m|[m * [33m|[m [33m1304dfd[m Actualizar Diagrama sin título.drawio
+[1;31m|[m * [33m|[m [33m45dd7ae[m Actualizar Diagrama sin título.drawio
+[1;31m|[m * [33m|[m [33ma6c6f6e[m DiagramaClases.drawio
+[1;31m|[m * [33m|[m [33m5ee104a[m DiagramaClases.drawio
+[1;31m|[m * [33m|[m [33m64405bc[m commit caprta diagrama Diego
+[1;31m|[m * [33m|[m [33m97176eb[m commit con las ramas
+[1;31m|[m [33m|[m[33m/[m  
+[1;31m|[m * [33m8d37ac0[m Commit con los paquetes Apptest y Thejavengers creado
+[1;31m|[m * [33m767745a[m No se si esta bien
+[1;31m|[m * [33me83caf7[m Primer commit
+[1;31m|[m * [33mb5ecaac[m[33m ([m[1;31morigin/Raul_3[m[33m)[m Cuadrando procedimientos
+[1;31m|[m * [33m09c0945[m Mover cambios de Marina 2 a Raul 3
+[1;31m|[m[1;31m/[m  
+* [33mbd5e299[m Commit Injections+PreparedStatements
+*   [33mf104378[m Merge Marina
+[35m|[m[36m\[m  
+[35m|[m * [33m542d719[m[33m ([m[1;32mMarina[m[33m)[m id + codigo ahora con INT
+[35m|[m * [33m70fe6fd[m Cambios ExcursionDAOImpl (conexión BBDD OK)
+[35m|[m *   [33m1497ef0[m Merge branch 'Marina' of https://github.com/dadd86/The-Javengers---IntellJ into Marina
+[35m|[m [1;31m|[m[1;32m\[m  
+[35m|[m [1;31m|[m *   [33m160b5b2[m Merge branch 'master' into Marina
+[35m|[m [1;31m|[m [1;33m|[m[1;34m\[m  
+[35m|[m [1;31m|[m * [1;34m|[m [33m340b537[m Update SocioDAOImpl
+[35m|[m [1;31m|[m * [1;34m|[m   [33ma2d4f9a[m Merge branch 'master' into Marina
+[35m|[m [1;31m|[m [1;35m|[m[1;36m\[m [1;34m\[m  
+[35m|[m [1;31m|[m * [1;36m|[m [1;34m|[m [33m51f58b2[m SocioDAO + Impl
+[35m|[m [1;31m|[m * [1;36m|[m [1;34m|[m [33mf2d1699[m Cambio
+[35m|[m [1;31m|[m * [1;36m|[m [1;34m|[m [33mb81890e[m DAO + SocioDAO
+[35m|[m [1;31m|[m * [1;36m|[m [1;34m|[m   [33mee060e9[m Merge branch 'master' into Marina
+[35m|[m [1;31m|[m [31m|[m[32m\[m [1;36m\[m [1;34m\[m  
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33mf76ea32[m Origin del nuevo punto de partida con el maven en funcionamiento y la conexion a sql
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33m2455909[m Estructura nueva de MAVEN
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33m0a514f4[m SQL
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33m03caa04[m MVC cambios
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33md9a0b02[m Pruebas Main y vista
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33m27052a0[m Corrección Test y eliminar funciones no necesarias
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33ma26e152[m Pruebas1
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33mb157f88[m Paquetes
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33m1cff400[m Paquetes
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33ma67a8bf[m rebase
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33m2be6f40[m Rebase Main
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33mb01addb[m Agregado diagramaClasesyObjetos.drawio
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33m18e9e11[m commit con el JavaDoc
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33m895a74d[m git con paquete pruebas convertido a paquete de pruebas
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33m5a8589d[m commit con los comentarios en GestionSociosTest del paquete AppTest, justo antes de hacer el JavaDoc
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33mdbdf8fe[m RebaseMain
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33m5206afb[m Adaptar Test a Sistema Excrusionista
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m [33mf70d6c7[m Comentarios en todos las clases de cada paquete
+[35m|[m [1;31m|[m * [32m|[m [1;36m|[m [1;34m|[m   [33mdd0b20b[m Merge remote-tracking branch 'origin/Marina' into Marina
+[35m|[m [1;31m|[m [33m|[m[34m\[m [32m\[m [1;36m\[m [1;34m\[m  
+[35m|[m [1;31m|[m * [34m|[m [32m|[m [1;36m|[m [1;34m|[m [33m0f9fa9e[m Commit con Test GestionSocios
+[35m|[m * [34m|[m [34m|[m [32m|[m [1;36m|[m [1;34m|[m [33m6a56321[m Conexión nMavenOK
+* [34m|[m [34m|[m [34m|[m [32m|[m [1;36m|[m [1;34m|[m [33m35eac34[m Actualizado SQL
+[34m|[m[34m/[m [34m/[m [34m/[m [32m/[m [1;36m/[m [1;34m/[m  
+* [34m|[m [34m|[m [32m|[m [1;36m|[m [1;34m|[m [33m1893d4a[m test
+* [34m|[m [34m|[m [32m|[m [1;36m|[m [1;34m|[m   [33m0def572[m commit con Raul fse 2
+[35m|[m[36m\[m [34m\[m [34m\[m [32m\[m [1;36m\[m [1;34m\[m  
+[35m|[m * [34m|[m [34m|[m [32m|[m [1;36m|[m [1;34m|[m [33mb8506e4[m[33m ([m[1;31morigin/Raul[m[33m, [m[1;32mRaul[m[33m)[m Cambio nombre incorrecto
+[35m|[m * [34m|[m [34m|[m [32m|[m [1;36m|[m [1;34m|[m [33m3b6f440[m Introduccion DAO factory y Socios DAO y adaptación sistema excursionista
+[35m|[m [1;34m|[m [34m|[m[1;34m_[m[34m|[m[1;34m_[m[32m|[m[1;34m_[m[1;36m|[m[1;34m/[m  
+[35m|[m [1;34m|[m[1;34m/[m[34m|[m [34m|[m [32m|[m [1;36m|[m   
+* [1;34m/[m [34m|[m [34m|[m [32m|[m [1;36m|[m [33m882b734[m commit antes de merge con raul
+[1;34m|[m[1;34m/[m [34m/[m [34m/[m [32m/[m [1;36m/[m  
+* [34m|[m [34m|[m [32m|[m [1;36m/[m [33mf3123dd[m Errores Miriam solucionados
+[1;36m|[m [34m|[m[1;36m_[m[34m|[m[1;36m_[m[32m|[m[1;36m/[m  
+[1;36m|[m[1;36m/[m[34m|[m [34m|[m [32m|[m   
+* [34m|[m [34m|[m [32m|[m   [33m596ad5c[m Mt commit -m "Commit con MArina y Miram_2" [master 3a04b86] Commit con MArina y Miram_2  2 files changed, 1 insertion(+), 2 deletions(-)
+[1;31m|[m[1;32m\[m [34m\[m [34m\[m [32m\[m  
+[1;31m|[m * [34m|[m [34m|[m [32m|[m [33m81ce7fd[m Commit con DAO Miriam
+[1;31m|[m * [34m|[m [34m|[m [32m|[m   [33m1388687[m Merge remote-tracking branch 'origin/master' into Miriam_2
+[1;31m|[m [1;33m|[m[32m\[m [34m\[m [34m\[m [32m\[m  
+[1;31m|[m [1;33m|[m [32m|[m [34m|[m[32m_[m[34m|[m[32m/[m  
+[1;31m|[m [1;33m|[m [32m|[m[32m/[m[34m|[m [34m|[m   
+[1;31m|[m * [32m|[m [34m|[m [34m|[m   [33mfc1703f[m Merge remote-tracking branch 'origin/master' into Miriam_2
+[1;31m|[m [34m|[m[1;36m\[m [32m\[m [34m\[m [34m\[m  
+[1;31m|[m [34m|[m [1;36m|[m[34m_[m[32m|[m[34m_[m[34m|[m[34m/[m  
+[1;31m|[m [34m|[m[34m/[m[1;36m|[m [32m|[m [34m|[m   
+[1;31m|[m * [1;36m|[m [32m|[m [34m|[m [33mfe8b90d[m Corrección Test y eliminar funciones no necesarias
+[1;31m|[m * [1;36m|[m [32m|[m [34m|[m [33md8adfc2[m Pruebas1
+[1;31m|[m * [1;36m|[m [32m|[m [34m|[m [33m3845030[m Paquetes
+[1;31m|[m * [1;36m|[m [32m|[m [34m|[m [33m7471912[m Paquetes
+[1;31m|[m * [1;36m|[m [32m|[m [34m|[m [33m333d614[m Prueba
+[1;31m|[m * [1;36m|[m [32m|[m [34m|[m [33mb5ac57e[m MVC cambios
+[1;31m|[m * [1;36m|[m [32m|[m [34m|[m [33mea15f6e[m Pruebas Main y vista
+[1;31m|[m [34m|[m [1;36m|[m[34m_[m[32m|[m[34m/[m  
+[1;31m|[m [34m|[m[34m/[m[1;36m|[m [32m|[m   
+[1;31m|[m * [1;36m|[m [32m|[m [33m640bdb9[m Changes by miriam
+[1;31m|[m * [1;36m|[m [32m|[m [33mbd38eba[m Paquetes
+[1;31m|[m * [1;36m|[m [32m|[m [33mc15ca68[m Prueba
+* [1;36m|[m [1;36m|[m [32m|[m [33me3aa3c8[m Commit con MArina y Miram_2
+[32m|[m [1;36m|[m[32m_[m[1;36m|[m[32m/[m  
+[32m|[m[32m/[m[1;36m|[m [1;36m|[m   
+* [1;36m|[m [1;36m|[m [33m13c9bc1[m Origin del nuevo punto de partida con el maven en funcionamiento y la conexion a sql
+* [1;36m|[m [1;36m|[m [33mffbf7b0[m Estructura nueva de MAVEN
+* [1;36m|[m [1;36m|[m [33m821cd92[m SQL
+[1;36m|[m [1;36m|[m[1;36m/[m  
+[1;36m|[m[1;36m/[m[1;36m|[m   
+* [1;36m|[m [33mcef7452[m Cambio pedirFecha a dd/MM/yyyy
+* [1;36m|[m [33m95e6b34[m Agregado diagramaClasesyObjetos.drawio
+* [1;36m|[m [33m41ae6cc[m commit con el JavaDoc
+* [1;36m|[m [33m227f206[m git con paquete pruebas convertido a paquete de pruebas
+* [1;36m|[m [33m41512c5[m commit con los comentarios en GestionSociosTest del paquete AppTest, justo antes de hacer el JavaDoc
+* [1;36m|[m [33m46298c6[m Mejorar filto excrursiones por fecho o socio
+* [1;36m|[m [33m2269670[m Producto dos terminado
+* [1;36m|[m [33mdc1b888[m Adaptar Test a Sistema Excrusionista
+* [1;36m|[m [33m3dbb08d[m Añadir logica MiclassTest
+* [1;36m|[m [33m84fcdf4[m Añadir logica controlador y modificar Controlador Inscripciones
+* [1;36m|[m [33m45e4b8b[m Añadir controlador y modificar Controlador Socios
+* [1;36m|[m [33m07c19fb[m Comentarios en todos las clases de cada paquete
+* [1;36m|[m [33mb85cd61[m Git fase 2
+* [1;36m|[m   [33m7654456[m Merge branch 'Raul_2'
+[31m|[m[32m\[m [1;36m\[m  
+[31m|[m * [1;36m|[m [33m1298796[m MVC cambios
+* [32m|[m [1;36m|[m [33m40c24d8[m Commit Fase 2
+[32m|[m[32m/[m [1;36m/[m  
+* [1;36m/[m [33maf9f617[m Pruebas Main y vista
+[1;36m|[m[1;36m/[m  
+* [33maa00323[m Documentacion fase 1
+* [33m7d7b29b[m RAUL
+* [33maa1c0b0[m Modificacion clases Socio
+* [33mc63935f[m commit de confirmacion con Miriam
+*   [33mfb25e5e[m Merge branch 'Miriam_2'
+[33m|[m[34m\[m  
+[33m|[m * [33mc47eb84[m Commit con Socios, seguro y federacion añadidos.
+* [34m|[m [33m2b79e5b[m Actualizar DiagramaUsoDiegoDiaz.drawio
+[34m|[m[34m/[m  
+* [33m8dd14c6[m Test
+* [33m8ee22be[m Clases Excursion, Socio, inscripcion realizadas
+*   [33m2ea148f[m Merge branch 'master' of https://github.com/dadd86/The-Javengers---IntellJ
+[35m|[m[36m\[m  
+[35m|[m * [33m09a2e6c[m Actualizar DiagramaUsoDiegoDiaz.drawio
+[35m|[m * [33m1b9146e[m Actualizar DiagramaUsoDiegoDiaz.drawio
+[35m|[m * [33m9f2f33a[m Agregado DiagramaUsoDiegoDiaz.drawio
+* [36m|[m [33m7986cae[m Commit Prueba Raul eliminado
+[36m|[m[36m/[m  
+* [33mf38c7db[m Create FP058_CasoPractico_Senderos (1).pdf
+*   [33m6ce2245[m Merge branch 'Raul' of https://github.com/dadd86/The-Javengers---IntellJ
+[1;31m|[m[1;32m\[m  
+[1;31m|[m * [33me71f803[m Añadir clases
+* [1;32m|[m [33m40c9cf8[m Actualizar Diagrama sin título.drawio
+* [1;32m|[m [33m65db717[m Actualizar Diagrama sin título.drawio
+* [1;32m|[m [33m1d457fd[m Actualizar Diagrama sin título.drawio
+* [1;32m|[m [33mcacfbcd[m Actualizar Diagrama sin título.drawio
+* [1;32m|[m [33m0056793[m Actualizar Diagrama sin título.drawio
+* [1;32m|[m [33mdedf8ea[m Actualizar Diagrama sin título.drawio
+* [1;32m|[m [33md9f4977[m Actualizar Diagrama sin título.drawio
+* [1;32m|[m [33m20f9836[m Actualizar Diagrama sin título.drawio
+* [1;32m|[m [33mb7abf8e[m Actualizar Diagrama sin título.drawio
+* [1;32m|[m [33m9854731[m DiagramaClases.drawio
+* [1;32m|[m [33mdbe1263[m commit caprta diagrama Diego
+* [1;32m|[m [33m1832863[m commit con las ramas
+[1;32m|[m[1;32m/[m  
+* [33m8fdabaa[m Commit con los paquetes Apptest y Thejavengers creado
+* [33m6160f5b[m No se si esta bien
+* [33m5272f90[m Primer commit
