@@ -266,6 +266,6 @@ public class ControladorFiltrarExcursiones {
 //        } else {
 //            Alert alert = new Alert(Alert.AlertType.ERROR, "SceneManager no configurado.");
 //            alert.showAndWait();
-//        }
-//    }
+//        }
+//    }
 }

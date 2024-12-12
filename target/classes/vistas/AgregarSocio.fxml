@@ -36,5 +36,5 @@
     <HBox spacing="10" alignment="CENTER">
         <Button text="Guardar" fx:id="guardarButton" styleClass="boton-principal"/>
         <Button text="Cancelar" fx:id="cancelarButton" styleClass="boton-secundario" onAction="#volverAGestionSocios"/>
-    </HBox>
+        </HBox>
 </VBox>

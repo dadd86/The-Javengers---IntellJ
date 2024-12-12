@@ -9,21 +9,24 @@
 
     <Label text="Gestión de Inscripciones" styleClass="titulo-principal"/>
 
-    <TableView fx:id="tablaInscripciones" prefWidth="800" prefHeight="400">
+    <TableView fx:id="tablaSocios" prefWidth="800" prefHeight="400">
         <columns>
-            <TableColumn fx:id="idInscripcion" text="ID Inscripción" prefWidth="100"/>
-            <TableColumn fx:id="nombreSocio" text="Nombre Socio" prefWidth="200"/>
-            <TableColumn fx:id="apellidosSocio" text="Apellidos Socio" prefWidth="200"/>
-            <TableColumn fx:id="descripcionExcursion" text="Detalles Excursión" prefWidth="250"/>
-            <TableColumn fx:id="estadoInscripcion" text="Estado Inscripción" prefWidth="250"/>
-            <TableColumn fx:id="fechaInscripcion" text="Fecha Inscripción" prefWidth="150"/>
+            <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
+            <TableColumn fx:id="nombreColumn" text="Nombre" prefWidth="100"/>
+            <TableColumn fx:id="apellidosColumn" text="Apellidos" prefWidth="150"/>
+            <TableColumn fx:id="tipoColumn" text="Tipo" prefWidth="100"/>
+            <TableColumn fx:id="seguroColumn" text="Seguro" prefWidth="100"/>
+            <TableColumn fx:id="federacionColumn" text="Federación" prefWidth="100"/>
+            <TableColumn fx:id="tutorColumn" text="Tutor ID" prefWidth="100"/>
         </columns>
     </TableView>
 
     <HBox spacing="10" alignment="CENTER">
+        <!--
         <Button fx:id="botonInscribir" text="Añadir Inscripción" styleClass="boton-principal" onAction="#inscribirSocio"/>
         <Button fx:id="botonEliminar" text="Eliminar Inscripción" styleClass="boton-principal" onAction="#eliminarInscripcion"/>
         <Button fx:id="botonModificar" text="Modificar Inscripción" styleClass="boton-principal" onAction="#modificarInscripcion"/>
+        -->
         <Button fx:id="botonConsultar" text="Consultar Inscripciones" styleClass="boton-principal" onAction="#consultarInscripcion"/>
         <Button fx:id="botonCancelar" text="Cancelar Inscripción" styleClass="boton-principal" onAction="#cancelarInscripcion"/>
         <Button onAction="#volverAlMenu" text="Volver al Menú Principal" styleClass="boton-principal"/>

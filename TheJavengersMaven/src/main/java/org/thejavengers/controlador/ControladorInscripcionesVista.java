@@ -17,12 +17,16 @@ import org.thejavengers.Excepciones.SceneManagerException;
 import org.thejavengers.modelo.Excursion;
 import org.thejavengers.modelo.Inscripcion;
 import org.thejavengers.modelo.Socio;
+import org.thejavengers.modelo.SocioEstandar;
+import org.thejavengers.modelo.TipoSeguro;
 import org.thejavengers.vista.InscripcionViewModel;
 import org.thejavengers.vista.SocioViewModel;
 import org.thejavengers.vista.gestionMenuPrincipal.SceneManager;
+import org.thejavengers.vista.gestionSocios.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Controlador para la vista de gestión de inscripciones.
@@ -37,27 +41,34 @@ public class ControladorInscripcionesVista {
     @FXML
     private TableView<InscripcionViewModel> tablaInscripciones;
 
-    @FXML
-    private TableColumn<InscripcionViewModel, Integer> idInscripcion;
 
     @FXML
-    private TableColumn<InscripcionViewModel, String> nombreSocio;
+    private TableView<SocioViewModel> tablaSocios;
 
     @FXML
-    private TableColumn<SocioViewModel, String> apellidosSocio;
+    private TableColumn<SocioViewModel, Number> idColumn;
 
     @FXML
-    private TableColumn<InscripcionViewModel, String> descripcionExcursion;
+    private TableColumn<SocioViewModel, String> nombreColumn;
 
     @FXML
-    private TableColumn<InscripcionViewModel, String> estadoInscripcion;
+    private TableColumn<SocioViewModel, String> apellidosColumn;
 
     @FXML
-    private TableColumn<InscripcionViewModel, String> fechaInscripcion;
+    private TableColumn<SocioViewModel, String> tipoColumn;
+
+    @FXML
+    private TableColumn<SocioViewModel, String> seguroColumn;
+
+    @FXML
+    private TableColumn<SocioViewModel, String> federacionColumn;
+
+    @FXML
+    private TableColumn<SocioViewModel, Integer> tutorColumn;
 
     @FXML
     private TextField idSocioField;
-
+/*
     @FXML
     private ComboBox<Socio> sociosComboBox;
 
@@ -66,7 +77,7 @@ public class ControladorInscripcionesVista {
 
     @FXML
     private VBox mainVBox;
-
+*/
     @FXML
     private Button botonInscribir;
 
@@ -85,9 +96,12 @@ public class ControladorInscripcionesVista {
     private final InscripcionDAO inscripcionDAO;
     private final SocioDAO socioDAO;
     private final ExcursionDAO excursionDAO;
+    private ObservableList<SocioViewModel> listaSocios;
+
+
 
     private ObservableList<InscripcionViewModel> inscripcionesObservableList;
-    private ObservableList<SocioViewModel> listaSocios;
+
 
     /**
      * Constructor que inicializa los DAOs necesarios.
@@ -96,6 +110,7 @@ public class ControladorInscripcionesVista {
         this.inscripcionDAO = new InscripcionDAOImpl();
         this.socioDAO = new SocioDAOImpl();
         this.excursionDAO = new ExcursionDAOImpl();
+        this.listaSocios = FXCollections.observableArrayList();
     }
 
     /**
@@ -111,52 +126,40 @@ public class ControladorInscripcionesVista {
      */
     @FXML
     public void initialize() {
-        idInscripcion.setCellValueFactory(cellData -> cellData.getValue().idInscripcionProperty().asObject());
-        nombreSocio.setCellValueFactory(cellData -> cellData.getValue().nombreSocioProperty());
-        apellidosSocio.setCellValueFactory(cellData -> cellData.getValue().apellidosProperty());
-        descripcionExcursion.setCellValueFactory(cellData -> cellData.getValue().descripcionExcursionProperty());
-        estadoInscripcion.setCellValueFactory(cellData -> cellData.getValue().estadoProperty());
-        fechaInscripcion.setCellValueFactory(cellData -> cellData.getValue().fechaInscripcionProperty());
+        // Configurar columnas de la tabla
+        idColumn.setCellValueFactory(cellData -> cellData.getValue().idProperty());
+        nombreColumn.setCellValueFactory(cellData -> cellData.getValue().nombreProperty());
+        apellidosColumn.setCellValueFactory(cellData -> cellData.getValue().apellidosProperty());
+        tipoColumn.setCellValueFactory(cellData -> cellData.getValue().tipoProperty());
+        seguroColumn.setCellValueFactory(data -> data.getValue().seguroProperty());
+        federacionColumn.setCellValueFactory(data -> data.getValue().federacionProperty());
+        tutorColumn.setCellValueFactory(data -> data.getValue().tutorIdProperty().asObject());
 
-        inscripcionesObservableList = FXCollections.observableArrayList();
-        tablaInscripciones.setItems(inscripcionesObservableList);
 
         // Configurar acciones de botones
-        botonInscribir.setOnAction(event -> inscribirSocio());
-        botonEliminar.setOnAction(event -> eliminarInscripcion());
-        botonModificar.setOnAction(event -> modificarInscripcion());
+//        botonInscribir.setOnAction(event -> inscribirSocio());
+//        botonEliminar.setOnAction(event -> eliminarInscripcion());
+//        botonModificar.setOnAction(event -> modificarInscripcion());
         botonConsultar.setOnAction(event -> consultarInscripcion());
         botonCancelar.setOnAction(event -> cancelarInscripcion());
 
         cargarSocios();
-        cargarExcursiones();
+        // Cargar datos iniciales en la tabla
+        //inscripcionesObservableList = FXCollections.observableArrayList();
+        //tablaInscripciones.setItems(inscripcionesObservableList);
+        //cargarExcursiones();
         cargarInscripciones();
     }
 
-    /**
-     * Carga los socios disponibles en el ComboBox.
-     */
-    private void cargarSocios() {
-        try {
-            List<Socio> socios = socioDAO.findAll(); // Cambiado a findAll()
-            sociosComboBox.setItems(FXCollections.observableArrayList(socios));
-        } catch (Exception e) {
-            logger.error("Error al cargar socios: ", e);
-            mostrarAlerta("Error", "No se pudieron cargar los socios.");
-        }
-    }
 
-    /**
-     * Carga las excursiones disponibles en el ComboBox.
-     */
-    private void cargarExcursiones() {
-        try {
-            List<Excursion> excursiones = excursionDAO.findAll(); // Cambiado a findAll()
-            excursionesComboBox.setItems(FXCollections.observableArrayList(excursiones));
-        } catch (Exception e) {
-            logger.error("Error al cargar excursiones: ", e);
-            mostrarAlerta("Error", "No se pudieron cargar las excursiones.");
+
+    private void cargarSocios() {
+        List<Socio> socios = socioDAO.findAll();
+        listaSocios.clear();
+        for (Socio socio : socios) {
+            listaSocios.add(new SocioViewModel(socio));
         }
+        tablaSocios.setItems(listaSocios);
     }
 
     /**
@@ -211,11 +214,13 @@ public class ControladorInscripcionesVista {
         }
     }
 
-
+/*
     /**
      * Maneja la acción del botón "Inscribir".
      * Valida los datos de entrada, crea una nueva inscripción y la guarda en la base de datos.
      */
+    /*
+
     @FXML
     public void inscribirSocio() {
         try {
@@ -259,11 +264,13 @@ public class ControladorInscripcionesVista {
             logger.error("Error al inscribir al socio", e);
             mostrarAlerta("Error", "Ocurrió un error al intentar realizar la inscripción.");
         }
-    }
-
+    }*/
+/*
     /**
      * Maneja la acción del botón "Eliminar".
      */
+
+    /*
     @FXML
     public void eliminarInscripcion() {
         // Obtener la inscripción seleccionada de la tabla
@@ -287,10 +294,12 @@ public class ControladorInscripcionesVista {
         }
     }
 
-
+*/
+    /*
     /**
      * Maneja la acción del botón "Modificar".
      */
+    /*
     @FXML
     public void modificarInscripcion() {
         InscripcionViewModel seleccionada = tablaInscripciones.getSelectionModel().getSelectedItem();
@@ -326,7 +335,7 @@ public class ControladorInscripcionesVista {
             mostrarAlerta("Error", "Ocurrió un error al intentar modificar la inscripción.");
         }
     }
-
+*/
     @FXML
     public void consultarInscripcion() {
         InscripcionViewModel seleccionada = tablaInscripciones.getSelectionModel().getSelectedItem();
@@ -342,8 +351,7 @@ public class ControladorInscripcionesVista {
                     inscripcionOriginal.getSocio().getNombre(),
                     inscripcionOriginal.getSocio().getApellidos(),
                     inscripcionOriginal.getExcursion().getDescripcion(),
-                    inscripcionOriginal.getFechaInscripcion().toString(),
-                    inscripcionOriginal.getEstado());
+                    inscripcionOriginal.getFechaInscripcion().toString());
 
             mostrarAlerta("Detalles de Inscripción", detalles);
         } catch (Exception e) {

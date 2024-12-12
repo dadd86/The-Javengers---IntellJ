@@ -51,11 +51,9 @@ public class ControladorAgregarSocio {
         socioDAO = new SocioDAOImpl();
         federacionDAO = new FederacionDAOImpl();
     }
-
     public void setSceneManager(SceneManager sceneManager) { // Añadido para configurar el SceneManager
         this.sceneManager = sceneManager;
     }
-
     @FXML
     public void initialize() {
 
@@ -134,7 +132,10 @@ public class ControladorAgregarSocio {
                 // Cambiar a la vista de Gestión de Socios
                 sceneManager.cambiarVista("/vistas/GestionSocios.fxml", "Gestión de Socios");
             } catch (SceneManagerException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
+                // Mostrar alerta si hay un error
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al cargar la vista de Gestión de Socios.");
+                alert.showAndWait();
             }
         } else {
             // Manejo si el SceneManager no está configurado
@@ -142,25 +143,6 @@ public class ControladorAgregarSocio {
             alert.showAndWait();
         }
     }
-
-
-//    public void volverAGestionSocios() {
-//        if (sceneManager != null) {
-//            try {
-//                // Cambiar a la vista de Gestión de Socios
-//                sceneManager.cambiarVista("/vistas/GestionSocios.fxml", "Gestión de Socios");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                // Mostrar alerta si hay un error
-//                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al cargar la vista de Gestión de Socios.");
-//                alert.showAndWait();
-//            }
-//        } else {
-//            // Manejo si el SceneManager no está configurado
-//            Alert alert = new Alert(Alert.AlertType.ERROR, "SceneManager no configurado.");
-//            alert.showAndWait();
-//        }
-//    }
 
 
     private void mostrarAlerta(String titulo, String mensaje) {

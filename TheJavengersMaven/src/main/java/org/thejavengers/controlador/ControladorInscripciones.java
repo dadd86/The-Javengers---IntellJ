@@ -7,7 +7,7 @@ import org.thejavengers.Excepciones.SocioNoEncontradoException;
 import org.thejavengers.Excepciones.ExcursionNoEncontradaException;
 import org.thejavengers.Excepciones.InscripcionNoEncontradaException;
 import org.thejavengers.modelo.Socio;
-import org.thejavengers.vista.VistaInscripciones;
+import org.thejavengers.vista.gestionInscripciones.VistaInscripciones;
 
 import java.time.LocalDate;
 import java.util.List;

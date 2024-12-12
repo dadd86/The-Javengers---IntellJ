@@ -11,7 +11,6 @@ public class InscripcionViewModel {
     private final SimpleIntegerProperty idInscripcion;
     private final SimpleStringProperty nombreSocio; // Nombre del socio
     private final SimpleStringProperty descripcionExcursion; // Descripción de la excursión asociada
-    private final SimpleStringProperty estado; // Estado de la inscripción
     private final SimpleStringProperty fechaInscripcion; // Fecha de la inscripción
 
     private final Inscripcion inscripcionOriginal; // Referencia al modelo original
@@ -21,7 +20,6 @@ public class InscripcionViewModel {
         this.idInscripcion = new SimpleIntegerProperty(inscripcion.getIdInscripcion());
         this.nombreSocio = new SimpleStringProperty(inscripcion.getSocio().getNombre());
         this.descripcionExcursion = new SimpleStringProperty(inscripcion.getExcursion().getDescripcion());
-        this.estado = new SimpleStringProperty(calcularEstado(inscripcion));
 
         // Formatear la fecha de inscripción
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -64,14 +62,6 @@ public class InscripcionViewModel {
 
     public SimpleStringProperty descripcionExcursionProperty() {
         return descripcionExcursion;
-    }
-
-    public String getEstado() {
-        return estado.get();
-    }
-
-    public SimpleStringProperty estadoProperty() {
-        return estado;
     }
 
     public String getFechaInscripcion() {

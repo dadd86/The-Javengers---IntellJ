@@ -6,7 +6,7 @@ import org.thejavengers.modelo.SistemaExcursionista;
 import org.thejavengers.vista.VistaExcursionista;
 import org.thejavengers.vista.VistaSocios;
 import org.thejavengers.vista.VistaExcursiones;
-import org.thejavengers.vista.VistaInscripciones;
+import org.thejavengers.vista.gestionInscripciones.VistaInscripciones;
 import org.thejavengers.controlador.ControladorSocios;
 import org.thejavengers.controlador.ControladorExcursiones;
 import org.thejavengers.controlador.ControladorInscripciones;

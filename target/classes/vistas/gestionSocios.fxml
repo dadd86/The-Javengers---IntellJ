@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.thejavengers.controlador.ControladorVistaSocios"
+      fx:controller="org.thejavengers.vista.gestionSocios.ControladorVistaSocios"
       spacing="10" alignment="CENTER" styleClass="contenedor-principal">
 
     <Label text="Gestión de Socios" styleClass="titulo-principal"/>
@@ -27,5 +27,5 @@
         <Button fx:id="botonModificarSeguro" text="Modificar Seguro" styleClass="boton-principal"/>
         <Button fx:id="botonMostrarFactura" text="Mostrar Factura" styleClass="boton-principal"/>
         <Button fx:id="botonVolver" text="Volver al Menú Principal" styleClass="boton-principal"/>
-    </HBox>
+        </HBox>
 </VBox>

@@ -31,10 +31,6 @@ public class Inscripcion {
     @Column(name = "fechaInscripcion", nullable=false)
     private LocalDate fechaInscripcion;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "estado", nullable = false)
-    private EstadoInscripcion estado;
-
     /**
      * Constructor vacío requerido por Hibernate.
      */
@@ -68,7 +64,6 @@ public class Inscripcion {
         this.socio = socio;
         this.excursion = excursion;
         this.fechaInscripcion = fechaInscripcion;
-        this.estado = estado;  // Asignamos el estado
     }
 
     // Getters
@@ -109,8 +104,6 @@ public class Inscripcion {
         return fechaInscripcion;
     }
 
-    public EstadoInscripcion getEstado() {return estado;}
-
     // Setters con validación
 
     /**
@@ -142,8 +135,6 @@ public class Inscripcion {
     public void setFechaInscripcion(LocalDate fechaInscripcion) {
         this.fechaInscripcion = fechaInscripcion;
     }
-
-    public void setEstado(EstadoInscripcion estado) {this.estado = estado;}
 
 
     // Métodos adicionales
