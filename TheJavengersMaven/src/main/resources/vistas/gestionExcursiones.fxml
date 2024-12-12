@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.thejavengers.vista.gestionExcursiones.VistaGestionExcurciones"
+            fx:controller="org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones"
             stylesheets="@../styles.css">
 <children>
     <!-- VBox centrado dinámicamente dentro del AnchorPane -->
@@ -24,8 +24,6 @@
             <!-- Botón para filtrar excursiones entre fechas -->
             <Button text="Filtrar Excursiones entre Fechas" onAction="#manejarFiltrarFechas" />
 
-            <!-- Botón para mostrar los socios inscritos -->
-            <Button text="Mostrar Socios Inscritos" onAction="#manejarMostrarSocios" />
             <Separator />
 
             <!-- Botón para volver al menú principal -->

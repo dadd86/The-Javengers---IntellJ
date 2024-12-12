@@ -19,9 +19,9 @@ import java.io.IOException;
  *
  * <p>Maneja las acciones de los botones en la interfaz gráfica de gestión de excursiones.</p>
  */
-public class VistaGestionExcurciones {
+public class VistaGestionExcursiones {
 
-    private static final Logger logger = LoggerFactory.getLogger(VistaGestionExcurciones.class);
+    private static final Logger logger = LoggerFactory.getLogger(VistaGestionExcursiones.class);
 
     /**
      * Gestor centralizado para manejar vistas y estilos en la aplicación.
