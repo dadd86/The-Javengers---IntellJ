@@ -5,31 +5,41 @@
 
 <VBox xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.thejavengers.controlador.ControladorInscripcionesVista"
-      spacing="10" alignment="CENTER" styleClass="contenedor-principal">
+      spacing="20" alignment="CENTER" styleClass="contenedor-principal">
 
     <Label text="Gestión de Inscripciones" styleClass="titulo-principal"/>
 
-    <TableView fx:id="tablaSocios" prefWidth="800" prefHeight="400">
+    <TableView fx:id="tablaInscripciones" prefWidth="800" prefHeight="400">
         <columns>
-            <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
-            <TableColumn fx:id="nombreColumn" text="Nombre" prefWidth="100"/>
-            <TableColumn fx:id="apellidosColumn" text="Apellidos" prefWidth="150"/>
-            <TableColumn fx:id="tipoColumn" text="Tipo" prefWidth="100"/>
-            <TableColumn fx:id="seguroColumn" text="Seguro" prefWidth="100"/>
-            <TableColumn fx:id="federacionColumn" text="Federación" prefWidth="100"/>
-            <TableColumn fx:id="tutorColumn" text="Tutor ID" prefWidth="100"/>
+            <TableColumn fx:id="idInscripcion" text="ID Inscripción" prefWidth="100"/>
+            <TableColumn fx:id="idSocio" text="ID Socio" prefWidth="100"/>
+            <TableColumn fx:id="nombreSocio" text="Nombre Socio" prefWidth="200"/>
+            <TableColumn fx:id="descripcionExcursion" text="Excursión" prefWidth="250"/>
+            <TableColumn fx:id="fechaInscripcion" text="Fecha Inscripción" prefWidth="150"/>
         </columns>
     </TableView>
 
-    <HBox spacing="10" alignment="CENTER">
-        <!--
-        <Button fx:id="botonInscribir" text="Añadir Inscripción" styleClass="boton-principal" onAction="#inscribirSocio"/>
+    <!-- Contenedor de filtros -->
+    <HBox spacing="20" alignment="CENTER">
+        <VBox spacing="5">
+            <Label text="Filtrar por socio (ID): " />
+            <TextField fx:id="filtroSocioField" prefWidth="200" />
+        </VBox>
+        <VBox spacing="5">
+            <Label text="Fecha Inicio: " />
+            <DatePicker fx:id="filtroFechaInicio" prefWidth="150" />
+        </VBox>
+        <VBox spacing="5">
+            <Label text="Fecha Fin: " />
+            <DatePicker fx:id="filtroFechaFin" prefWidth="150" />
+        </VBox>
+        <Button text="Aplicar Filtro" onAction="#aplicarFiltro" styleClass="boton-principal"/>
+    </HBox>
+
+    <!-- Botones de acción -->
+    <HBox spacing="20" alignment="CENTER">
+        <Button fx:id="botonInscribir" text="Inscribir Socio" styleClass="boton-principal" onAction="#irAMenuAgregarInscripcion"/>
         <Button fx:id="botonEliminar" text="Eliminar Inscripción" styleClass="boton-principal" onAction="#eliminarInscripcion"/>
-        <Button fx:id="botonModificar" text="Modificar Inscripción" styleClass="boton-principal" onAction="#modificarInscripcion"/>
-        -->
-        <Button fx:id="botonConsultar" text="Consultar Inscripciones" styleClass="boton-principal" onAction="#consultarInscripcion"/>
-        <Button fx:id="botonCancelar" text="Cancelar Inscripción" styleClass="boton-principal" onAction="#cancelarInscripcion"/>
-        <Button onAction="#volverAlMenu" text="Volver al Menú Principal" styleClass="boton-principal"/>
+        <Button fx:id="botonVolver" text="Volver al Menú Principal" styleClass="boton-principal" onAction="#volverAlMenu"/>
     </HBox>
 </VBox>
-
