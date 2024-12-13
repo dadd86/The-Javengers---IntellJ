@@ -89,7 +89,6 @@ public class ExcursionDAOImpl implements ExcursionDAO {
      *
      * @return Una lista de excursiones o una lista vacía si no hay resultados.
      */
-    @Override
     public List<Excursion> findAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             logger.debug("Recuperando todas las excursiones.");

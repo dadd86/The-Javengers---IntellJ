@@ -1,4 +1,4 @@
-package org.thejavengers.vista;
+package org.thejavengers.vista.gestionInscripciones;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

@@ -27,7 +27,7 @@ CREATE TABLE `excursiones` (
   `descripcion` varchar(255) NOT NULL,
   `fechaExcursion` date NOT NULL,
   `numero_dias` int NOT NULL,
-  `precio` decimal(10,2) NOT NULL,
+  `precio` FLOAT NOT NULL,
   PRIMARY KEY (`idExcursion`),
   UNIQUE KEY `unique_descripcion_fecha` (`descripcion`,`fechaExcursion`),
   CONSTRAINT `CHK_numero_dias_positivo` CHECK ((`numero_dias` > 0)),

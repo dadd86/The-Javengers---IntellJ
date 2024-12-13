@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!-- Archivo FXML para centrar dinámicamente un VBox dentro de un AnchorPane -->
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
@@ -7,21 +7,30 @@
 <?import javafx.scene.layout.*?>
 
 
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/17.0.12"
+            fx:controller="org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones"
+            stylesheets="@../styles.css">
+<children>
+    <!-- VBox centrado dinámicamente dentro del AnchorPane -->
+    <VBox alignment="CENTER" spacing="20.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <children>
+            <!-- Título de la ventana -->
+            <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Gestión de Excursiones" />
+            <Separator />
 
-<VBox alignment="CENTER" spacing="15" xmlns:fx="http://javafx.com/fxml" fx:controller="org.thejavengers.vista.gestionExcursiones.VistaGestionExcurciones">
-    <!-- Título de la ventana -->
-    <Label text="Gestión de Excursiones" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+            <!-- Botones -->
+            <!-- Botón para añadir excursiones -->
+            <Button onAction="#manejarAnadirExcursion" text="Añadir Excursión" />
 
-    <!-- Botón para añadir excursiones -->
-    <Button text="Añadir Excursión" onAction="#manejarAnadirExcursion" />
+            <!-- Botón para filtrar excursiones entre fechas -->
+            <Button onAction="#manejarFiltrarFechas" text="Filtrar Excursiones entre Fechas" />
+            <Separator />
 
-    <!-- Botón para filtrar excursiones entre fechas -->
-    <Button text="Filtrar Excursiones entre Fechas" onAction="#manejarFiltrarFechas" />
-
-    <!-- Botón para mostrar los socios inscritos -->
-    <Button text="Mostrar Socios Inscritos" onAction="#manejarMostrarSocios" />
-
-    <!-- Botón para volver al menú principal -->
-    <Button text="Volver al Menú Principal" onAction="#manejarVolverMenu" />
-</VBox>
-
+            <!-- Botón para volver al menú principal -->
+            <Button onAction="#manejarVolverMenu" text="Volver al Menú Principal" />
+        </children>
+    </VBox>
+</children>
+</AnchorPane>

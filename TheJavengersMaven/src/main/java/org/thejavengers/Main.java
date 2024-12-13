@@ -6,11 +6,12 @@ import org.thejavengers.modelo.SistemaExcursionista;
 import org.thejavengers.vista.VistaExcursionista;
 import org.thejavengers.vista.VistaSocios;
 import org.thejavengers.vista.VistaExcursiones;
-import org.thejavengers.vista.VistaInscripciones;
+import org.thejavengers.vista.gestionInscripciones.VistaInscripciones;
 import org.thejavengers.controlador.ControladorSocios;
 import org.thejavengers.controlador.ControladorExcursiones;
 import org.thejavengers.controlador.ControladorInscripciones;
 import javafx.application.Application;
+import javafx.scene.control.Alert;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.Parent;
@@ -18,6 +19,7 @@ import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.thejavengers.vista.gestionMenuPrincipal.*;
+import java.io.IOException;
 
 /**
  * Clase principal (Main) del sistema de gestión de excursiones.
@@ -45,28 +47,49 @@ public class Main extends Application  {
         try {
             logger.info("Iniciando la aplicación JavaFX.");
 
-            // Crear instancia de SceneManager con el Stage principal y el CSS por defecto
-            SceneManager sceneManager = new SceneManager(primaryStage, "/styles.css");
+            // Dimensiones y configuración del SceneManager
+            double fixedWidth = 800.0;
+            double fixedHeight = 600.0;
+            SceneManager sceneManager = new SceneManager(primaryStage, "/styles.css", fixedWidth, fixedHeight, false);
 
-            // Cargar el archivo FXML del menú principal
+            // Cargar la vista inicial
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vistas/application.fxml"));
             Parent root = loader.load();
 
-            // Obtener el controlador del archivo FXML
+            // Configurar SceneManager en el controlador de la vista inicial
             VistaGestionMenuPrincipal controller = loader.getController();
-
-            // Pasar el SceneManager al controlador
             controller.setSceneManager(sceneManager);
 
-            // Configurar la escena inicial
-            primaryStage.setScene(new Scene(root));
+            // Mostrar la escena inicial
+            Scene scene = new Scene(root, fixedWidth, fixedHeight);
+            primaryStage.setScene(scene);
             primaryStage.setTitle("Sistema de Gestión de Excursiones");
+            primaryStage.setResizable(true);
             primaryStage.show();
+
             logger.info("Aplicación JavaFX iniciada correctamente.");
-        } catch (Exception e) {
+        } catch (IOException e) {
             logger.error("Error crítico al iniciar la aplicación.", e);
+            mostrarErrorCritico("Error al iniciar la aplicación", "No se pudo cargar la vista inicial.");
         }
     }
+
+
+    /**
+     * Muestra un cuadro de diálogo de error en caso de fallos críticos.
+     *
+     * @param titulo  Título del mensaje de error.
+     * @param mensaje Contenido del mensaje de error.
+     */
+    private void mostrarErrorCritico(String titulo, String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(titulo);
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+        System.exit(1); // Terminar la aplicación tras mostrar el error
+    }
+
 
 
 
