@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.thejavengers.controlador.ControladorAgregarInscripcion"
+      spacing="10" alignment="CENTER" styleClass="contenedor-principal">
+
+    <Label text="Agregar Inscripción" styleClass="titulo-principal"/>
+
+    <GridPane hgap="10" vgap="10">
+        <Label text="Seleccionar Socio:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="comboBoxSocios" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Seleccionar Excursión:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <ComboBox fx:id="comboBoxExcursiones" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button text="Guardar Inscripción" fx:id="botonGuardar" styleClass="boton-principal" onAction="#guardarInscripcion"/>
+        <Button text="Volver a inscripcion" fx:id="botonVolver" styleClass="boton-secundario" onAction="#volverAGestionInscripciones"/>
+    </HBox>
+</VBox>

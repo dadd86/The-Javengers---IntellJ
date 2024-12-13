@@ -14,7 +14,7 @@
     </property>
     <property name="connection.username">root</property>
     <!--<property name="connection.password">Admin</property> -->
-    <property name="connection.password">Admin</property> <!-- Se recomienda usar variables de entorno -->
+    <property name="connection.password">UOC.edu1</property> <!-- Se recomienda usar variables de entorno -->
 
     <!-- Dialecto: Permite que Hibernate traduzca HQL a SQL específico para MySQL -->
     <property name="dialect">org.hibernate.dialect.MySQLDialect</property>

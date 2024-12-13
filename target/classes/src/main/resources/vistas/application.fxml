@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Archivo FXML para centrar dinámicamente un VBox dentro de un AnchorPane -->
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.thejavengers.vista.gestionMenuPrincipal.VistaGestionMenuPrincipal"
+            stylesheets="@../styles.css">
+    <children>
+        <!-- VBox centrado dinámicamente dentro del AnchorPane -->
+        <VBox alignment="CENTER" spacing="20.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+                <!-- Títulos -->
+                <Label text="Sistema de Gestión de Excursiones" styleClass="titulo-principal" />
+                <Label text="Menú Principal" styleClass="subtitulo" />
+                <Separator />
+
+                <!-- Botones -->
+                <Button fx:id="btnExcursiones" text="Gestión de Excursiones" onAction="#abrirExcursionesVista" />
+                <Button fx:id="btnInscripciones" text="Gestión de Inscripciones" onAction="#abrirInscripciones" />
+                <Button fx:id="btnSocios" text="Gestión de Socios" onAction="#abrirSocios" />
+                <Separator />
+
+                <!-- Botón para salir de la aplicación -->
+                <Button fx:id="btnSalir" text="Salir" onAction="#salirAplicacion" styleClass="boton-salir" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
