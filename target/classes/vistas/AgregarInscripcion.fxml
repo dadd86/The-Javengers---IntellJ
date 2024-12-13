@@ -19,6 +19,6 @@
 
     <HBox spacing="10" alignment="CENTER">
         <Button text="Guardar Inscripción" fx:id="botonGuardar" styleClass="boton-principal" onAction="#guardarInscripcion"/>
-        <Button text="Volver a inscripcion" fx:id="botonVolver" styleClass="boton-secundario" onAction="#volverAGestionInscripciones"/>
+        <Button text="Volver a Inscripción" fx:id="botonVolver" styleClass="boton-secundario" onAction="#volverAGestionInscripciones"/>
     </HBox>
 </VBox>
