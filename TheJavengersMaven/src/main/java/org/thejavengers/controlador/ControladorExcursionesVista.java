@@ -92,11 +92,20 @@ public class ControladorExcursionesVista {
                 return;
             }
 
-            // Simular agregar excursión
+            // Crear y guardar la nueva excursión
+            Excursion nuevaExcursion = new Excursion(0, descripcion, fecha, numeroDias, precio);
+            excursionDAO.save(nuevaExcursion); // Uso del DAO para guardar la excursión
+
+            // Confirmar y limpiar los campos
             logger.info("Excursión agregada: Descripción={}, Fecha={}, Días={}, Precio={}",
                     descripcion, fecha, numeroDias, precio);
             mostrarAlerta("Éxito", "Excursión agregada correctamente.");
             limpiarCampos();
+
+            // Actualizar la tabla de excursiones
+            if (excursionesTable != null) {
+                excursionesTable.getItems().add(nuevaExcursion);
+            }
 
         } catch (NumberFormatException e) {
             mostrarAlerta("Error de Validación", "El número de días y el precio deben ser valores numéricos.");

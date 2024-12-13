@@ -173,7 +173,7 @@ public class ControladorAgregarInscripcion {
             mostrarAlerta("Éxito", "La inscripción se guardó correctamente.");
 
         } catch (Exception e) {
-            mostrarAlerta("Error", "Ocurrió un error al guardar la inscripción.");
+            mostrarAlerta("Error", "Excursión no válida. Fecha vencida.");
         }
     }
 
