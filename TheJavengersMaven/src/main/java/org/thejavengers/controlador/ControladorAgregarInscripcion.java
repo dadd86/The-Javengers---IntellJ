@@ -43,6 +43,11 @@ public class ControladorAgregarInscripcion {
 
     @FXML
     private Button botonCancelar;
+    @FXML
+    private ComboBox<Socio> comboBoxSocios;
+
+    @FXML
+    private ComboBox<Excursion> comboBoxExcursiones;
 
     private final InscripcionDAO inscripcionDAO;
     private final SocioDAO socioDAO;
@@ -63,52 +68,57 @@ public class ControladorAgregarInscripcion {
     public void initialize() {
         botonGuardar.setOnAction(event -> guardarInscripcion());
         botonCancelar.setOnAction(event -> volverAGestionInscripciones());
+        cargarSocios();
+        cargarExcursiones();
+    }
+    /**
+     * Carga la lista de socios desde la base de datos al ComboBox.
+     */
+    private void cargarSocios() {
+        try {
+            List<Socio> socios = socioDAO.findAll();
+            if (socios != null && !socios.isEmpty()) {
+                comboBoxSocios.setItems(FXCollections.observableArrayList(socios));
+            } else {
+                mostrarAlerta("Información", "No hay socios disponibles para inscribir.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudieron cargar los socios.");
+        }
     }
 
     /**
-     * Guarda la inscripción en la base de datos.
+     * Carga la lista de excursiones desde la base de datos al ComboBox.
      */
+    private void cargarExcursiones() {
+        try {
+            List<Excursion> excursiones = excursionDAO.findAll();
+            if (excursiones != null && !excursiones.isEmpty()) {
+                comboBoxExcursiones.setItems(FXCollections.observableArrayList(excursiones));
+            } else {
+                mostrarAlerta("Información", "No hay excursiones disponibles para inscribir.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarAlerta("Error", "No se pudieron cargar las excursiones.");
+        }
+    }
+    @FXML
     private void guardarInscripcion() {
         try {
-            // Obtener los datos del socio desde los campos de texto
-            String nombre = nombreSocio.getText();
-            String apellidos = apellidosSocio.getText();
-
-            // Obtener todos los socios
-            List<Socio> socios = socioDAO.findAll();
-
-            // Buscar el socio que coincida con el nombre y los apellidos
-            Socio socioSeleccionado = null;
-            for (Socio socio : socios) {
-                if (socio.getNombre().equalsIgnoreCase(nombre) && socio.getApellidos().equalsIgnoreCase(apellidos)) {
-                    socioSeleccionado = socio;
-                    break; // Salir del bucle cuando encontremos el socio
-                }
-            }
-
-            // Obtener todos las excursiones
-            List<Excursion> excursiones = excursionDAO.findAll();
-
-            // Obtener la descripción seleccionada en el ComboBox
-            String descripcionExcursionSeleccionada = descripcionExcursion.getSelectionModel().getSelectedItem();
-
-            // Buscar la excursión que coincida con la descripción
-            Excursion excursionSeleccionada = null;
-            for (Excursion excursion : excursiones) {
-                if (excursion.getDescripcion().equalsIgnoreCase(descripcionExcursionSeleccionada)) {
-                    excursionSeleccionada = excursion;
-                    break; // Salir del bucle cuando encontremos la excursión
-                }
-            }
+            // Obtener los datos seleccionados en los ComboBox
+            Socio socioSeleccionado = comboBoxSocios.getSelectionModel().getSelectedItem();
+            Excursion excursionSeleccionada = comboBoxExcursiones.getSelectionModel().getSelectedItem();
 
             // Validar que se haya seleccionado un socio y una excursión
             if (socioSeleccionado == null) {
-                mostrarAlerta("Error de Validación", "No se encontró un socio con ese nombre y apellidos.");
+                mostrarAlerta("Error de Validación", "Debe seleccionar un socio.");
                 return;
             }
 
             if (excursionSeleccionada == null) {
-                mostrarAlerta("Error de Validación", "No se encontró una excursión con esa descripción.");
+                mostrarAlerta("Error de Validación", "Debe seleccionar una excursión.");
                 return;
             }
 
@@ -116,14 +126,16 @@ public class ControladorAgregarInscripcion {
             Inscripcion inscripcion = new Inscripcion(0, socioSeleccionado, excursionSeleccionada, LocalDate.now());
             inscripcionDAO.save(inscripcion);
 
+            // Mostrar confirmación
             mostrarAlerta("Éxito", "La inscripción se guardó correctamente.");
 
             // Volver a la vista de gestión de inscripciones
-            volverAGestionInscripciones();
+            cancelar();
         } catch (Exception e) {
             mostrarAlerta("Error", "Ocurrió un error al guardar la inscripción.");
         }
     }
+
 
     /**
      * Vuelve a la vista de gestión de inscripciones.
@@ -150,4 +162,18 @@ public class ControladorAgregarInscripcion {
         alerta.setContentText(mensaje);
         alerta.showAndWait();
     }
+    @FXML
+    private void cancelar() {
+        if (sceneManager != null) {
+            try {
+                sceneManager.cambiarVista("/vistas/VistaInscripciones.fxml", "Gestión de Inscripciones");
+            } catch (Exception e) {
+                e.printStackTrace();
+                mostrarAlerta("Error", "No se pudo volver a la vista de gestión de inscripciones.");
+            }
+        } else {
+            mostrarAlerta("Error", "El SceneManager no está configurado.");
+        }
+    }
+
 }

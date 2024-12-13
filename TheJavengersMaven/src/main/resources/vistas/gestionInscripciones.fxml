@@ -13,18 +13,25 @@
         <columns>
             <TableColumn fx:id="idInscripcion" text="ID Inscripción" prefWidth="100"/>
             <TableColumn fx:id="nombreSocio" text="Nombre Socio" prefWidth="200"/>
-            <TableColumn fx:id="apellidosSocio" text="Apellidos Socio" prefWidth="200"/>
-            <TableColumn fx:id="descripcionExcursion" text="Detalles Excursión" prefWidth="250"/>
+            <TableColumn fx:id="descripcionExcursion" text="Excursión" prefWidth="250"/>
             <TableColumn fx:id="fechaInscripcion" text="Fecha Inscripción" prefWidth="150"/>
         </columns>
     </TableView>
 
     <HBox spacing="10" alignment="CENTER">
-        <Button fx:id="botonInscribir" text="Añadir Inscripción" styleClass="boton-principal" onAction="#irAMenuAgregarInscripcion"/>
+        <Label text="Filtrar por socio: " />
+        <TextField fx:id="filtroSocioField" prefWidth="150" />
+        <Label text="Inicio: " />
+        <DatePicker fx:id="filtroFechaInicio" />
+        <Label text="Fin: " />
+        <DatePicker fx:id="filtroFechaFin" />
+        <Button text="Aplicar Filtro" onAction="#aplicarFiltro"/>
+    </HBox>
+
+    <HBox spacing="10" alignment="CENTER">
+        <Button fx:id="botonInscribir" text="Inscribir Socio" styleClass="boton-principal" onAction="#irAMenuAgregarInscripcion"/>
         <Button fx:id="botonEliminar" text="Eliminar Inscripción" styleClass="boton-principal" onAction="#eliminarInscripcion"/>
-        <Button fx:id="botonModificar" text="Modificar Inscripción" styleClass="boton-principal" onAction="#modificarInscripcion"/>
-        <Button fx:id="botonConsultar" text="Consultar Inscripciones" styleClass="boton-principal" onAction="#consultarInscripcion"/>
-        <Button fx:id="botonCancelar" text="Cancelar Inscripción" styleClass="boton-principal" onAction="#cancelarInscripcion"/>
-        <Button onAction="#volverAlMenu" text="Volver al Menú Principal" styleClass="boton-principal"/>
+        <Button fx:id="botonConsultar" text="Consultar Inscripciones" styleClass="boton-principal" onAction="#consultarInscripciones"/>
+        <Button fx:id="botonVolver" text="Volver al Menú Principal" styleClass="boton-principal" onAction="#volverAlMenu"/>
     </HBox>
 </VBox>
