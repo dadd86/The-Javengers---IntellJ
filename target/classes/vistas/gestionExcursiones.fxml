@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!-- Archivo FXML para centrar dinámicamente un VBox dentro de un AnchorPane -->
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/17.0.12"
-            fx:controller="org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones"
-            stylesheets="@../styles.css">
+<AnchorPane stylesheets="@../styles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.thejavengers.vista.gestionExcursiones.VistaGestionExcursiones">
 <children>
     <!-- VBox centrado dinámicamente dentro del AnchorPane -->
-    <VBox alignment="CENTER" spacing="20.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
-          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+    <VBox alignment="CENTER" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
             <!-- Título de la ventana -->
             <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Gestión de Excursiones" />
@@ -29,7 +23,7 @@
             <Separator />
 
             <!-- Botón para volver al menú principal -->
-            <Button onAction="#manejarVolverMenu" text="Volver al Menú Principal" />
+            <Button onAction="#manejarVolverMenu" text="Volver al Menú principal" />
         </children>
     </VBox>
 </children>

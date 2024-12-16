@@ -3,29 +3,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.thejavengers.vista.gestionSocios.ControladorVistaSocios"
-      spacing="10" alignment="CENTER" styleClass="contenedor-principal">
+<VBox alignment="CENTER" spacing="10" styleClass="contenedor-principal" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="org.thejavengers.vista.gestionSocios.ControladorVistaSocios">
+    <Label styleClass="titulo-principal" text="Gestión de Socios" />
 
-    <Label text="Gestión de Socios" styleClass="titulo-principal"/>
-
-    <TableView fx:id="tablaSocios" prefWidth="800" prefHeight="400">
+    <TableView fx:id="tablaSocios" prefHeight="400" prefWidth="800">
         <columns>
-            <TableColumn fx:id="idColumn" text="ID" prefWidth="50"/>
-            <TableColumn fx:id="nombreColumn" text="Nombre" prefWidth="100"/>
-            <TableColumn fx:id="apellidosColumn" text="Apellidos" prefWidth="150"/>
-            <TableColumn fx:id="tipoColumn" text="Tipo" prefWidth="100"/>
-            <TableColumn fx:id="seguroColumn" text="Seguro" prefWidth="100"/>
-            <TableColumn fx:id="federacionColumn" text="Federación" prefWidth="100"/>
-            <TableColumn fx:id="tutorColumn" text="Tutor ID" prefWidth="100"/>
+            <TableColumn fx:id="idColumn" editable="false" prefWidth="50" text="ID" />
+            <TableColumn fx:id="nombreColumn" editable="false" prefWidth="100" text="Nombre" />
+            <TableColumn fx:id="apellidosColumn" editable="false" prefWidth="150" text="Apellidos" />
+            <TableColumn fx:id="tipoColumn" editable="false" prefWidth="100" text="Tipo" />
+            <TableColumn fx:id="seguroColumn" editable="false" prefWidth="100" text="Seguro" />
+            <TableColumn fx:id="federacionColumn" editable="false" prefWidth="100" text="Federación" />
+            <TableColumn fx:id="tutorColumn" editable="false" prefWidth="100" text="Tutor ID" />
         </columns>
     </TableView>
 
-    <HBox spacing="10" alignment="CENTER">
-        <Button fx:id="botonAgregar" text="Agregar Socio" styleClass="boton-principal" onAction="#irAMenuAgregarSocio"/>
-        <Button fx:id="botonEliminar" text="Eliminar Socio" styleClass="boton-principal"/>
-        <Button fx:id="botonModificarSeguro" text="Modificar Seguro" styleClass="boton-principal"/>
-        <Button fx:id="botonMostrarFactura" text="Mostrar Factura" styleClass="boton-principal"/>
-        <Button fx:id="botonVolver" text="Volver al Menú Principal" styleClass="boton-principal"/>
-        </HBox>
+    <HBox alignment="CENTER" spacing="10">
+        <Button fx:id="botonAgregar" onAction="#irAMenuAgregarSocio" styleClass="boton-principal" text="Agregar Socio" />
+        <Button fx:id="botonEliminar" styleClass="boton-principal" text="Eliminar Socio" />
+        <Button fx:id="botonModificarSeguro" styleClass="boton-principal" text="Modificar Seguro" />
+        <Button fx:id="botonMostrarFactura" styleClass="boton-principal" text="Mostrar Factura" />
+        <Button fx:id="botonVolver" styleClass="boton-principal" text="Volver al Menú Principal" />
+    </HBox>
 </VBox>

@@ -56,6 +56,7 @@
     -fx-border-radius: 10px;      /* Bordes redondeados */
     -fx-border-color: #3b6a91;    /* Borde más oscuro */
     -fx-border-width: 2px;
+    -fx-alignment: center;
 }
 
 /* Interacción del mouse con los botones */
@@ -100,13 +101,19 @@
 .shadow {
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0.7, 0, 0);
 }
+
 /* Estilo para los botones */
 .boton-principal {
     -fx-background-color: #4682B4; /* Azul acero */
     -fx-text-fill: white;
     -fx-font-size: 14px;
-    -fx-border-radius: 5px;
+    -fx-wrap-text: true;
+    -fx-alignment: center;
+    -fx-content-display: center;
+    -fx-border-radius: 5 px;
+    -fx-padding: 10;
 }
+
 .boton-principal:hover {
     -fx-background-color: #5a9bd5; /* Azul claro */
     -fx-cursor: hand;

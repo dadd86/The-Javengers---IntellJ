@@ -51,6 +51,9 @@ public class ControladorFiltrarExcursiones {
     private Button botonVolver;
 
     @FXML
+    private Button botonExcursiones;
+
+    @FXML
     private DatePicker fechaInicio;
 
     @FXML
@@ -103,6 +106,7 @@ public class ControladorFiltrarExcursiones {
         // Configurar acciones de botones
         botonFiltrarPorFechas.setOnAction(event -> filtrarPorFechas());
         botonVolver.setOnAction(event -> volverAlMenuPrincipal());
+        botonExcursiones.setOnAction(event -> volverAlMenuExcursion());
 
         fechaInicio.setPromptText("Escoge una fecha");
         fechaFin.setPromptText("Escoge una fecha");
@@ -254,18 +258,21 @@ public class ControladorFiltrarExcursiones {
         }
     }
 
-//    private void volverAlMenuPrincipal() {
-//        if (sceneManager != null) {
-//            try {
-//                sceneManager.cambiarVista("/vistas/application.fxml", "Menú Principal");
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                Alert alert = new Alert(Alert.AlertType.ERROR, "Error al cargar el menú principal.");
-//                alert.showAndWait();
-//            }
-//        } else {
-//            Alert alert = new Alert(Alert.AlertType.ERROR, "SceneManager no configurado.");
-//            alert.showAndWait();
-//        }
-//    }
+    @FXML
+    public void volverAlMenuExcursion() {
+        final Logger logger = LoggerFactory.getLogger(ControladorFiltrarExcursiones.class);
+        logger.info("Intentando volver al menú excursiones.");
+
+        if (sceneManager == null) {
+            logger.error("El SceneManager no está configurado.");
+            return;
+        }
+        try {
+            sceneManager.cambiarVista("/vistas/gestionExcursiones.fxml", "Menú Excursiones", "/styles.css");
+            logger.info("Vista del menú excursiones abierta correctamente.");
+        } catch (Exception e) {
+            logger.error("Error al volver al menú excursiones.", e);
+        }
+    }
+
 }

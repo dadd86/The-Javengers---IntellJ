@@ -30,5 +30,6 @@
     <HBox spacing="10" alignment="CENTER">
         <Button fx:id="botonFiltrarPorFechas" text="Filtrar excursiones por fechas" styleClass="boton-principal"/>
         <Button fx:id="botonVolver" text="Volver al Menú Principal" styleClass="boton-principal"/>
+        <Button fx:id="botonExcursiones" text="Volver al Menú de Gestión de excursiones" styleClass="boton-principal"/>
         </HBox>
 </VBox>

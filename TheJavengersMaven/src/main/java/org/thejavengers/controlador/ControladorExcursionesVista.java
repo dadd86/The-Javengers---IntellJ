@@ -120,7 +120,7 @@ public class ControladorExcursionesVista {
      */
     @FXML
     public void volverAlMenu() {
-        logger.info("Intentando volver al menú principal.");
+        logger.info("Intentando volver al menú excursiones.");
 
         if (sceneManager == null) {
             logger.error("El SceneManager no está configurado.");
@@ -128,11 +128,11 @@ public class ControladorExcursionesVista {
             return;
         }
         try {
-            sceneManager.cambiarVista("/vistas/application.fxml", "Menú Principal", "/styles.css");
-            logger.info("Vista del menú principal abierta correctamente.");
+            sceneManager.cambiarVista("/vistas/gestionExcursiones.fxml", "Menú Excursiones", "/styles.css");
+            logger.info("Vista del menú excursiones abierta correctamente.");
         } catch (Exception e) {
-            logger.error("Error al volver al menú principal.", e);
-            mostrarAlerta("Error", "No se pudo volver al menú principal.");
+            logger.error("Error al volver al menú excursiones.", e);
+            mostrarAlerta("Error", "No se pudo volver al menú excursiones.");
         }
     }
 

@@ -40,7 +40,7 @@ public class SocioViewModel {
         if (socio instanceof SocioInfantil infantil) {
             this.tutorId = new SimpleIntegerProperty(infantil.getIdSocioTutor());
         } else {
-            this.tutorId = new SimpleIntegerProperty(-1);
+            this.tutorId = new SimpleIntegerProperty(0);
         }
     }
 
@@ -95,6 +95,14 @@ public class SocioViewModel {
     public int getTutorId() {
         return tutorId.get();
     }
+
+    public String getTutorIdDisplay() {
+        if (socioOriginal instanceof SocioInfantil infantil) {
+            return String.valueOf(infantil.getIdSocioTutor());
+        }
+        return "Sin socio tutor";
+    }
+
 
     public SimpleIntegerProperty tutorIdProperty() {
         return tutorId;

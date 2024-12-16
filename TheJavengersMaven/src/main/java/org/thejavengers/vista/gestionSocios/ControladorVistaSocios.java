@@ -1,5 +1,6 @@
 package org.thejavengers.vista.gestionSocios;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -54,7 +55,7 @@ public class ControladorVistaSocios {
     private TableColumn<SocioViewModel, String> federacionColumn;
 
     @FXML
-    private TableColumn<SocioViewModel, Integer> tutorColumn;
+    private TableColumn<SocioViewModel, String> tutorColumn;
 
     @FXML
     private Button botonAgregar;
@@ -102,7 +103,9 @@ public class ControladorVistaSocios {
         tipoColumn.setCellValueFactory(cellData -> cellData.getValue().tipoProperty());
         seguroColumn.setCellValueFactory(data -> data.getValue().seguroProperty());
         federacionColumn.setCellValueFactory(data -> data.getValue().federacionProperty());
-        tutorColumn.setCellValueFactory(data -> data.getValue().tutorIdProperty().asObject());
+        tutorColumn.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getTutorIdDisplay()));
+
         // Cargar datos iniciales en la tabla
         cargarSocios();
 
