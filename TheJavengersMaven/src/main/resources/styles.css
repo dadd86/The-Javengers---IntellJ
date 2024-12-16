@@ -110,7 +110,7 @@
     -fx-wrap-text: true;
     -fx-alignment: center;
     -fx-content-display: center;
-    -fx-border-radius: 5 px;
+    -fx-border-radius: 10px;
     -fx-padding: 10;
 }
 
